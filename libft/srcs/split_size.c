@@ -1,12 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   split_size.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/23 08:50:14 by vdomasch          #+#    #+#             */
+/*   Updated: 2024/08/23 08:52:48 by vdomasch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_size.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:57:47 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/02/23 18:42:21 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/23 08:49:11 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +44,26 @@ static int	count_word(const char *s, char c)
 	return (count);
 }
 
-static char	*alloc_word(const char *s, char c, size_t current_word)
+static char	*alloc_word(const char *s, char c, size_t current_word, size_t size)
 {
 	char	*word;
 	size_t	i;
 	size_t	start;
 	size_t	end;
 
-	i = 0;
+	end = 0;
 	while (current_word--)
 	{
-		while (s[i] == c && s[i])
-			i++;
-		start = i;
-		while (s[i] != c && s[i])
-			i++;
+		while (s[end] == c && s[end])
+			end++;
+		start = end;
+		while (s[end] != c && s[end])
+			end++;
 	}
-	end = i;
-	word = (char *)malloc(sizeof(char) * (end - start + 1));
+	if (size != 0)
+		word = (char *)malloc(sizeof(char) * (size + 1));
+	else
+		word = (char *)malloc(sizeof(char) * (end - start + 1));
 	if (word == NULL)
 		return (NULL);
 	i = 0;
@@ -59,7 +73,7 @@ static char	*alloc_word(const char *s, char c, size_t current_word)
 	return (word);
 }
 
-char	**ft_split(const char *s, char c)
+char	**split_size(const char *s, char c, size_t size)
 {
 	char		**array;
 	size_t		nb_word;
@@ -72,7 +86,7 @@ char	**ft_split(const char *s, char c)
 		return (NULL);
 	while (++current_word <= nb_word)
 	{
-		array[current_word - 1] = alloc_word(s, c, current_word);
+		array[current_word - 1] = alloc_word(s, c, current_word, size);
 		if (array[current_word - 1] == NULL)
 		{
 			while (current_word--)

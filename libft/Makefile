@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 16:09:45 by vdomasch          #+#    #+#              #
-#    Updated: 2024/02/22 16:21:25 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/08/23 08:52:12 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ SRCS		:=	ft_atoi.c								\
 				ft_putnbr_fd.c							\
 				ft_putstr_fd.c							\
 				ft_split.c								\
-				split.c									\
 				ft_strchr.c								\
 				ft_strdup.c								\
 				ft_striteri.c							\
@@ -50,6 +49,8 @@ SRCS		:=	ft_atoi.c								\
 				ft_substr.c								\
 				ft_tolower.c							\
 				ft_toupper.c							\
+				split.c									\
+				split_size.c							\
 				get_next_line.c							\
 				get_next_line_utils.c
 
