@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/02/22 16:18:58 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:30:15 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_itoa(int n);
-char	**ft_split(const char *s, char c);
+char	**ft_split(const char *s, char c, size_t size);
 char	**split(const char *s, char *set);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);

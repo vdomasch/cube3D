@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/08/21 10:37:29 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/08/21 16:07:22 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ HEADER_DIR				 	=		includes
 DLIB						=		libft
 
 FILES						=		main.c					\
-									parsing.c
+									parsing.c				\
+									setting_variables.c		
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)
 

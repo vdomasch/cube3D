@@ -6,105 +6,85 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 10:10:41 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/21 10:46:11 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:31:26 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-void	set_path(char* str, t_data *data, char *path)
+void	setting_map(t_data *data, int fd, int i)
 {
-	if (ft_strncmp(str,"NO", 3) == 0)
-		data->no_path = path;
-	else if (ft_strncmp(str, "SO", 3) == 0)
-		data->so_path = path;
-	else if (ft_strncmp(str, "WE", 3) == 0)
-		data->we_path = path;
-	else if (ft_strncmp(str, "EA", 3) == 0)
-		data->ea_path = path;
+	char	*line;
+	char	*map_line;
+
+	(void)fd;
+	(void)i;
+	map_line = ft_strdup("");
+	if (map_line == NULL)
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		exit(1);
+	}
+	ft_putstr_fd("	Setting map...\n", 1);
+	while (42)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (ft_strlen(line) > data->map.width)
+			data->map.width = ft_strlen(line);
+		data->map.height++;
+		map_line = ft_strfreejoin(map_line, line);
+		free(line);
+		if (map_line == NULL)
+		{
+			ft_putstr_fd("Error\nMalloc failed\n", 2);
+			exit(1);
+		}
+	}
+	data->map.map = ft_split(map_line, '\n', data->map.width); // split size of map->width
+	if (data->map.map == NULL)
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		exit(1);
+	}
+	ft_putstr_fd("	Map set\n", 1);
 }
 
-int setting_textures(t_data *data, char **argv)
+void	set_entities(t_map *m, t_player *p)
 {
-	int i = 1;
-	
-	(void)data;
-	(void)argv;
-	ft_putstr_fd("		Setting textures...\n", 1);
-	while(i < 9)
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < m->height)
 	{
-		if (ft_strncmp(argv[i], "NO", 3) == 0)
-			set_path("NO", data, argv[++i]);	
-		else if (ft_strncmp(argv[i], "SO", 3) == 0)
-			set_path("SO", data, argv[++i]);
-		else if (ft_strncmp(argv[i], "WE", 3) == 0)
-			set_path("WE", data, argv[++i]);
-		else if (ft_strncmp(argv[i], "EA", 3) == 0)
-			set_path("EA", data, argv[++i]);
-		else
+		j = 0;
+		while (j < m->width)
 		{
-			ft_putstr_fd("Error\nInvalid texture argument\n", 2);
-			return (1);
+			if (m->map[i][j] == 'N' || m->map[i][j] == 'S'
+				|| m->map[i][j] == 'W' || m->map[i][j] == 'E')
+			{
+				p->direction = m->map[i][j];
+				p->x = j;
+				p->y = i;
+			}
+			j++;
 		}
 		i++;
 	}
-	ft_putstr_fd("		Textures set\n", 1);
-	return (0);
 }
 
-void	set_color(char c, t_data *data, char *color)
+void	parsing(t_data *data, t_textures *texture, char *path_map)
 {
-	(void)data;
-	(void)color;
-	if (c == 'F')
-		;
-	else if (c == 'C')
-		;
-}
+	int	fd;
 
-int setting_colors(t_data *data, char **argv)
-{
-	int i = 9;
-	
-	(void)data;
-	(void)argv;
-	ft_putstr_fd("		Setting colors...\n", 1);
-	while(i < 13)
-	{
-		if (argv[i][0] == 'F')
-			set_color('F', data, argv[++i]);	
-		else if (argv[i][0] == 'C')
-			set_color('C', data, argv[++i]);
-		else
-		{
-			ft_putstr_fd("Error\nInvalid color argument\n", 2);
-			return (1);
-		}
-		i++;
-	}
-	ft_putstr_fd("		Colors set\n", 1);
-	return (0);
-}
-
-int	setting_variables(t_data *data, char **argv)
-{
-	(void)data;
-	(void)argv;
-	ft_putstr_fd("	Setting variables...\n", 1);
-	if (setting_textures(data, argv))
-		return (1);
-	if (setting_colors(data, argv))
-		return (1);
-	ft_putstr_fd("	Variables set\n", 1);
-	return (0);
-}
-
-void	parsing(t_data *data, char **argv)
-{
-	(void)data;
-	(void)argv;
+	(void)texture;
+	(void)path_map;
 	ft_putstr_fd("Parsing...\n", 1);
-	setting_variables(data, argv);
-	//setting_map(argv);
+	fd = open(path_map, O_RDONLY);
+	setting_variables(texture, fd);
+	setting_map(data, fd, 13);
+	set_entities(&data->map, &data->player);
 	ft_putstr_fd("Parsing done\n\n", 1);
 }

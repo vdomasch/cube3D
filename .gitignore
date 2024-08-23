@@ -1,0 +1,4 @@
+.objs/
+libft/objs/
+libft/libft.a
+cube3D
