@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:48:24 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/22 15:15:15 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:15:20 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	print_map(t_data *data)
 {
-	int	i;
+	size_t	i;
 
+	i = 0;
+	ft_putstr_fd("\nPrinting map...\n", 1);
+	while (i++ < data->map.width)
+		ft_putchar_fd('-', 1);
+	ft_putchar_fd('\n', 1);
 	i = 0;
 	while (data->map.map[i])
 	{
@@ -23,13 +28,18 @@ void	print_map(t_data *data)
 		ft_putchar_fd('\n', 1);
 		i++;
 	}
+	i = 0;
+	while (i++ < data->map.width)
+		ft_putchar_fd('-', 1);
+	ft_putchar_fd('\n', 1);
+	ft_putstr_fd("Map printed\n\n", 1);
 }
 
 void	free_map(t_map map)
 {
 	int	i;
 
-	i = map.height;
+	i = map.height - 1;
 	while (i >= 0)
 	{
 		free(map.map[i]);
@@ -56,9 +66,20 @@ t_data	*intit_data(void)
 	data->texture.ceiling_color = -1;
 	data->texture.floor.img = NULL;
 	data->texture.ceiling.img = NULL;
+	data->texture.north.img = NULL;
+	data->texture.south.img = NULL;
+	data->texture.west.img = NULL;
+	data->texture.east.img = NULL;
 	data->map.map = NULL;
 	data->map.width = 0;
 	data->map.height = 0;
+	data->player.direction = 0;
+	data->player.x = 0;
+	data->player.y = 0;
+	data->mlx = NULL;
+	data->win = NULL;
+	data->res.x = 0;
+	data->res.y = 0;
 	return (data);
 }
 
@@ -79,7 +100,8 @@ int	main(int argc, char **argv)
 	}
 	data = intit_data();
 	parsing(data, &texture, argv[1]);
-	//print_map(data);
+	print_map(data);
+	mlx_settings(data);
 	free_map(data->map);
 	ft_putstr_fd("End!\n", 1);
 	return (0);

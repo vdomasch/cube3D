@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 10:10:41 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/23 08:53:07 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/23 09:20:15 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	setting_map(t_data *data, int fd, int i)
 		}
 	}
 	data->map.map = split_size(map_line, '\n', data->map.width);
+	if (data->map.map == NULL)
 	{
 		ft_putstr_fd("Error\nMalloc failed\n", 2);
 		exit(1);
@@ -56,10 +57,10 @@ void	set_entities(t_map *m, t_player *p)
 	size_t	j;
 
 	i = 0;
-	while (i < m->height)
+	while (i < m->height - 1)
 	{
 		j = 0;
-		while (j < m->width)
+		while (j < m->width - 1)
 		{
 			if (m->map[i][j] == 'N' || m->map[i][j] == 'S'
 				|| m->map[i][j] == 'W' || m->map[i][j] == 'E')

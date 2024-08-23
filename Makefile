@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/08/21 16:07:22 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/08/23 13:36:57 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ DLIB						=		libft
 
 FILES						=		main.c					\
 									parsing.c				\
-									setting_variables.c		
+									setting_variables.c		\
+									is_valid.c				\
+									mlx_settings.c
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)
 
@@ -71,20 +73,20 @@ $(NAME):							$(OBJS_DIR) $(OBJS) $(HEADERS) $(DLIB)/libft.a Makefile $(MLX_A)
 										$(CC) $(FLAGS) $(OBJS) $(DLIB)/libft.a $(MLX_A) $(MLX_F) -o $(NAME)
 
 $(OBJS_DIR):
-										@mkdir -p $(OBJS_DIR)
+										mkdir -p $(OBJS_DIR)
 
 lib:
-										@$(MAKE) -s -C $(MLX_D)
-										@$(MAKE) -s -C $(DLIB)
+										$(MAKE) -s -C $(MLX_D)
+										$(MAKE) -s -C $(DLIB)
 
 clean:
 										rm -rf $(OBJS_DIR)
-										$(MAKE) clean -C $(DLIB)
+										$(MAKE) -s clean -C $(DLIB)
 
 fclean:
 										$(MAKE) clean
 										rm -rf $(NAME)
-										$(MAKE) fclean -C $(DLIB)
+										$(MAKE) -s fclean -C $(DLIB)
 
 re:
 										$(MAKE) fclean all

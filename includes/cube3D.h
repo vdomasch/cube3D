@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:49:34 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/22 15:02:22 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:36:26 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ typedef struct s_textures
 	int		ceiling_color;
 	t_image	floor;
 	t_image	ceiling;
+	t_image	north;
+	t_image	south;
+	t_image	west;
+	t_image	east;
 }	t_textures;
 
 typedef struct s_map
@@ -57,17 +61,30 @@ typedef struct s_player
 	int		y;
 }	t_player;
 
+typedef struct s_res
+{
+	int	x;
+	int	y;
+}	t_res;
+
 typedef struct s_data
 {
 	t_textures	texture;
 	t_map		map;
 	t_player	player;
+	void		*mlx;
+	void		*win;
+	t_res		res;
 }	t_data;
 
 void	parsing(t_data *data, t_textures *texture, char *path_map);
 int		setting_variables(t_textures *texture, int fd);
 void	print_map(t_data *data);
 void	flood();
+bool	is_valid_path(char *path);
+bool	is_valid_color(char *color);
+bool	is_valid_direction(char *line);
+void	mlx_settings(t_data *data);
 
 #endif
 
