@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 10:10:41 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/23 09:20:15 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:14:24 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,29 @@ void	set_entities(t_map *m, t_player *p)
 	}
 }
 
+char	**map_cpy(t_map map)
+{
+	char	**cpy;
+	size_t	i;
+
+	i = 0;
+	cpy = malloc(sizeof(char *) * (map.height + 1));
+	if (!cpy)
+		return (NULL);
+	while (map.map[i])
+	{
+		cpy[i] = ft_strdup(map.map[i]);
+		if (!cpy[i])
+		{
+			free_map(cpy);
+			return (NULL);
+		}
+		i++;
+	}
+	cpy[i] = NULL;
+	return (cpy);
+}
+
 void	parsing(t_data *data, t_textures *texture, char *path_map)
 {
 	int	fd;
@@ -85,6 +108,11 @@ void	parsing(t_data *data, t_textures *texture, char *path_map)
 	fd = open(path_map, O_RDONLY);
 	setting_variables(texture, fd);
 	setting_map(data, fd, 13);
+	if (!array_check(data->map, map_cpy(data->map)))
+	{
+		ft_putstr_fd("Error\nMap is not closed\n", 2);
+		exit(1);
+	}
 	set_entities(&data->map, &data->player);
 	ft_putstr_fd("Parsing done\n\n", 1);
 }

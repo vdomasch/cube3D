@@ -6,11 +6,55 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:28:08 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/23 09:29:24 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:24:45 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
+
+bool	verify_map(t_map m, char **map, size_t i, size_t j)
+{
+	if ((i == 0 || j == 0 || i == m.height - 2 || j == m.width - 2)
+		&& map[i][j] == '0')
+		return (false);
+	if (map[i][j] == '0' || map[i][j] == 'N')
+	{
+		if (i > 0 && map[i - 1][j] != '0'
+			&& map[i - 1][j] != '1' && map[i - 1][j] != 'N')
+			return (false);
+		if (i < m.height - 2 && map[i + 1][j] != '0'
+			&& map[i + 1][j] != '1' && map[i + 1][j] != 'N')
+			return (false);
+		if (j > 0 && map[i][j - 1] != '0'
+			&& map[i][j - 1] != '1' && map[i][j - 1] != 'N')
+			return (false);
+		if (j < m.width && map[i][j + 1] != '0'
+			&& map[i][j + 1] != '1' && map[i][j + 1] != 'N')
+			return (false);
+	}
+	return (true);
+}
+
+bool	array_check(t_map m, char **map)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (i < m.height - 1)
+	{
+		j = 0;
+		while (j < m.width - 1)
+		{
+			if (!verify_map(m, map, i, j))
+				return (false);
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
 
 bool	is_valid_path(char *path)
 {

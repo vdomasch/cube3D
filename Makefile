@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/08/23 13:36:57 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/08/27 09:32:55 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ FILES						=		main.c					\
 									parsing.c				\
 									setting_variables.c		\
 									is_valid.c				\
-									mlx_settings.c
+									mlx.c
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)
 

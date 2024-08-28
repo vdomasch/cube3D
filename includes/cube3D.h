@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:49:34 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/23 13:36:26 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:29:49 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <mlx.h>
+# include <stdbool.h>
+# include <math.h>
+# include <X11/keysym.h>
 
 #define FD_DEBUG 1
 
@@ -57,8 +60,8 @@ typedef struct s_map
 typedef struct s_player
 {
 	char 	direction;
-	int		x;
-	int		y;
+	size_t	x;
+	size_t	y;
 }	t_player;
 
 typedef struct s_res
@@ -80,11 +83,13 @@ typedef struct s_data
 void	parsing(t_data *data, t_textures *texture, char *path_map);
 int		setting_variables(t_textures *texture, int fd);
 void	print_map(t_data *data);
-void	flood();
+bool	array_check(t_map m, char **map);
 bool	is_valid_path(char *path);
 bool	is_valid_color(char *color);
 bool	is_valid_direction(char *line);
-void	mlx_settings(t_data *data);
+int		mlx(t_data *data);
+void	free_map(char **map);
+int		print_error(char *error, int ret);
 
 #endif
 

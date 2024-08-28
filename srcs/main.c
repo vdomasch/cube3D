@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:48:24 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/23 10:15:20 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:30:40 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,23 @@ void	print_map(t_data *data)
 	ft_putstr_fd("Map printed\n\n", 1);
 }
 
-void	free_map(t_map map)
+void	free_map(char **map)
 {
 	int	i;
 
-	i = map.height - 1;
+	i = 0;
+	while (map[i])
+		i++;
 	while (i >= 0)
 	{
-		free(map.map[i]);
+		free(map[i]);
 		i--;
 	}
-	free(map.map);
+	free(map);
 }
 
-t_data	*intit_data(void)
+t_data	*init_data_texture(t_data *data)
 {
-	t_data	*data;
-
-	data = malloc(sizeof(t_data));
-	if (!data)
-	{
-		ft_putstr_fd("Error\nMalloc failed\n", 2);
-		exit(1);
-	}
 	data->texture.n_path = NULL;
 	data->texture.s_path = NULL;
 	data->texture.w_path = NULL;
@@ -70,6 +64,19 @@ t_data	*intit_data(void)
 	data->texture.south.img = NULL;
 	data->texture.west.img = NULL;
 	data->texture.east.img = NULL;
+	return (data);
+}
+
+t_data	*intit_data(void)
+{
+	t_data	*data;
+
+	data = malloc(sizeof(t_data));
+	if (!data)
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		exit(1);
+	}
 	data->map.map = NULL;
 	data->map.width = 0;
 	data->map.height = 0;
@@ -80,7 +87,7 @@ t_data	*intit_data(void)
 	data->win = NULL;
 	data->res.x = 0;
 	data->res.y = 0;
-	return (data);
+	return (init_data_texture(data));
 }
 
 int	main(int argc, char **argv)
@@ -101,8 +108,8 @@ int	main(int argc, char **argv)
 	data = intit_data();
 	parsing(data, &texture, argv[1]);
 	print_map(data);
-	mlx_settings(data);
-	free_map(data->map);
+	//mlx(data);
+	free_map(data->map.map);
 	ft_putstr_fd("End!\n", 1);
 	return (0);
 }
