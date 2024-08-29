@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/08/27 09:32:55 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/08/29 15:11:16 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #									CUBE3D								#
 #############################################################################
 
-NAME						=		cube3D
+NAME						=		cub3D
 
 SRCS_DIR					=		srcs
 
@@ -24,10 +24,13 @@ HEADER_DIR				 	=		includes
 
 DLIB						=		libft
 
-FILES						=		main.c					\
-									parsing.c				\
-									setting_variables.c		\
-									is_valid.c				\
+FILES						=		main.c														\
+									parsing.c													\
+									setting_variables.c											\
+									is_valid.c													\
+									math.c														\
+									draw_line.c													\
+									digital_differential_analysis.c								\
 									mlx.c
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)

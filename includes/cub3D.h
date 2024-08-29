@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3D.h                                           :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:49:34 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/28 10:29:49 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:18:13 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "../libft/libft.h"
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <mlx.h>
 # include <stdbool.h>
 # include <math.h>
 # include <X11/keysym.h>
@@ -48,6 +49,9 @@ typedef struct s_textures
 	t_image	south;
 	t_image	west;
 	t_image	east;
+	int		width;
+	int		height;
+	
 }	t_textures;
 
 typedef struct s_map
@@ -59,37 +63,65 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	char 	direction;
-	size_t	x;
-	size_t	y;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }	t_player;
 
-typedef struct s_res
+typedef struct s_resolution
 {
 	int	x;
 	int	y;
-}	t_res;
+}	t_resolution;
+
+typedef struct s_raycast
+{
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+	double	wall_dist;
+	double	wall_x;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_raycast;
 
 typedef struct s_data
 {
-	t_textures	texture;
-	t_map		map;
-	t_player	player;
-	void		*mlx;
-	void		*win;
-	t_res		res;
+	t_textures		texture;
+	t_map			map;
+	t_player		player;
+	t_resolution	res;
+	void			*mlx;
+	void			*win;
+	t_image			img;
+	
 }	t_data;
 
-void	parsing(t_data *data, t_textures *texture, char *path_map);
+int		parsing(t_data *data, t_textures *texture, char *path_map);
 int		setting_variables(t_textures *texture, int fd);
 void	print_map(t_data *data);
 bool	array_check(t_map m, char **map);
 bool	is_valid_path(char *path);
 bool	is_valid_color(char *color);
 bool	is_valid_direction(char *line);
-int		mlx(t_data *data);
+void	mlx(t_data *data);
 void	free_map(char **map);
 int		print_error(char *error, int ret);
+void	raycasting(t_data *data);
+void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
+void	draw_line(t_data *data, t_raycast *raycast, int x);
 
 #endif
 

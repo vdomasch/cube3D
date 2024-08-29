@@ -6,11 +6,11 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:28:08 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/28 10:24:45 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:41:36 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cub3D.h"
 
 bool	verify_map(t_map m, char **map, size_t i, size_t j)
 {
