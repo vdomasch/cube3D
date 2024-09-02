@@ -7,3 +7,9 @@ bonu rotate with mouse:
 > hide mouse
 > move mouse to center
 > get mouse x position to rotate view then go back and repeat
+
+
+SEGFAULT put_pixel
+
+get_color_pixel_image; 
+	|_ put image to array of int ? -> array[image][pixel = y * img_width + x]

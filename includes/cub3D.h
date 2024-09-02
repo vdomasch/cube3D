@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:49:34 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/29 15:18:13 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/02 09:58:53 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct	s_image
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }	t_image;
 
 typedef struct s_textures
@@ -49,9 +51,6 @@ typedef struct s_textures
 	t_image	south;
 	t_image	west;
 	t_image	east;
-	int		width;
-	int		height;
-	
 }	t_textures;
 
 typedef struct s_map
@@ -69,6 +68,7 @@ typedef struct s_player
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	double	move_speed;
 }	t_player;
 
 typedef struct s_resolution
@@ -105,8 +105,7 @@ typedef struct s_data
 	t_resolution	res;
 	void			*mlx;
 	void			*win;
-	t_image			img;
-	
+	void			*img;	
 }	t_data;
 
 int		parsing(t_data *data, t_textures *texture, char *path_map);
@@ -122,6 +121,8 @@ int		print_error(char *error, int ret);
 void	raycasting(t_data *data);
 void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
 void	draw_line(t_data *data, t_raycast *raycast, int x);
+//int		image_loader(t_data *data, void *mlx);
+
 
 #endif
 

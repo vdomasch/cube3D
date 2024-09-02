@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:08:37 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/29 15:09:29 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/08/31 10:03:20 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,22 @@ void	raycasting(t_data *data)
 	int			x;
 	t_raycast	raycast;
 
+	printf("Raycasting\n");
 	x = 0;
 	init_raycast(&raycast);
 	while (x < data->res.x)
 	{
 		raycast.map_x = (int)data->player.pos_x;
 		raycast.map_y = (int)data->player.pos_y;
+		printf("	Digital differential analysis\n");
 		digital_differential_analysis(data, &raycast, x);
+		printf("	Digital differential analysis done\n");
 		calculate_wall_dist(data, &raycast);
 		calculate_line_height(data, &raycast);
+		printf("	Draw line\n");
 		draw_line(data, &raycast, x);
+		printf("	Draw line done\n");
 		x++;
 	}
+	printf("Raycasting done\n");
 }

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:48:24 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/29 15:17:53 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/02 09:57:45 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ t_data	*init_data_texture(t_data *data)
 	data->texture.south.img = NULL;
 	data->texture.west.img = NULL;
 	data->texture.east.img = NULL;
-	data->texture.width = 0;
-	data->texture.height = 0;
 	return (data);
 }
 
@@ -83,10 +81,13 @@ t_data	*intit_data(void)
 	data->player.pos_y = 0;
 	data->player.dir_x = 0;
 	data->player.dir_y = 0;
+	data->player.plane_x = 0;
+	data->player.plane_y = 0;
+	data->player.move_speed = 0.1;
 	data->mlx = NULL;
 	data->win = NULL;
-	data->res.x = 2560;
-	data->res.y = 1440;
+	data->res.x = 1920;
+	data->res.y = 1080;
 	return (init_data_texture(data));
 }
 
@@ -111,7 +112,8 @@ int	main(int argc, char **argv)
 		free(data);
 		return (print_error("Parsing failed\n", 1));
 	}
-	print_map(data);
+	//print_map(data);
+	//image_loader(data, mlx);
 	raycasting(data);
 	mlx(data);
 	free_map(data->map.map);
