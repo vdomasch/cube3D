@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:28:08 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/29 10:41:36 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:45:42 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ bool	is_valid_path(char *path)
 	i = 0;
 	while (path[i])
 		i++;
-	if (i < 4)
+	if (i < 5)
 		return (false);
-	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
+	if (ft_strncmp(path + ft_strlen(path) - 5, ".xpm", 4))
 		return (false);
 	return (true);
 }

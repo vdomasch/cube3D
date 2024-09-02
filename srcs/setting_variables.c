@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:38:09 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/29 10:41:47 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:59:46 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ int	print_error(char *error, int ret)
 
 static void	set_path(char c, t_textures *texture, char *path)
 {
+	path = ft_substr(path, 0, ft_strlen(path) - 1);
+	if (!path)
+	{
+		print_error("Malloc failed\n", 1);
+		return ;
+	}
 	if (c == 'N')
 		texture->n_path = path;
 	else if (c == 'S')
@@ -64,7 +70,7 @@ static int	setting_textures_colors(t_textures *texture, int fd)
 		line = get_next_line(fd);
 		if (line && line[0] != '\n')
 		{
-			if (line && is_valid_direction(line) && end_reached--)
+			if (line && is_valid_direction(line) && is_valid_path(line + 3) && end_reached--)
 				set_path(line[0], texture, line + 3);
 			else if (is_valid_color(line) && end_reached--)
 				set_color(line[0], texture, line + 2);
@@ -83,6 +89,7 @@ int	setting_variables(t_textures *texture, int fd)
 	ft_putstr_fd("	Setting variables...\n", FD_DEBUG);
 	if (setting_textures_colors(texture, fd))
 		return (1);
+	printf("texture->n_path = %s, texture->s_path = %s, texture->w_path = %s, texture->e_path = %s, texture->floor_color = %d, texture->ceiling_color = %d\n", texture->n_path, texture->s_path, texture->w_path, texture->e_path, texture->floor_color, texture->ceiling_color);
 	ft_putstr_fd("	Variables set\n", FD_DEBUG);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 10:10:41 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/29 14:53:12 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:35:46 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	parsing(t_data *data, t_textures *texture, char *path_map)
 	(void)path_map;
 	ft_putstr_fd("Parsing...\n", 1);
 	fd = open(path_map, O_RDONLY);
-	setting_variables(texture, fd);
+	setting_variables(&data->texture, fd);
 	if (setting_map(data, fd, 13))
 		return (1);
 	if (!array_check(data->map, map_cpy(data->map)))

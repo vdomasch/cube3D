@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:49:34 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/02 09:58:53 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:15:33 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_textures
 	t_image	south;
 	t_image	west;
 	t_image	east;
+	int 	width;
+	int 	height;
 }	t_textures;
 
 typedef struct s_map
@@ -115,13 +117,12 @@ bool	array_check(t_map m, char **map);
 bool	is_valid_path(char *path);
 bool	is_valid_color(char *color);
 bool	is_valid_direction(char *line);
-void	mlx(t_data *data);
+int		mlx_launch(t_data *data);
 void	free_map(char **map);
 int		print_error(char *error, int ret);
 void	raycasting(t_data *data);
 void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
 void	draw_line(t_data *data, t_raycast *raycast, int x);
-//int		image_loader(t_data *data, void *mlx);
 
 
 #endif

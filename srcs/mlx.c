@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:11:44 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/02 09:58:49 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:25:00 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,34 +58,44 @@ int	map_gen(t_data *data, void *mlx, void *win)
 	return (0);
 }
 
-/*int	image_loader(t_data *data, void *mlx)
+int	image_loader(t_data *data, void *mlx)
 {
-	data->texture.north.img = mlx_xpm_file_to_image(mlx,
-			data->texture.n_path, &data->texture.width, &data->texture.width);
-	data->texture.south.img = mlx_xpm_file_to_image(mlx,
-			data->texture.s_path, &data->texture.width, &data->texture.width);
-	data->texture.west.img = mlx_xpm_file_to_image(mlx,
-			data->texture.w_path, &data->texture.width, &data->texture.width);
-	data->texture.east.img = mlx_xpm_file_to_image(mlx,
-			data->texture.e_path, &data->texture.width, &data->texture.width);
+	printf("image_loader\n");
+	printf("data->texture.n_path = %s, data->texture.s_path = %s, data->texture.w_path = %s, data->texture.e_path = %s\n", data->texture.n_path, data->texture.s_path, data->texture.w_path, data->texture.e_path);
+	data->texture.north.img = mlx_xpm_file_to_image(mlx, data->texture.n_path, &data->texture.width, &data->texture.height);
+
+	data->texture.south.img = mlx_xpm_file_to_image(mlx, data->texture.s_path, &data->texture.width, &data->texture.height);
+	
+	data->texture.west.img = mlx_xpm_file_to_image(mlx, data->texture.w_path, &data->texture.width, &data->texture.height);
+	
+	data->texture.east.img = mlx_xpm_file_to_image(mlx, data->texture.e_path, &data->texture.width, &data->texture.height);
+	
+	printf("data->texture.north.img = %p, data->texture.south.img = %p, data->texture.west.img = %p, data->texture.east.img = %p\n", data->texture.north.img, data->texture.south.img, data->texture.west.img, data->texture.east.img);
 	if (!data->texture.north.img || !data->texture.south.img || !data->texture.west.img || !data->texture.east.img)
 		return (1);
 	return (0);
-}*/
+}
 
-int	mlx_settings(t_data *data)
+int	mlx_launch(t_data *data)
 {
+	printf("mlx_launch\n");
+	if (image_loader(data, data->mlx))
+	{
+		printf("Error\nImage loader failed\n");
+		clean_mlx(data);
+		return (1);
+	}
 	data->mlx = mlx_init();
 	if (!data->mlx)
-		return (1);
-	data->win = mlx_new_window(mlx, 1920, 1080, "Cub3D");
+		return (2);
+	data->win = mlx_new_window(data->mlx, 1920, 1080, "Cub3D");
 	if (!data->win)
 	{
-		mlx_destroy_display(mlx);
-		free(mlx);
-		return (2);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		return (3);
 	}
-	data->img = mlx_new_image(mlx, 1920, 1080);
+	data->img = mlx_new_image(data->mlx, 1920, 1080);
 	mlx_do_key_autorepeaton(data->mlx);
 	if (!map_gen(data, data->mlx, data->win))
 	{
@@ -96,5 +106,6 @@ int	mlx_settings(t_data *data)
 		mlx_loop(data->mlx);
 	}
 	clean_mlx(data);
+	printf("mlx_launch end\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:48:24 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/02 09:57:45 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:35:23 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,31 +91,23 @@ t_data	*intit_data(void)
 	return (init_data_texture(data));
 }
 
-void mlx(t_data *data)
-{
-	(void)data;
-}
-
 int	main(int argc, char **argv)
 {
 	t_data		*data;
-	t_textures	texture;
 
 	if (argc < 2)
 		return (print_error("Usage: ./cub3D <map.cub>\n", 1));
 	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4))
 		return (print_error("Invalid file extension\n", 1));
 	data = intit_data();
-	if (parsing(data, &texture, argv[1]))
+	if (parsing(data, &data->texture, argv[1]))
 	{
 		free_map(data->map.map);
 		free(data);
 		return (print_error("Parsing failed\n", 1));
 	}
 	//print_map(data);
-	//image_loader(data, mlx);
-	raycasting(data);
-	mlx(data);
+	mlx_launch(data);
 	free_map(data->map.map);
 	ft_putstr_fd("End!\n", 1);
 	return (0);
