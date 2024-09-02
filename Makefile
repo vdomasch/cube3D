@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/08/29 15:11:16 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/09/02 13:25:20 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ lib:
 clean:
 										rm -rf $(OBJS_DIR)
 										$(MAKE) -s clean -C $(DLIB)
+										$(MAKE) -s clean -C $(MLX_D)
 
 fclean:
 										$(MAKE) clean
