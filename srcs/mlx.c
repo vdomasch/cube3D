@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:11:44 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/02 11:25:00 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:55:11 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	map_gen(t_data *data, void *mlx, void *win)
 	return (0);
 }
 
-int	image_loader(t_data *data, void *mlx)
+/*int	image_loader(t_data *data, void *mlx)
 {
 	printf("image_loader\n");
 	printf("data->texture.n_path = %s, data->texture.s_path = %s, data->texture.w_path = %s, data->texture.e_path = %s\n", data->texture.n_path, data->texture.s_path, data->texture.w_path, data->texture.e_path);
@@ -74,33 +74,33 @@ int	image_loader(t_data *data, void *mlx)
 	if (!data->texture.north.img || !data->texture.south.img || !data->texture.west.img || !data->texture.east.img)
 		return (1);
 	return (0);
-}
+}*/
 
 int	mlx_launch(t_data *data)
 {
 	printf("mlx_launch\n");
-	if (image_loader(data, data->mlx))
+	/*if (image_loader(data, data->mlx))
 	{
 		printf("Error\nImage loader failed\n");
 		clean_mlx(data);
 		return (1);
-	}
+	}*/
 	data->mlx = mlx_init();
-	if (!data->mlx)
-		return (2);
+	//if (!data->mlx)
+	//	return (2);
 	data->win = mlx_new_window(data->mlx, 1920, 1080, "Cub3D");
-	if (!data->win)
-	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		return (3);
-	}
-	data->img = mlx_new_image(data->mlx, 1920, 1080);
-	mlx_do_key_autorepeaton(data->mlx);
+	//if (!data->win)
+	//{
+	//	mlx_destroy_display(data->mlx);
+	//	free(data->mlx);
+	//	return (3);
+	//}
+	data->img.img = mlx_new_image(data->mlx, 1920, 1080);
+	//mlx_do_key_autorepeaton(data->mlx);
 	if (!map_gen(data, data->mlx, data->win))
 	{
-		raycasting(data);
-		mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+		raycasting(data, &data->img);
+		mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 		mlx_hook(data->win, 17, 1L << 3, mlx_loop_end, data->mlx);
 		mlx_hook(data->win, 2, 1L << 0, key_press, data);
 		mlx_loop(data->mlx);

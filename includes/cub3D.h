@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 09:49:34 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/02 11:15:33 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:57:34 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ typedef struct	s_image
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		width;
-	int		height;
 }	t_image;
 
 typedef struct s_textures
@@ -107,7 +105,7 @@ typedef struct s_data
 	t_resolution	res;
 	void			*mlx;
 	void			*win;
-	void			*img;	
+	t_image			img;	
 }	t_data;
 
 int		parsing(t_data *data, t_textures *texture, char *path_map);
@@ -120,9 +118,9 @@ bool	is_valid_direction(char *line);
 int		mlx_launch(t_data *data);
 void	free_map(char **map);
 int		print_error(char *error, int ret);
-void	raycasting(t_data *data);
+void	raycasting(t_data *data, t_image *image);
 void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
-void	draw_line(t_data *data, t_raycast *raycast, int x);
+void	draw_line(t_data *data, t_raycast *raycast, int x, t_image *image);
 
 
 #endif

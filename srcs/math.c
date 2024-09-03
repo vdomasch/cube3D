@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:08:37 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/08/31 10:03:20 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:53:50 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	init_raycast(t_raycast *raycast)
 	raycast->draw_end = 0;
 }
 
-void	raycasting(t_data *data)
+void	raycasting(t_data *data, t_image *image)
 {
 	int			x;
 	t_raycast	raycast;
@@ -70,7 +70,7 @@ void	raycasting(t_data *data)
 		calculate_wall_dist(data, &raycast);
 		calculate_line_height(data, &raycast);
 		printf("	Draw line\n");
-		draw_line(data, &raycast, x);
+		draw_line(data, &raycast, x, image);
 		printf("	Draw line done\n");
 		x++;
 	}
