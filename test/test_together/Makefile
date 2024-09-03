@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 10:18:08 by vdomasch          #+#    #+#              #
-#    Updated: 2024/09/03 11:00:41 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/09/03 11:37:00 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS				=	main.c
 					
 OBJS				=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-LIB_D				=	../libft
+LIB_D				=	../../libft
 
 #############################################################################
 #									COMPILATION								#
@@ -41,9 +41,9 @@ FLAGS				=	-Wall -Werror -Wextra -g3
 
 MLX			:=	libmlx.a
 
-MLX_D		:=	../minilibx-linux/
+MLX_D		:=	../../minilibx-linux/
 
-MLX_F	:= -L ../minilibx-linux -lmlx -lXext -lX11
+MLX_F	:= -L ../../minilibx-linux -lmlx -lXext -lX11
 
 MLX_A		:=	$(addprefix $(MLX_D), $(MLX))
 
@@ -72,15 +72,10 @@ $(OBJS_DIR)			:
 
 clean				:
 							rm -rf $(OBJS_DIR)
-							$(MAKE) clean -C $(LIB_D)
-							$(MAKE) clean -C $(MLX_D)
 
 fclean				:
 							$(MAKE) clean
 							rm -rf $(NAME)
-							$(MAKE)	fclean_bonus BONUS=true
-							$(MAKE) fclean -C $(LIB_D)
-							$(MAKE) clean -C $(MLX_D)
 
 fclean_bonus		:		
 							rm -rf $(NAME)
