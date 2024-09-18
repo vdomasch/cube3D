@@ -1,0 +1,15 @@
+					---BUGGED---
+setting_variables.c
+	si line[0] est un 1 ou 0, n'est pas detecte
+unknown
+	verifier s'il y a plusieurs joueurs dans la map
+	modifier le message d'erreur en cas de caractère non valide
+	modifier le message d'erreur en cas de valeur RGB > 255
+	Verifier si le message d'erreur map is not closed est au bon endroit
+
+					---FIXED---
+Dans main, if data->main alors free
+
+Dans parsing, check fd < 0, error
+
+verifier si des lignes sont en trop ou manquante dans la partie des elements
