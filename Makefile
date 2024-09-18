@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/09/02 13:25:20 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/09/18 13:19:11 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,7 @@ HEADER_DIR				 	=		includes
 
 DLIB						=		libft
 
-FILES						=		main.c														\
-									parsing.c													\
-									setting_variables.c											\
-									is_valid.c													\
-									math.c														\
-									draw_line.c													\
-									digital_differential_analysis.c								\
-									mlx.c
+FILES						=		main.c
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)
 
@@ -73,7 +66,7 @@ $(OBJS_DIR)/%.o:					$(SRCS_DIR)/%.c $(HEADERS)
 										$(CC) $(FLAGS) -I/usr/include -Iminilibx-linux -c $< -o $@
 
 $(NAME):							$(OBJS_DIR) $(OBJS) $(HEADERS) $(DLIB)/libft.a Makefile $(MLX_A)
-										$(CC) $(FLAGS) $(OBJS) $(DLIB)/libft.a $(MLX_A) $(MLX_F) -o $(NAME)
+										$(CC) $(FLAGS) -lm $(OBJS) $(DLIB)/libft.a $(MLX_A) $(MLX_F) -o $(NAME)
 
 $(OBJS_DIR):
 										mkdir -p $(OBJS_DIR)
