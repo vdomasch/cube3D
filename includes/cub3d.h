@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/18 15:45:12 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/19 14:09:36 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
+# include <../libft/libft.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -43,16 +44,14 @@ typedef struct s_textures
 	char	*so;
 	char	*we;
 	char	*ea;
-	int 	floor;
-	int 	ceiling;
+	int 	floor_color;
+	int 	ceiling_color;
 	int		width;
 	int		height;
 	t_image *north;
 	t_image *south;
 	t_image *west;
 	t_image *east;
-	t_image *floor;
-	t_image *ceiling;
 }			t_textures;
 
 typedef struct s_player
@@ -81,5 +80,13 @@ typedef struct	s_data
 	int 		res_x;
 	int 		res_y;
 }			t_data;
+
+int		print_error(char *, int);
+int		parsing(t_data *, char *);
+void	free_all(t_data *);
+bool	set_elemets(t_data *, int);
+//void 	free_mlx(t_mlx *);
+//void	free_textures(t_textures *);
+//void	free_map(t_map *);
 
 #endif

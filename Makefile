@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/09/18 13:19:11 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/09/19 13:43:02 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #									CUBE3D								#
 #############################################################################
 
-NAME						=		cub3D
+NAME						=		cub3d
 
 SRCS_DIR					=		srcs
 
@@ -24,7 +24,11 @@ HEADER_DIR				 	=		includes
 
 DLIB						=		libft
 
-FILES						=		main.c
+FILES						=		main.c														\
+									parse.c														\
+									free.c														\
+									set_elements.c												\
+									
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)
 
@@ -44,7 +48,7 @@ MLX			:=	libmlx.a
 
 MLX_D		:=	minilibx-linux/
 
-MLX_F	:= -L ./minilibx-linux -lmlx -lXext -lX11
+MLX_F		:= -L ./minilibx-linux -lmlx -lXext -lX11
 
 MLX_A		:=	$(addprefix $(MLX_D), $(MLX))
 

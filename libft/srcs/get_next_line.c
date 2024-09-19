@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 11:35:52 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/02 11:39:41 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:56:21 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,31 +95,32 @@ static void	extract_memory(char buffer[BUFFER_SIZE + 1])
 	}
 }
 
-char	*get_next_line(int fd)
+size_t	get_next_line(int fd, char **line)
 {
-	char		*line;
+	//char		*line;
 	char		*stack;
 	static char	buffer[BUFFER_SIZE + 1];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, buffer, 0) < 0)
-		return (NULL);
+		return (0);
 	if (buffer[0] == '\n')
 	{
 		extract_memory(buffer);
-		return (line_feed());
+		*line = ft_strdup("\n");
+		return (ft_strlen(*line));
 	}
 	stack = ft_strdup(buffer);
 	stack = read_line(fd, buffer, stack);
 	if (!stack)
 	{
 		extract_memory(buffer);
-		return (NULL);
+		return (0);
 	}
-	line = extract_line(stack);
+	*line = extract_line(stack);
 	extract_memory(buffer);
 	if (stack)
 		free(stack);
-	return (line);
+	return (ft_strlen(*line));
 }
 
 /*int	main(void)
