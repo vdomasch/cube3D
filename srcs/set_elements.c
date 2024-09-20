@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:12:18 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/20 14:19:04 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:21:53 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	set_color(t_textures *textures, char *line, char orientation)
 
 int	set_texture(t_textures *textures, char *path, char orientation)
 {
-	int 	i;
+	int		i;
 	char	*copy;
-	
+
 	i = 0;
-	while (path[ft_strlen(path) - i - 1] == '\n' 
+	while (path[ft_strlen(path) - i - 1] == '\n'
 		|| path[ft_strlen(path) - i - 1] == ' ')
 		i++;
 	if (ft_strncmp(&path[ft_strlen(path) - i - 4], ".xpm", 4))

@@ -6,12 +6,11 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 11:56:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/20 13:27:58 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:21:29 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <./../includes/cub3d.h>
-
 
 /*void	print_elements(t_data *data)
 {
@@ -25,7 +24,7 @@
 
 int	parsing(t_data *data, char *path)
 {
-	int fd;
+	int	fd;
 
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".cub", 4))
 		return (print_error("Invalid file extension.", 1));
