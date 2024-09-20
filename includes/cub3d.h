@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/19 14:09:36 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:08:06 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <stdio.h>
+
+# define BASE16 "0123456789ABCDEF"
 
 #define WIDTH 1920
 #define HEIGHT 1080
@@ -73,10 +76,10 @@ typedef struct s_mlx
 
 typedef struct	s_data
 {
-	t_map		*map;
-	t_textures	*textures;
-	t_player	*player;
-	t_mlx		*mlx;
+	t_map		map;
+	t_textures	textures;
+	t_player	player;
+	t_mlx		mlx;
 	int 		res_x;
 	int 		res_y;
 }			t_data;

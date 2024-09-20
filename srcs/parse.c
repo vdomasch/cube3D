@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 11:56:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/19 13:44:00 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:27:58 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <./../includes/cub3d.h>
+
+
+/*void	print_elements(t_data *data)
+{
+	printf("data->textures.no = %s\n", data->textures.no);
+	printf("data->textures.so = %s\n", data->textures.so);
+	printf("data->textures.we = %s\n", data->textures.we);
+	printf("data->textures.ea = %s\n", data->textures.ea);
+	printf("data->textures.floor_color = %X\n", data->textures.floor_color);
+	printf("data->textures.ceiling_color = %X\n", data->textures.ceiling_color);
+}*/
 
 int	parsing(t_data *data, char *path)
 {
