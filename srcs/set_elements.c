@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:12:18 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/23 14:10:42 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:25:24 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	set_color(t_textures *textures, char *line, char orientation)
 		while (*line == ',' || *line == ' ' || *line == '\n')
 			line++;
 		tmp += color * coef;
-		coef /= 0x100;		
+		coef /= 0x100;
 	}
 	if (coef != 1)
 		return (print_error("Invalid color.\n", 1));
@@ -80,8 +80,9 @@ bool	set_elemets(t_data *data, int fd)
 	while (get_next_line(fd, &str) > 0)
 	{
 		if ((((str[0] == 'N' || str[0] == 'S') && str[1] == 'O' )
-			|| (str[0] == 'W' && str [1] == 'E')
-			|| (str[0] == 'E' && str[1] == 'A')) && str[2] == ' ' && ++count)
+				|| (str[0] == 'W' && str [1] == 'E')
+				|| (str[0] == 'E' && str[1] == 'A'))
+			&& str[2] == ' ' && ++count)
 			check += set_texture(&data->textures, str + 3, str[0]);
 		else if ((str[0] == 'F' || str[0] == 'C') && str[1] == ' ' && ++count)
 			check += set_color(&data->textures, str + 2, str[0]);

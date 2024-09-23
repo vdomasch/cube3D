@@ -6,7 +6,7 @@
 #    By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/09/23 14:20:25 by bhumeau          ###   ########.fr        #
+#    Updated: 2024/09/23 16:56:46 by bhumeau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ FILES						=		main.c														\
 									free.c														\
 									set_elements.c												\
 									set_map.c													\
+									set_entities.c												\
 									
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)

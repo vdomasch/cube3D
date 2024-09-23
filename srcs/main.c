@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/09/20 12:04:47 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:56:18 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (print_error("Invalid number of argument.", 1));
 	parsing(data, argv[1]);
-	if (42)
-		;
+	//mlx_init(data);
+	//loop_mlx(data);
 	free_all(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/23 14:44:17 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:31:02 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,11 @@ typedef struct	s_data
 }			t_data;
 
 int		print_error(char *, int);
+bool	check_map(char **, size_t, size_t, int);
+bool	is_player(char);
 bool	parsing(t_data *, char *);
 bool	set_elemets(t_data *, int);
+bool	set_entities(t_data *);
 bool	set_map(t_data *, int);
 void	free_all(t_data *);
 //void 	free_mlx(t_mlx *);

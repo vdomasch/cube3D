@@ -6,12 +6,19 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:57:47 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/23 14:38:26 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:08:56 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 #include <stdio.h>
+
+static void	complete_line(char *word, size_t i, size_t size)
+{
+	while (i < size)
+		word[i++] = ' ';
+	word[i] = '\0';
+}
 
 static int	count_word(const char *s, char c)
 {
@@ -57,7 +64,7 @@ static char	*alloc_word(const char *s, char c, size_t current_word, size_t size)
 	i = 0;
 	while (start < end)
 		word[i++] = s[start++];
-	word[i] = '\0';
+	complete_line(word, i, size);
 	return (word);
 }
 

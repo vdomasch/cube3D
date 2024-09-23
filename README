@@ -1,3 +1,1 @@
-check = 455 pour 1 + 'N' + 'S' + 'E' + 'W' + 'C' + 'F'
-
-Pour les couleurs, F 110,100,100 100 ne devrait pas fonctionner
+Segfault sur un \n au millieu de map qui doit etre ERROR

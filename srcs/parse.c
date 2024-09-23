@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 11:56:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/23 14:49:38 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:27:41 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ bool	parsing(t_data *data, char *path)
 	if (!set_elemets(data, fd))
 		return (false);
 	if (!set_map(data, fd))
+		return (false);
+	close(fd);
+	if (!check_map(data->map.map, data->map.width, data->map.height, 0))
+		return (false);
+	if (!set_entities(data))
 		return (false);
 	return (true);
 }
