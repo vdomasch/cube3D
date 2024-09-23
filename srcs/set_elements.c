@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:12:18 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/23 12:43:38 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:55:52 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	set_color(t_textures *textures, char *line, char orientation)
 		color = ft_atoi(line) / 0x100;
 		if (color < 0 || color < 0 || color > 0xFF)
 			return (print_error("Invalid color.\n", 1));
-		while (*line && (ft_isdigit(*line) || *line == ' ') && *line != ',')
+		while (*line && (ft_isdigit(*line)))
 			line++;
-		if (*line)
+		while (*line == ',' || *line == ' ' || *line == '\n')
 			line++;
 		tmp += color * coef;
-		coef /= 0x100;
+		coef /= 0x100;		
 	}
 	if (coef != 1)
 		return (print_error("Invalid color.\n", 1));
@@ -66,7 +66,7 @@ int	set_texture(t_textures *textures, char *path, char orientation)
 		textures->we = copy;
 	else if (orientation == 'E')
 		textures->ea = copy;
-	return ((int)orientation);
+	return (orientation);
 }
 
 bool	set_elemets(t_data *data, int fd)
@@ -76,7 +76,7 @@ bool	set_elemets(t_data *data, int fd)
 	int		check;
 
 	count = 0;
-	check = 1;
+	check = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ' && ++count)
@@ -93,7 +93,7 @@ bool	set_elemets(t_data *data, int fd)
 			check += set_color(&data->textures, line + 2, 'C');
 		free(line);
 	}
-	if (check != 455 || count != 6)
+	if (check != 454 || count != 6)
 		return (print_error("Invalid elements.\n", false));
 	return (true);
 }
