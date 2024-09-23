@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/20 13:08:06 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:44:17 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_image
 typedef struct s_map
 {
 	char	**map;
-	int		width;
-	int		height;
+	size_t		width;
+	size_t		height;
 }			t_map;
 
 typedef struct s_textures
@@ -85,9 +85,10 @@ typedef struct	s_data
 }			t_data;
 
 int		print_error(char *, int);
-int		parsing(t_data *, char *);
-void	free_all(t_data *);
+bool	parsing(t_data *, char *);
 bool	set_elemets(t_data *, int);
+bool	set_map(t_data *, int);
+void	free_all(t_data *);
 //void 	free_mlx(t_mlx *);
 //void	free_textures(t_textures *);
 //void	free_map(t_map *);

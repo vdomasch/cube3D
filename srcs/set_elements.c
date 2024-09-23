@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:12:18 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/23 13:55:52 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:10:42 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,23 @@ int	set_texture(t_textures *textures, char *path, char orientation)
 
 bool	set_elemets(t_data *data, int fd)
 {
-	char	*line;
+	char	*str;
 	int		count;
 	int		check;
 
 	count = 0;
 	check = 0;
-	while (get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &str) > 0)
 	{
-		if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ' && ++count)
-			check += set_texture(&data->textures, line + 3, 'N');
-		else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ' && ++count)
-			check += set_texture(&data->textures, line + 3, 'S');
-		else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ' && ++count)
-			check += set_texture(&data->textures, line + 3, 'W');
-		else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ' && ++count)
-			check += set_texture(&data->textures, line + 3, 'E');
-		else if (line[0] == 'F' && line[1] == ' ' && ++count)
-			check += set_color(&data->textures, line + 2, 'F');
-		else if (line[0] == 'C' && line[1] == ' ' && ++count)
-			check += set_color(&data->textures, line + 2, 'C');
-		free(line);
+		if ((((str[0] == 'N' || str[0] == 'S') && str[1] == 'O' )
+			|| (str[0] == 'W' && str [1] == 'E')
+			|| (str[0] == 'E' && str[1] == 'A')) && str[2] == ' ' && ++count)
+			check += set_texture(&data->textures, str + 3, str[0]);
+		else if ((str[0] == 'F' || str[0] == 'C') && str[1] == ' ' && ++count)
+			check += set_color(&data->textures, str + 2, str[0]);
+		free(str);
+		if (check == 454 || count == 6)
+			break ;
 	}
 	if (check != 454 || count != 6)
 		return (print_error("Invalid elements.\n", false));

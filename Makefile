@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/09/19 13:43:02 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/09/23 14:20:25 by bhumeau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ FILES						=		main.c														\
 									parse.c														\
 									free.c														\
 									set_elements.c												\
+									set_map.c													\
 									
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)

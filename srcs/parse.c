@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 11:56:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/20 14:21:29 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:49:38 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 	printf("data->textures.ceiling_color = %X\n", data->textures.ceiling_color);
 }*/
 
-int	parsing(t_data *data, char *path)
+bool	parsing(t_data *data, char *path)
 {
 	int	fd;
 
@@ -31,6 +31,9 @@ int	parsing(t_data *data, char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (print_error("Can't open file.", 1));
-	set_elemets(data, fd);
-	return (0);
+	if (!set_elemets(data, fd))
+		return (false);
+	if (!set_map(data, fd))
+		return (false);
+	return (true);
 }
