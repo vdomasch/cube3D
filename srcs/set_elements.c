@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:12:18 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/20 14:21:53 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/23 12:43:38 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	set_color(t_textures *textures, char *line, char orientation)
 		textures->floor_color = color;
 	else if (orientation == 'C')
 		textures->ceiling_color = color;
-	return (0);
+	return (orientation);
 }
 
 int	set_texture(t_textures *textures, char *path, char orientation)
@@ -93,7 +93,7 @@ bool	set_elemets(t_data *data, int fd)
 			check += set_color(&data->textures, line + 2, 'C');
 		free(line);
 	}
-	if (check != 318 || count != 6)
+	if (check != 455 || count != 6)
 		return (print_error("Invalid elements.\n", false));
 	return (true);
 }
