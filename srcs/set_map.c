@@ -3,58 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   set_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:14:18 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/09/23 16:26:27 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/24 11:34:47 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-bool	is_player(char c)
+bool	is_empty_line(char *line)
 {
-	return (c == 'N' || c == 'S' || c == 'W' || c == 'E');
-}
-
-bool	is_neighbors_valid(char **map, size_t i, size_t j)
-{
-	return ((map[i - 1][j] == '0' || map[i - 1][j] == '1'
-			|| is_player(map[i - 1][j]))
-		&& (map[i + 1][j] == '0' || map[i + 1][j] == '1'
-			|| is_player(map[i + 1][j]))
-		&& (map[i][j - 1] != '0' || map[i][j - 1] != '1'
-			|| is_player(map[i][j - 1]))
-		&& (map[i][j + 1] != '0' || map[i][j + 1] != '1'
-			|| is_player(map[i][j + 1])));
-}
-
-bool	check_map(char **map, size_t width, size_t height, int player_count)
-{
-	size_t	i;
-	size_t	j;
+	int	i;
 
 	i = 0;
-	while (i < height)
+	while (line[i])
 	{
-		j = 0;
-		while (j < width - 1)
-		{
-			if (map[i][j] != '1' && map[i][j] != ' ' && map[i][j] != '0'
-				&& !is_player(map[i][j]))
-				return (print_error("Invalid character in map.\n", false));
-			if (map[i][j] == '0' && ((i == 0 || i == height - 1 || j == 0
-				|| j == width - 1) || !is_neighbors_valid(map, i, j)))
-				return (print_error("Invalid border.\n", false));
-			if (is_player(map[i][j]))
-				player_count++;
-			j++;
-		}
+		if (!ft_isspace(line[i]))
+			return (false);
 		i++;
 	}
-	if (player_count != 1)
-		return (print_error("Invalid number of player.\n", false));
 	return (true);
+}
+
+void	is_line_longer(char *line, t_data *data)
+{
+	if (ft_strlen(line) > data->map.width)
+		data->map.width = ft_strlen(line);
 }
 
 char	*skip_empty_line(int fd)
@@ -65,9 +40,7 @@ char	*skip_empty_line(int fd)
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		while (ft_isspace(line[i]))
-			i++;
-		if (line[i] == '\0')
+		if (is_empty_line(line))
 		{
 			free(line);
 			continue ;
@@ -78,29 +51,43 @@ char	*skip_empty_line(int fd)
 	return (line);
 }
 
+bool	init_map_line(char **line, char **map_line, int fd)
+{
+	*line = skip_empty_line(fd);
+	*map_line = ft_strdup("");
+	if (!*map_line)
+	{
+		if (*line)
+			free(*line);
+		return (false);
+	}
+	return (true);
+}
+
 bool	set_map(t_data *data, int fd)
 {
 	char	*line;
 	char	*map_line;
 
-	line = skip_empty_line(fd);
-	if (!line)
-		return (print_error("Missing map.\n", false));
-	map_line = ft_strdup("");
-	if (!map_line)
+	if (!init_map_line(&line, &map_line, fd))
 		return (print_error("Malloc failed.\n", false));
 	while (line || get_next_line(fd, &line) > 0)
 	{
-		if (ft_strlen(line) > data->map.width)
-			data->map.width = ft_strlen(line);
+		is_line_longer(line, data);
 		map_line = ft_strfreejoin(map_line, line);
+		if (is_empty_line(line))
+		{
+			free(line);
+			free(map_line);
+			return (print_error("Empty line in map.\n", false));
+		}
 		free(line);
 		line = NULL;
 		if (!map_line)
 			return (false);
 		data->map.height++;
 	}
-	data->map.map = split_size(map_line, '\n', data->map.width);
+	data->map.map = split_size_free(map_line, '\n', data->map.width);
 	if (!data->map.map)
 		return (print_error("Malloc failed.\n", false));
 	return (true);

@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 16:09:45 by vdomasch          #+#    #+#              #
-#    Updated: 2024/08/23 08:52:12 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/09/24 11:34:03 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRCS		:=	ft_atoi.c								\
 				ft_tolower.c							\
 				ft_toupper.c							\
 				split.c									\
-				split_size.c							\
+				split_size_free.c							\
 				get_next_line.c							\
 				get_next_line_utils.c
 

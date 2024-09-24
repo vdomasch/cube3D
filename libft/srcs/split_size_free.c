@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_size.c                                       :+:      :+:    :+:   */
+/*   split_size_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:57:47 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/23 16:08:56 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/24 11:34:35 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	*alloc_word(const char *s, char c, size_t current_word, size_t size)
 	return (word);
 }
 
-char	**split_size(const char *s, char c, size_t size)
+char	**split_size_free(char *s, char c, size_t size)
 {
 	char		**array;
 	size_t		nb_word;
@@ -91,5 +91,6 @@ char	**split_size(const char *s, char c, size_t size)
 		}
 	}
 	array[current_word - 1] = NULL;
+	free(s);
 	return (array);
 }

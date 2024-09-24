@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/19 13:52:44 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:33:46 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ size_t	get_next_line(int fd, char **line);
 char	*ft_strfreejoin(char *s1, const char *s2);
 char	*line_feed(void);
 char	**split(const char *s, char *set);
-char	**split_size(const char *s, char c, size_t size);
+char	**split_size_free(char *s, char c, size_t size);
 
 
 int		ft_atoi(const char *str);

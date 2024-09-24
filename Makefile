@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+         #
+#    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/09/23 16:56:46 by bhumeau          ###   ########.fr        #
+#    Updated: 2024/09/24 10:51:36 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ FILES						=		main.c														\
 									free.c														\
 									set_elements.c												\
 									set_map.c													\
+									check_map.c													\
 									set_entities.c												\
 									
 
