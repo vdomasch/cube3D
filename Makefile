@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/09/24 10:51:36 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/09/24 16:13:23 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,9 @@ FILES						=		main.c														\
 									set_map.c													\
 									check_map.c													\
 									set_entities.c												\
+									mlx.c														\
+									raycasting.c												\
+									digital_differential_analysis.c								\
 									
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)

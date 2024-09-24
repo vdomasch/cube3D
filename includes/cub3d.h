@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/23 16:31:02 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/24 16:58:59 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <stdio.h>
+# include <mlx.h>
+# include <X11/keysym.h>
+# include <math.h>
 
 # define BASE16 "0123456789ABCDEF"
 
@@ -37,8 +40,8 @@ typedef struct s_image
 typedef struct s_map
 {
 	char	**map;
-	size_t		width;
-	size_t		height;
+	size_t	width;
+	size_t	height;
 }			t_map;
 
 typedef struct s_textures
@@ -65,13 +68,15 @@ typedef struct s_player
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
+	int			walk_dir;
+	int			strafe_dir;
 }			t_player;
 
 typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
-	void	*img;
+	t_image	img;
 }			t_mlx;
 
 typedef struct	s_data
@@ -84,6 +89,26 @@ typedef struct	s_data
 	int 		res_y;
 }			t_data;
 
+typedef	struct s_raycast
+{
+	size_t 		map_x;
+	size_t 		map_y;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	double		wall_dist;
+}	t_raycast;
+
 int		print_error(char *, int);
 bool	check_map(char **, size_t, size_t, int);
 bool	is_player(char);
@@ -91,7 +116,11 @@ bool	parsing(t_data *, char *);
 bool	set_elemets(t_data *, int);
 bool	set_entities(t_data *);
 bool	set_map(t_data *, int);
+void	mlx(t_data *);
 void	free_all(t_data *);
+int	raycasting(t_data *data);
+void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
+
 //void 	free_mlx(t_mlx *);
 //void	free_textures(t_textures *);
 //void	free_map(t_map *);

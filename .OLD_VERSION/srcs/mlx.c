@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 10:11:44 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/03 10:55:11 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:11:14 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	map_gen(t_data *data, void *mlx, void *win)
 		return (1);
 	return (0);
 }*/
+
 
 int	mlx_launch(t_data *data)
 {
