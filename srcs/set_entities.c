@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_entities.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:28:25 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/09/23 16:46:37 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/24 11:44:16 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,6 @@ bool	set_entities(t_data *data)
 				data->player.pos_x = j + 0.5;
 				data->player.pos_y = i + 0.5;
 				set_player(data, i, j);
-
-
-
-
-				data->player.dir_x = data->map.map[i][j] == 'E' || -(data->map.map[i][j] == 'W');
-				data->player.dir_y = data->map.map[i][j] == 'S' || -(data->map.map[i][j] == 'N');
-				data->player.plane_x = 
-				data->player.plane_y = 
 				data->map.map[i][j] = '0';
 				return (true);
 			}
