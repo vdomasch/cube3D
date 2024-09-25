@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:34:54 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/25 11:31:21 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:49:04 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x)
 			raycast->map_x += raycast->step_x;
 			raycast->side = 0;
 		}
-		else
+		else	
 		{
 			raycast->side_dist_y += raycast->delta_dist_y;
 			raycast->map_y += raycast->step_y;

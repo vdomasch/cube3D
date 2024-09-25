@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/24 16:58:59 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:25:11 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ typedef struct s_textures
 	int 	ceiling_color;
 	int		width;
 	int		height;
-	t_image *north;
-	t_image *south;
-	t_image *west;
-	t_image *east;
+	t_image north;
+	t_image south;
+	t_image west;
+	t_image east;
 }			t_textures;
 
 typedef struct s_player
@@ -68,8 +68,11 @@ typedef struct s_player
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
+	double		move_speed;
+	double		rot_speed;
 	int			walk_dir;
 	int			strafe_dir;
+	int			turn_dir;
 }			t_player;
 
 typedef struct s_mlx
@@ -118,9 +121,11 @@ bool	set_entities(t_data *);
 bool	set_map(t_data *, int);
 void	mlx(t_data *);
 void	free_all(t_data *);
-int	raycasting(t_data *data);
+int		raycasting(t_data *data);
 void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
-
+int		game_loop(t_data *data);
+void	move_player(t_data * data, t_player *player);
+void	rotate_player(t_data *data, t_player *player);
 //void 	free_mlx(t_mlx *);
 //void	free_textures(t_textures *);
 //void	free_map(t_map *);

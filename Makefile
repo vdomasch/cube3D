@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/09/24 16:13:23 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/09/25 11:57:09 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ FILES						=		main.c														\
 									check_map.c													\
 									set_entities.c												\
 									mlx.c														\
+									game_loop.c													\
 									raycasting.c												\
 									digital_differential_analysis.c								\
 									

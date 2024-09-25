@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/09/24 13:23:54 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:09:29 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_data	*init_data(void)
 	data->player.dir_y = 0;
 	data->player.plane_x = 0;
 	data->player.plane_y = 0;
+	data->player.move_speed = 0.1;
+	data->player.rot_speed = 0.05;
 	data->res_x = WIDTH;
 	data->res_y = HEIGHT;
 	return (data);
