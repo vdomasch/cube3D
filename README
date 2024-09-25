@@ -1,1 +1,16 @@
-Segfault sur un \n au millieu de map qui doit etre ERROR
+North : plane_x = 0.66
+		plane_y = 0
+
+South :	plane_x = -0.66
+		plane_y = 0
+
+East :	plane_x = 0
+		plane_y = 0.66
+
+Weat :	plane_x = 0
+		plane_y = -0.66
+
+Side = North || South
+
+if (plane_x > 0  && (plane_y >= -0.33 || plane_y <= 0.33) && x < data->res_x / 2)
+{

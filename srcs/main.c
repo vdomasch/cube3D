@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/09/25 12:09:29 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:52:52 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,16 @@ t_data	*init_data(void)
 	data->player.dir_y = 0;
 	data->player.plane_x = 0;
 	data->player.plane_y = 0;
-	data->player.move_speed = 0.1;
-	data->player.rot_speed = 0.05;
+	data->player.move_speed = 0.05;
+	data->player.rot_speed = 0.025;
 	data->res_x = WIDTH;
 	data->res_y = HEIGHT;
+	data->textures.images = malloc(sizeof(t_image) * 4);
+	if (!data->textures.images)
+	{
+		free(data);
+		return (NULL);
+	}
 	return (data);
 }
 
@@ -55,6 +61,8 @@ int	main(int argc, char **argv)
 	t_data	*data;
 
 	data = init_data();
+	if (!data)
+		return (print_error("Failed to allocate memory.", 1));
 	if (argc != 2)
 		return (print_error("Invalid number of argument.", 1));
 	parsing(data, argv[1]);

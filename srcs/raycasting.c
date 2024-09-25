@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/25 14:27:33 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:18:44 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,46 +44,79 @@ int	get_pixel(t_textures *texture, int tex_num, int x, int y)
 {
 	char	*dst;
 
-	if (tex_num == 0)
-		dst = texture->north.addr + (y * texture->north.line_length + x * (texture->north.bits_per_pixel / 8));
-	else if (tex_num == 1)
-		dst = texture->south.addr + (y * texture->south.line_length + x * (texture->south.bits_per_pixel / 8));
-	else if (tex_num == 2)
-		dst = texture->west.addr + (y * texture->west.line_length + x * (texture->west.bits_per_pixel / 8));
-	else
-		dst = texture->east.addr + (y * texture->east.line_length + x * (texture->east.bits_per_pixel / 8));
+	dst = texture->images[tex_num].addr + (y * texture->images[tex_num].line_length + x * (texture->images[tex_num].bits_per_pixel / 8));
 	return (*(unsigned int*)dst);
 }
 
 void	put_textures(t_data *data, t_raycast *raycast, int x, int y)
 {
-	int		color;
-	int		tex_y;
-	int		tex_x;
-	double	step;
-	double	tex_pos;
-
-	if (raycast->side == 0 || raycast->side == 1)
-		tex_pos = (raycast->map_y - data->player.pos_y + (1 - raycast->step_y) / 2) / raycast->ray_dir_y;
-	else
-		tex_pos = (raycast->map_x - data->player.pos_x + (1 - raycast->step_x) / 2) / raycast->ray_dir_x;
-	tex_pos -= floor(tex_pos);
-	tex_x = (int)(tex_pos * data->textures.width);
-	if ((raycast->side == 0 && raycast->ray_dir_x > 0) || (raycast->side == 1 && raycast->ray_dir_y < 0))
-		tex_x = data->textures.width - tex_x - 1;
-	step = 1.0 * data->textures.height / raycast->line_height;
-	tex_pos = (raycast->draw_start - data->res_y / 2 + raycast->line_height / 2) * step;
-	tex_y = (int)tex_pos & (data->textures.height - 1);
-	while (raycast->draw_start < raycast->draw_end)
+	//int		color;
+	char	texture_side;
+	int		scaling;
+	//int		texture_x;
+	int		texture_y;
+	
+	(void)raycast;
+	if (raycast->side == 0)
 	{
-		tex_pos += step;
-		tex_y = (int)tex_pos & (data->textures.height - 1);
-		color = get_pixel(&data->textures, raycast->side, tex_x, tex_y);
-		my_mlx_pixel_put(&data->mlx.img, x, raycast->draw_start, color);
-		raycast->draw_start++;
+		if (raycast->ray_dir_x > 0)
+		{
+			texture_side = 'W';
+			//my_mlx_pixel_put(&data->mlx.img, x, y, 0x00880000); //ROUGE
+		}
+		else
+		{
+			texture_side = 'E';
+			//my_mlx_pixel_put(&data->mlx.img, x, y, 0x00008800); //VERT
+		}
 	}
-	(void)y;
+	else
+	{
+		if (raycast->ray_dir_y > 0)
+		{
+			texture_side = 'N';
+			//my_mlx_pixel_put(&data->mlx.img, x, y, 0x00000088); //BLEU
+		}
+		else
+		{
+			texture_side = 'S';
+			//my_mlx_pixel_put(&data->mlx.img, x, y, 0x00DDDD00); //JAUNE
+		}
+	}
+	scaling = (y * 256) - HEIGHT * 128 + raycast->line_height * 128;
+	texture_y = ((scaling * data->textures.height) / raycast->line_height) / 256;
+	//texture_x = (int)(raycast->line_height * (double)data->textures.width);
+
+	
+	//color = get_pixel(&data->textures, texture_side, 10, texture_y);
+	my_mlx_pixel_put(&data->mlx.img, x, y, 0x0);
 }
+
+/*static void    draw_line(t_info *w, int x)
+{
+    int    y;
+    int    scaling;
+    int    color;
+    int    texture_y;
+
+    y = w->draw_start;
+    //We are going through every pixel of the vertical line and putting it in our buffer img;
+    
+    //y the same the entire time
+    while (y <= w->draw_end)
+    {
+        // scaling = 1;
+        texture_y = ((scaling * w->n_wall.height) / w->line_height) / 256;
+        if (texture_y < 0)
+            texture_y = 0; //Pour les segfaults dans les coins
+        if (texture_y >= w->n_wall.height) //IMAGE TROP GROSSE LOL OU TROP PETITE QUI SAIT
+            texture_y = w->n_wall.height - 1;
+        color = pixel_color(w, texture_y);
+        // color = apply_fog(color);
+        pixel_fill(&w->img_buffer, x, y, color);
+        y++;
+    }
+}*/
 
 void	draw(t_data *data, t_raycast *raycast, int x)
 {
@@ -93,12 +126,12 @@ void	draw(t_data *data, t_raycast *raycast, int x)
 	while (y < data->res_y)
 	{
 		if (y < raycast->draw_start)
-			my_mlx_pixel_put(&data->mlx.img, x, y, 0x0000FFFF);
+			my_mlx_pixel_put(&data->mlx.img, x, y, 0x0000DDDD);
 		else if (y >= raycast->draw_start && y <= raycast->draw_end)
-			//put_textures(data, raycast, x, y);
-			my_mlx_pixel_put(&data->mlx.img, x, y, 0x0);
+			put_textures(data, raycast, x, y);
 		else
-			my_mlx_pixel_put(&data->mlx.img, x, y, 0x00FFFF00);
+			my_mlx_pixel_put(&data->mlx.img, x, y, 0x888888);
+		
 		y++;
 	}
 }
@@ -106,7 +139,7 @@ void	draw(t_data *data, t_raycast *raycast, int x)
 int	raycasting(t_data *data)
 {
 	int		x;
-	t_raycast	raycast;
+	static t_raycast	raycast;
 
 	x = 0;
 	while (x <= data->res_x)
@@ -118,5 +151,6 @@ int	raycasting(t_data *data)
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
+	//mlx_loop_end(data->mlx.mlx);
 	return (0);
 }

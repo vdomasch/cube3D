@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/25 14:25:11 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:09:25 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ typedef struct s_textures
 	int 	ceiling_color;
 	int		width;
 	int		height;
-	t_image north;
-	t_image south;
-	t_image west;
-	t_image east;
+	t_image *images;
+	//t_image south;
+	//t_image west;
+	//t_image east;
 }			t_textures;
 
 typedef struct s_player

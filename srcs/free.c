@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:00:12 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/24 11:31:19 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:51:16 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	free_all(t_data *data)
 		free(data->textures.we);
 	if (data->textures.ea)
 		free(data->textures.ea);
+	if (data->textures.images)
+		free(data->textures.images);
 	if (data->map.map)
 		free_map(data->map.map, data->map.height);
 	free(data);

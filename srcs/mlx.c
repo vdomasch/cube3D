@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/25 14:20:35 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:51:47 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_mlx(t_data *data)
 
 bool	load_textures(t_data *data)
 {
-	data->textures.north.img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.no, &data->textures.width, &data->textures.height);
+	/*data->textures.north.img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.no, &data->textures.width, &data->textures.height);
 	data->textures.south.img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.so, &data->textures.width, &data->textures.height);
 	data->textures.west.img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.we, &data->textures.width, &data->textures.height);
 	data->textures.east.img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.ea, &data->textures.width, &data->textures.height);
@@ -37,6 +37,22 @@ bool	load_textures(t_data *data)
 	data->textures.east.addr = mlx_get_data_addr(data->textures.east.img, &data->textures.east.bits_per_pixel,
 			&data->textures.east.line_length, &data->textures.east.endian);
 	if (!data->textures.north.addr || !data->textures.south.addr || !data->textures.west.addr || !data->textures.east.addr)
+		return (print_error("Failed to get textures address.", false));*/
+	data->textures.images[0].img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.no, &data->textures.width, &data->textures.height);
+	data->textures.images[1].img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.so, &data->textures.width, &data->textures.height);
+	data->textures.images[2].img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.we, &data->textures.width, &data->textures.height);
+	data->textures.images[3].img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.ea, &data->textures.width, &data->textures.height);
+	if (!data->textures.images[0].img || !data->textures.images[1].img || !data->textures.images[2].img || !data->textures.images[3].img)
+		return (print_error("Failed to load textures.", false));
+	data->textures.images[0].addr = mlx_get_data_addr(data->textures.images[0].img, &data->textures.images[0].bits_per_pixel,
+			&data->textures.images[0].line_length, &data->textures.images[0].endian);
+	data->textures.images[1].addr = mlx_get_data_addr(data->textures.images[1].img, &data->textures.images[1].bits_per_pixel,
+			&data->textures.images[1].line_length, &data->textures.images[1].endian);
+	data->textures.images[2].addr = mlx_get_data_addr(data->textures.images[2].img, &data->textures.images[2].bits_per_pixel,
+			&data->textures.images[2].line_length, &data->textures.images[2].endian);
+	data->textures.images[3].addr = mlx_get_data_addr(data->textures.images[3].img, &data->textures.images[3].bits_per_pixel,
+			&data->textures.images[3].line_length, &data->textures.images[3].endian);
+	if (!data->textures.images[0].addr || !data->textures.images[1].addr || !data->textures.images[2].addr || !data->textures.images[3].addr)
 		return (print_error("Failed to get textures address.", false));
 	return (true); 
 }
