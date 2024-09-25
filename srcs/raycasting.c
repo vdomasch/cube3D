@@ -6,30 +6,31 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/24 17:13:40 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:37:35 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-void	perp_wall_dist(t_raycast *raycast)
+void	perp_wall_dist(t_raycast *raycast, t_data *data)
 {
-	if(raycast->side == 0) 
-		raycast->perp_wall_dist = (raycast->side_dist_x - raycast->delta_dist_x);
-	else          
-		raycast->perp_wall_dist = (raycast->side_dist_y - raycast->delta_dist_y);
+	if (raycast->side == 0)
+		raycast->perp_wall_dist = (raycast->map_x - data->player.pos_x + (1 - raycast->step_x) / 2) / raycast->ray_dir_x;
+	else
+		raycast->perp_wall_dist = (raycast->map_y - data->player.pos_y + (1 - raycast->step_y) / 2) / raycast->ray_dir_y;
+	raycast->perp_wall_dist = fabs(raycast->perp_wall_dist);
 }
 
 void	wall_height(t_data *data, t_raycast *raycast)
 {
-	raycast->line_height = (int)(data->res_y / raycast->perp_wall_dist);	
+	raycast->line_height = (int)(data->res_y / raycast->perp_wall_dist);
 	raycast->draw_start = -raycast->line_height / 2 + data->res_y / 2;
 	if (raycast->draw_start < 0)
 		raycast->draw_start = 0;
 	raycast->draw_end = raycast->line_height / 2 + data->res_y / 2;
 	if (raycast->draw_end >= data->res_y)
 		raycast->draw_end = data->res_y - 1;
-		}
+}
 
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
@@ -49,7 +50,7 @@ void	draw(t_data *data, t_raycast *raycast, int x)
 		if (y < raycast->draw_start)
 			my_mlx_pixel_put(&data->mlx.img, x, y, 0x0000FFFF);
 		else if (y >= raycast->draw_start && y <= raycast->draw_end)
-			my_mlx_pixel_put(&data->mlx.img, x, y, 0x00FFFFFF);
+			;//my_mlx_pixel_put(&data->mlx.img, x, y, 0x00FFFFFF);
 		else
 			my_mlx_pixel_put(&data->mlx.img, x, y, 0x00FFFF00);
 		y++;
@@ -65,7 +66,7 @@ int	raycasting(t_data *data)
 	while (x <= data->res_x)
 	{
 		digital_differential_analysis(data, &raycast, x);
-		perp_wall_dist(&raycast);
+		perp_wall_dist(&raycast, data);
 		wall_height(data, &raycast);
 		draw(data, &raycast, x);
 		x++;
