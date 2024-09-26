@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/26 13:01:02 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:13:40 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,27 @@ void	free_mlx(t_data *data)
 	free(data->mlx.mlx);
 }
 
-bool	load_textures(t_data *data)
+bool	load_textures(void *mlx, t_textures *textures)
 {
-	/*data->textures.north.img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.no, &data->textures.width, &data->textures.height);
-	data->textures.south.img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.so, &data->textures.width, &data->textures.height);
-	data->textures.west.img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.we, &data->textures.width, &data->textures.height);
-	data->textures.east.img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.ea, &data->textures.width, &data->textures.height);
-	if (!data->textures.north.img || !data->textures.south.img || !data->textures.west.img || !data->textures.east.img)
+	textures->images[0].img = mlx_xpm_file_to_image(mlx,
+		textures->no, &textures->width, &textures->height);
+	textures->images[1].img = mlx_xpm_file_to_image(mlx,
+		textures->so, &textures->width, &textures->height);
+	textures->images[2].img = mlx_xpm_file_to_image(mlx,
+		textures->we, &textures->width, &textures->height);
+	textures->images[3].img = mlx_xpm_file_to_image(mlx,
+		textures->ea, &textures->width, &textures->height);
+	if (!textures->images[0].img || !textures->images[1].img || !textures->images[2].img || !textures->images[3].img)
 		return (print_error("Failed to load textures.", false));
-	data->textures.north.addr = mlx_get_data_addr(data->textures.north.img, &data->textures.north.bits_per_pixel,
-			&data->textures.north.line_length, &data->textures.north.endian);
-	data->textures.south.addr = mlx_get_data_addr(data->textures.south.img, &data->textures.south.bits_per_pixel,
-			&data->textures.south.line_length, &data->textures.south.endian);
-	data->textures.west.addr = mlx_get_data_addr(data->textures.west.img, &data->textures.west.bits_per_pixel,
-			&data->textures.west.line_length, &data->textures.west.endian);
-	data->textures.east.addr = mlx_get_data_addr(data->textures.east.img, &data->textures.east.bits_per_pixel,
-			&data->textures.east.line_length, &data->textures.east.endian);
-	if (!data->textures.north.addr || !data->textures.south.addr || !data->textures.west.addr || !data->textures.east.addr)
-		return (print_error("Failed to get textures address.", false));*/
-	data->textures.images[0].img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.no, &data->textures.width, &data->textures.height);
-	data->textures.images[1].img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.so, &data->textures.width, &data->textures.height);
-	data->textures.images[2].img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.we, &data->textures.width, &data->textures.height);
-	data->textures.images[3].img = mlx_xpm_file_to_image(data->mlx.mlx, data->textures.ea, &data->textures.width, &data->textures.height);
-	if (!data->textures.images[0].img || !data->textures.images[1].img || !data->textures.images[2].img || !data->textures.images[3].img)
-		return (print_error("Failed to load textures.", false));
-	data->textures.images[0].addr = mlx_get_data_addr(data->textures.images[0].img, &data->textures.images[0].bits_per_pixel,
-			&data->textures.images[0].line_length, &data->textures.images[0].endian);
-	data->textures.images[1].addr = mlx_get_data_addr(data->textures.images[1].img, &data->textures.images[1].bits_per_pixel,
-			&data->textures.images[1].line_length, &data->textures.images[1].endian);
-	data->textures.images[2].addr = mlx_get_data_addr(data->textures.images[2].img, &data->textures.images[2].bits_per_pixel,
-			&data->textures.images[2].line_length, &data->textures.images[2].endian);
-	data->textures.images[3].addr = mlx_get_data_addr(data->textures.images[3].img, &data->textures.images[3].bits_per_pixel,
-			&data->textures.images[3].line_length, &data->textures.images[3].endian);
-	if (!data->textures.images[0].addr || !data->textures.images[1].addr || !data->textures.images[2].addr || !data->textures.images[3].addr)
+	textures->images[0].addr = mlx_get_data_addr(textures->images[0].img, &textures->images[0].bits_per_pixel,
+			&textures->images[0].line_length, &textures->images[0].endian);
+	textures->images[1].addr = mlx_get_data_addr(textures->images[1].img, &textures->images[1].bits_per_pixel,
+			&textures->images[1].line_length, &textures->images[1].endian);
+	textures->images[2].addr = mlx_get_data_addr(textures->images[2].img, &textures->images[2].bits_per_pixel,
+			&textures->images[2].line_length, &textures->images[2].endian);
+	textures->images[3].addr = mlx_get_data_addr(textures->images[3].img, &textures->images[3].bits_per_pixel,
+			&textures->images[3].line_length, &textures->images[3].endian);
+	if (!textures->images[0].addr || !textures->images[1].addr || !textures->images[2].addr || !textures->images[3].addr)
 		return (print_error("Failed to get textures address.", false));
 	return (true); 
 }
@@ -72,7 +60,7 @@ int	mlx_initialize(t_data *data)
 			&data->mlx.img.line_length, &data->mlx.img.endian);
 	if (!data->mlx.img.addr)
 		return (print_error("Failed to get image address.", 1));
-	if (!load_textures(data))
+	if (!load_textures(data->mlx.mlx ,&data->textures))
 		return (print_error("Failed to load textures.", 1));
 	return (0);
 }
@@ -98,6 +86,13 @@ int	key_press(int keycode, t_data *data)
 		data->player.move_speed *= 1.5;
 		data->player.rot_speed *= 1.5;
 	}
+	if (keycode == XK_q && data->move_mouse == 0)
+	{
+		data->move_mouse = 1;
+		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->res_x / 2, data->res_y / 2);
+	}
+	else if (keycode == XK_q && data->move_mouse == 1)
+		data->move_mouse = 0;
 	//if (data->player.walk_dir || data->player.strafe_dir)
 	//	move_player(data, &data->player);
 	//if (data->player.turn_dir)

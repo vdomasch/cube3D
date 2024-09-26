@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/25 17:09:25 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:49:08 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct	s_data
 	t_mlx		mlx;
 	int 		res_x;
 	int 		res_y;
+	bool		move_mouse;
 }			t_data;
 
 typedef	struct s_raycast
@@ -125,7 +126,7 @@ int		raycasting(t_data *data);
 void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
 int		game_loop(t_data *data);
 void	move_player(t_data * data, t_player *player);
-void	rotate_player(t_data *data, t_player *player);
+void	rotate_player(t_player *player);
 //void 	free_mlx(t_mlx *);
 //void	free_textures(t_textures *);
 //void	free_map(t_map *);

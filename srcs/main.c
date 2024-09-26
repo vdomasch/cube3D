@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/09/26 13:18:09 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:13:01 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_data	*init_data(void)
 	data->player.rot_speed = 0.05;
 	data->res_x = WIDTH;
 	data->res_y = HEIGHT;
+	data->move_mouse = 0;
 	data->textures.images = malloc(sizeof(t_image) * 4);
 	if (!data->textures.images)
 	{
