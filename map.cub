@@ -3,8 +3,8 @@ SO ./assets/Tile_12_64x64.xpm
 WE ./assets/Tile_61_64x64.xpm
 EA ./assets/wall_64x64.xpm
 
-F 110,100,100
-C 105,20,100
+F 255,255,255
+C 0,00,0
 
 1111111111
 1000001001

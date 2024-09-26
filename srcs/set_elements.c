@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:12:18 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/23 16:25:24 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/09/26 13:40:15 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ int	set_color(t_textures *textures, char *line, char orientation)
 	tmp = 0;
 	while (*line && coef)
 	{
-		color = ft_atoi(line) / 0x100;
+		color = ft_atoi(line);
 		if (color < 0 || color < 0 || color > 0xFF)
 			return (print_error("Invalid color.\n", 1));
 		while (*line && (ft_isdigit(*line)))
 			line++;
 		while (*line == ',' || *line == ' ' || *line == '\n')
 			line++;
-		tmp += color * coef;
+		tmp += color * (coef / 0x100);
 		coef /= 0x100;
 	}
 	if (coef != 1)
 		return (print_error("Invalid color.\n", 1));
 	if (orientation == 'F')
-		textures->floor_color = color;
+		textures->floor_color = tmp;
 	else if (orientation == 'C')
-		textures->ceiling_color = color;
+		textures->ceiling_color = tmp;
 	return (orientation);
 }
 

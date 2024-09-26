@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/25 17:18:44 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:37:09 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,75 +48,59 @@ int	get_pixel(t_textures *texture, int tex_num, int x, int y)
 	return (*(unsigned int*)dst);
 }
 
-void	put_textures(t_data *data, t_raycast *raycast, int x, int y)
+int	find_side(t_raycast *raycast)
 {
-	//int		color;
-	char	texture_side;
-	int		scaling;
-	//int		texture_x;
-	int		texture_y;
-	
-	(void)raycast;
+	int texture_side;
+
 	if (raycast->side == 0)
 	{
 		if (raycast->ray_dir_x > 0)
-		{
-			texture_side = 'W';
-			//my_mlx_pixel_put(&data->mlx.img, x, y, 0x00880000); //ROUGE
-		}
+			texture_side = 2; //OUEST
 		else
-		{
-			texture_side = 'E';
-			//my_mlx_pixel_put(&data->mlx.img, x, y, 0x00008800); //VERT
-		}
+			texture_side = 1; //EST
 	}
 	else
 	{
 		if (raycast->ray_dir_y > 0)
-		{
-			texture_side = 'N';
-			//my_mlx_pixel_put(&data->mlx.img, x, y, 0x00000088); //BLEU
-		}
+			texture_side = 0; //NORD
 		else
-		{
-			texture_side = 'S';
-			//my_mlx_pixel_put(&data->mlx.img, x, y, 0x00DDDD00); //JAUNE
-		}
+			texture_side = 3; //SUD
 	}
-	scaling = (y * 256) - HEIGHT * 128 + raycast->line_height * 128;
-	texture_y = ((scaling * data->textures.height) / raycast->line_height) / 256;
-	//texture_x = (int)(raycast->line_height * (double)data->textures.width);
-
-	
-	//color = get_pixel(&data->textures, texture_side, 10, texture_y);
-	my_mlx_pixel_put(&data->mlx.img, x, y, 0x0);
+	return (texture_side);
 }
 
-/*static void    draw_line(t_info *w, int x)
+void	put_textures(t_data *data, t_raycast *raycast, int x, int y)
 {
-    int    y;
-    int    scaling;
-    int    color;
-    int    texture_y;
+	int		color;
+	char	texture_side;
+	int		scaling;
+	int		texture_x;
+	int		texture_y;
 
-    y = w->draw_start;
-    //We are going through every pixel of the vertical line and putting it in our buffer img;
-    
-    //y the same the entire time
-    while (y <= w->draw_end)
-    {
-        // scaling = 1;
-        texture_y = ((scaling * w->n_wall.height) / w->line_height) / 256;
-        if (texture_y < 0)
-            texture_y = 0; //Pour les segfaults dans les coins
-        if (texture_y >= w->n_wall.height) //IMAGE TROP GROSSE LOL OU TROP PETITE QUI SAIT
-            texture_y = w->n_wall.height - 1;
-        color = pixel_color(w, texture_y);
-        // color = apply_fog(color);
-        pixel_fill(&w->img_buffer, x, y, color);
-        y++;
-    }
-}*/
+	double wall_x;
+	
+	texture_side = find_side(raycast);
+	if (raycast->side == 0)
+		wall_x = (data->player.pos_y + raycast->perp_wall_dist * raycast->ray_dir_y);
+	else
+		wall_x = (data->player.pos_x + raycast->perp_wall_dist * raycast->ray_dir_x);
+	wall_x -= floor(wall_x);
+	texture_x = (int)(wall_x * (double)data->textures.width);
+
+	if ((raycast->side == 0 && raycast->ray_dir_x < 0) || (raycast->side == 1 && raycast->ray_dir_y > 0))
+		texture_x = data->textures.width - texture_x - 1;
+	
+	scaling = (y * 256) - HEIGHT * 128 + raycast->line_height * 128;
+	texture_y = ((scaling * data->textures.height) / raycast->line_height) / 256;
+	if (texture_y < 0)
+    	texture_y = 0; //Pour les segfaults dans les coins
+    if (texture_y >= data->textures.height) //IMAGE TROP GROSSE LOL OU TROP PETITE QUI SAIT
+		texture_y = data->textures.height - 1;
+
+	
+	color = get_pixel(&data->textures, texture_side, texture_x, texture_y);
+	my_mlx_pixel_put(&data->mlx.img, x, y, color);
+}
 
 void	draw(t_data *data, t_raycast *raycast, int x)
 {
@@ -126,11 +110,11 @@ void	draw(t_data *data, t_raycast *raycast, int x)
 	while (y < data->res_y)
 	{
 		if (y < raycast->draw_start)
-			my_mlx_pixel_put(&data->mlx.img, x, y, 0x0000DDDD);
+			my_mlx_pixel_put(&data->mlx.img, x, y, data->textures.ceiling_color);
 		else if (y >= raycast->draw_start && y <= raycast->draw_end)
 			put_textures(data, raycast, x, y);
 		else
-			my_mlx_pixel_put(&data->mlx.img, x, y, 0x888888);
+			my_mlx_pixel_put(&data->mlx.img, x, y, data->textures.floor_color);
 		
 		y++;
 	}

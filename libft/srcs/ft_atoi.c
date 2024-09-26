@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:28:39 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/03/14 07:23:22 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:27:44 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	ft_atoi(const char *str)
 	{
 		number = (number * 10) + (str[i++] - 48);
 		if (number > 2147483647 && sign > 0)
-			return (0);
+			return (-1);
 		if (number > 2147483648 && sign < 0)
-			return (0);
+			return (-1);
 	}
 	return (number * sign);
 }

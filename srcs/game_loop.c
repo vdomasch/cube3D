@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/25 13:52:18 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:12:48 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	move_player(t_data * data, t_player *player)
 	}
 	if (player->walk_dir == -1)
 	{
-		if (data->map.map[(int)(player->pos_y - player->dir_y * player->move_speed)][(int)player->pos_x] != '1')
+		if (data->map.map[(int)(player->pos_y - player->dir_y * player->move_speed )][(int)player->pos_x] != '1')
 			player->pos_y -= player->dir_y * player->move_speed;
 		if (data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_x * player->move_speed)] != '1')
 			player->pos_x -= player->dir_x * player->move_speed;

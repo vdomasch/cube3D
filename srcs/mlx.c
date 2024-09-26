@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/25 16:51:47 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:01:02 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ int	key_press(int keycode, t_data *data)
 		data->player.turn_dir = 1;
 	if (keycode == XK_Right)
 		data->player.turn_dir = -1;
+	if (keycode == XK_Shift_L)
+	{
+		data->player.move_speed *= 1.5;
+		data->player.rot_speed *= 1.5;
+	}
 	//if (data->player.walk_dir || data->player.strafe_dir)
 	//	move_player(data, &data->player);
 	//if (data->player.turn_dir)
@@ -114,6 +119,11 @@ int	key_release(int keycode, t_data *data)
 		data->player.turn_dir = 0;
 	if (keycode == XK_Right)// && data->player.turn_dir == 1)
 		data->player.turn_dir = 0;
+	if (keycode == XK_Shift_L)
+	{
+		data->player.move_speed /= 1.5;
+		data->player.rot_speed /= 1.5;
+	}
 	return (0);
 }
 
