@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/01 12:33:02 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/01 14:58:47 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,14 @@ void	draw(t_data *data, t_raycast *raycast, int x)
 	y = 0;
 	while (y < data->res_y)
 	{
-		if (y < raycast->draw_start)
+		if (x < SIZE_MINIMAP && y < SIZE_MINIMAP)
+			;
+		else if (y < raycast->draw_start)
 			my_mlx_pixel_put(&data->mlx.img, x, y, data->textures.ceiling_color);
 		else if (y >= raycast->draw_start && y <= raycast->draw_end)
 			put_textures(data, raycast, x, y);
 		else
 			my_mlx_pixel_put(&data->mlx.img, x, y, data->textures.floor_color);
-
 		y++;
 	}
 }
@@ -121,7 +122,7 @@ int	raycasting(t_data *data)
 	static t_raycast	raycast;
 
 	x = 0;
-	while (x <= data->res_x)
+	while (x < data->res_x)
 	{
 		digital_differential_analysis(data, &raycast, x);
 		perp_wall_dist(&raycast, data);
@@ -130,5 +131,6 @@ int	raycasting(t_data *data)
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
+	draw_minimap(data, data->player.pos_x, data->player.pos_y);
 	return (0);
 }

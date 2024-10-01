@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/01 11:11:25 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/01 14:58:41 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@
 
 #define WIDTH 1920
 #define HEIGHT 1080
+#define SIZE_MINIMAP 250
+#define MAP_COLOR_P 0x00CC00FF
+#define MAP_COLOR_W 0x0000CCFF
+#define MAP_COLOR_F 0x000055FF
+#define	MAP_COLOR_EXT 0x000000FF
 
 typedef struct s_image
 {
@@ -128,6 +133,8 @@ int		game_loop(t_data *data);
 void	move_player(t_data * data, t_player *player);
 void	rotate_player(t_player *player);
 void 	free_mlx(t_data *);
+void 	draw_minimap(t_data *, int, int);
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 //void	free_textures(t_textures *);
 //void	free_map(t_map *);
 
