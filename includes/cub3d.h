@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/26 15:49:08 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:11:25 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
 int		game_loop(t_data *data);
 void	move_player(t_data * data, t_player *player);
 void	rotate_player(t_player *player);
-//void 	free_mlx(t_mlx *);
+void 	free_mlx(t_data *);
 //void	free_textures(t_textures *);
 //void	free_map(t_map *);
 

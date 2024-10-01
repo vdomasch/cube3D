@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/09/26 16:13:01 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:44:42 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ t_data	*init_data(void)
 	data->res_x = WIDTH;
 	data->res_y = HEIGHT;
 	data->move_mouse = 0;
+	data->player.walk_dir = 0;
+	data->player.strafe_dir = 0;
+	data->player.turn_dir = 0;
 	data->textures.images = malloc(sizeof(t_image) * 4);
 	if (!data->textures.images)
 	{

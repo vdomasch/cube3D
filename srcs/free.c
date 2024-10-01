@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:00:12 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/25 15:51:16 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:10:58 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
+
+void	free_mlx(t_data *data)
+{
+	if (data->mlx.img.img)
+		mlx_destroy_image(data->mlx.mlx, data->mlx.img.img);
+	if (data->textures.images[0].img)
+		mlx_destroy_image(data->mlx.mlx, data->textures.images[0].img);
+	if (data->textures.images[1].img)
+		mlx_destroy_image(data->mlx.mlx, data->textures.images[1].img);
+	if (data->textures.images[2].img)
+		mlx_destroy_image(data->mlx.mlx, data->textures.images[2].img);
+	if (data->textures.images[3].img)
+		mlx_destroy_image(data->mlx.mlx, data->textures.images[3].img);
+	if (data->mlx.win)
+		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
+	if (data->mlx.mlx)
+		mlx_destroy_display(data->mlx.mlx);
+	if (data->mlx.mlx)
+		free(data->mlx.mlx);
+}
 
 void	free_map(char **map, int height)
 {
