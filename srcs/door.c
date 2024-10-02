@@ -1,45 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   digital_differential_analysis.c                    :+:      :+:    :+:   */
+/*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 13:34:54 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/02 14:52:45 by bhumeau          ###   ########.fr       */
+/*   Created: 2024/10/02 14:06:37 by bhumeau           #+#    #+#             */
+/*   Updated: 2024/10/02 14:49:01 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-void	print_map(t_data *data, t_raycast *raycast)
-{
-	size_t		x;
-	size_t		y;
-
-	x = 0;
-	while (x < data->map.height)
-	{
-		y = 0;
-		while (y < data->map.width)
-		{
-			if (x == raycast->map_x && y == raycast->map_y)
-				printf("X");
-			else
-				printf("%c", data->map.map[x][y]);
-			y++;
-		}
-		printf("\n");
-		x++;
-	}
-	printf("\n\n");
-}
-
-static void	calculate_dir_ray(t_data *data, t_raycast *raycast, int x)
+static void	calculate_dir_ray(t_data *data, t_raycast *raycast)
 {
 	double	camera_x;
 
-	camera_x = 2 * x / (double)data->res_x - 1;
+	camera_x = data->res_x / (double)data->res_x - 1;
 	raycast->ray_dir_x = data->player.dir_x + data->player.plane_x * camera_x;
 	raycast->ray_dir_y = data->player.dir_y + data->player.plane_y * camera_x;
 }
@@ -90,30 +67,19 @@ static void	calculate_step_and_side_dist(t_data *data, t_raycast *raycast)
 	}
 }
 
-void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x)
+void	open_close_door(t_data *data)
 {
-	calculate_dir_ray(data, raycast, x);
-	calculate_delta_dist(data, raycast);
-	calculate_step_and_side_dist(data, raycast);
-	while (true)
-	{
-		if (raycast->side_dist_x < raycast->side_dist_y)
-		{
-			raycast->side_dist_x += raycast->delta_dist_x;
-			raycast->map_x += raycast->step_x;
-			raycast->side = 0;
-		}
-		else
-		{
-			raycast->side_dist_y += raycast->delta_dist_y;
-			raycast->map_y += raycast->step_y;
-			raycast->side = 1;
-		}
-		if (data->map.map[raycast->map_y][raycast->map_x] == '1' || data->map.map[raycast->map_y][raycast->map_x] == 'c')
-		{
-			if (data->map.map[raycast->map_y][raycast->map_x] == 'c')
-				raycast->there_is_door = true;
-			break ;
-		}
-	}
+	static t_raycast	raycast;
+	
+	calculate_dir_ray(data, &raycast);
+	calculate_delta_dist(data, &raycast);
+	calculate_step_and_side_dist(data, &raycast);
+	if (raycast.side_dist_x < raycast.side_dist_y)
+		raycast.map_x += raycast.step_x;
+	else
+		raycast.map_y += raycast.step_y;
+	if (data->map.map[raycast.map_y][raycast.map_x] == 'c')
+		data->map.map[raycast.map_y][raycast.map_x] = 'o';
+	else if (data->map.map[raycast.map_y][raycast.map_x] == 'o')
+		data->map.map[raycast.map_y][raycast.map_x] = 'c';
 }

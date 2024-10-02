@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/01 14:58:47 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/02 14:54:28 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,22 @@ int	get_pixel(t_textures *texture, int tex_num, int x, int y)
 
 int	find_side(t_raycast *raycast)
 {
-	int	texture_side;
-
+	if (raycast->there_is_door)
+		return (4);
 	if (raycast->side == 0)
 	{
 		if (raycast->ray_dir_x > 0)
-			texture_side = 2; // OUEST
+			return (2);
 		else
-			texture_side = 1; // EST
+			return (3);
 	}
 	else
 	{
 		if (raycast->ray_dir_y > 0)
-			texture_side = 0; // NORD
+			return (0);
 		else
-			texture_side = 3; // SUD
+			return (1);
 	}
-	return (texture_side);
 }
 
 void	put_textures(t_data *data, t_raycast *raycast, int x, int y)
@@ -85,35 +84,37 @@ void	put_textures(t_data *data, t_raycast *raycast, int x, int y)
 		wall_x = (data->player.pos_x + raycast->perp_wall_dist * raycast->ray_dir_x);
 	wall_x -= floor(wall_x);
 	texture_x = (int)(wall_x * (double)data->textures.width);
-	if ((raycast->side == 0 && raycast->ray_dir_x < 0) || (raycast->side == 1 && raycast->ray_dir_y > 0))
+	if ((raycast->side == 0 && raycast->ray_dir_x < 0)
+		|| (raycast->side == 1 && raycast->ray_dir_y > 0))
 		texture_x = data->textures.width - texture_x - 1;
 	scaling = (y * 256) - HEIGHT * 128 + raycast->line_height * 128;
 	texture_y = ((scaling * data->textures.height) / raycast->line_height) / 256;
 	if (texture_y < 0)
-    	texture_y = 0;
-    if (texture_y >= data->textures.height)
+		texture_y = 0;
+	if (texture_y >= data->textures.height)
 		texture_y = data->textures.height - 1;
 	color = get_pixel(&data->textures, texture_side, texture_x, texture_y);
 	my_mlx_pixel_put(&data->mlx.img, x, y, color);
 }
 
-void	draw(t_data *data, t_raycast *raycast, int x)
+void	draw(t_data *d, t_raycast *raycast, int x)
 {
 	int	y;
 
 	y = 0;
-	while (y < data->res_y)
+	while (y < d->res_y)
 	{
 		if (x < SIZE_MINIMAP && y < SIZE_MINIMAP)
 			;
 		else if (y < raycast->draw_start)
-			my_mlx_pixel_put(&data->mlx.img, x, y, data->textures.ceiling_color);
+			my_mlx_pixel_put(&d->mlx.img, x, y, d->textures.ceiling_color);
 		else if (y >= raycast->draw_start && y <= raycast->draw_end)
-			put_textures(data, raycast, x, y);
+			put_textures(d, raycast, x, y);
 		else
-			my_mlx_pixel_put(&data->mlx.img, x, y, data->textures.floor_color);
+			my_mlx_pixel_put(&d->mlx.img, x, y, d->textures.floor_color);
 		y++;
 	}
+	raycast->there_is_door = false;
 }
 
 int	raycasting(t_data *data)
@@ -130,7 +131,8 @@ int	raycasting(t_data *data)
 		draw(data, &raycast, x);
 		x++;
 	}
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img.img, 0, 0);
+	mlx_put_image_to_window(data->mlx.mlx,
+		data->mlx.win, data->mlx.img.img, 0, 0);
 	draw_minimap(data, data->player.pos_x, data->player.pos_y);
 	return (0);
 }

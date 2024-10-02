@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/01 11:46:17 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/02 13:59:29 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,40 @@ void	move_player(t_data *data, t_player *player)
 {
 	if (player->walk_dir == 1)
 	{
-		if (data->map.map[(int)(player->pos_y + player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != '1')
+		if (data->map.map[(int)(player->pos_y + player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != '1'
+			&& data->map.map[(int)(player->pos_y + player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != 'c')
 			player->pos_y += player->dir_y * player->move_speed;
-		if (data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_x * (player->move_speed + 0.28))] != '1')
+		if (data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_x * (player->move_speed + 0.28))] != '1'
+			&& data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_x * (player->move_speed + 0.28))] != 'c')
 			player->pos_x += player->dir_x * player->move_speed;
 	}
 	if (player->walk_dir == -1)
 	{
-		if (data->map.map[(int)(player->pos_y - player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != '1')
+		if (data->map.map[(int)(player->pos_y - player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != '1'
+			&& data->map.map[(int)(player->pos_y - player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != 'c')
 			player->pos_y -= player->dir_y * player->move_speed;
-		if (data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_x * (player->move_speed + 0.28))] != '1')
+		if (data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_x * (player->move_speed + 0.28))] != '1'
+			&& data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_x * (player->move_speed + 0.28))] != 'c')
 			player->pos_x -= player->dir_x * player->move_speed;
 	}
 	if (player->strafe_dir == -1)
 	{
-		if (data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_y * (player->move_speed + 0.28))] != '1')
+		if (data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_y * (player->move_speed + 0.28))] != '1'
+			&& data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_y * (player->move_speed + 0.28))] != 'c')
 			player->pos_x += player->dir_y * player->move_speed;
-		if (data->map.map[(int)(player->pos_y - player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != '1')
+		if (data->map.map[(int)(player->pos_y - player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != '1'
+			&& data->map.map[(int)(player->pos_y - player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != 'c')
 			player->pos_y -= player->dir_x * player->move_speed;
 	}
 	if (player->strafe_dir == 1)
 	{
-		if (data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_y * (player->move_speed + 0.28))] != '1')
+		if (data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_y * (player->move_speed + 0.28))] != '1'
+			&& data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_y * (player->move_speed + 0.28))] != 'c')
 			player->pos_x -= player->dir_y * player->move_speed;
-		if (data->map.map[(int)(player->pos_y + player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != '1')
+		if (data->map.map[(int)(player->pos_y + player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != '1'
+			&& data->map.map[(int)(player->pos_y + player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != 'c')
 			player->pos_y += player->dir_x * player->move_speed;
 	}
-	(void)data;
 }
 
 void	rotate_player(t_player *play)

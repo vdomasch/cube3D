@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/01 14:58:41 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/02 14:52:36 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef	struct s_raycast
 	int			draw_start;
 	int			draw_end;
 	double		wall_dist;
+	bool		there_is_door;
 }	t_raycast;
 
 int		print_error(char *, int);
@@ -135,6 +136,7 @@ void	rotate_player(t_player *player);
 void 	free_mlx(t_data *);
 void 	draw_minimap(t_data *, int, int);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void	open_close_door(t_data *);
 //void	free_textures(t_textures *);
 //void	free_map(t_map *);
 

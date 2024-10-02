@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:44:56 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/01 15:02:53 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/02 14:18:16 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	change_value(int *x, int *y, int value_x, int value_y)
 
 void	draw_player(t_data *data)
 {
-	int i;
-	int j;
-	int tmp_j;
-	int limit_i;
-	int limit_j;
+	int	i;
+	int	j;
+	int	tmp_j;
+	int	limit_i;
+	int	limit_j;
 
 	i = 22;
 	limit_i = 28;
@@ -98,6 +98,10 @@ void	draw_minimap(t_data *data, int x , int y)
 			{
 				if (data->map.map[y + i][x + j] == '1')
 					draw_square(data, j + 2, i + 2, MAP_COLOR_W);
+				else if (data->map.map[y + i][x + j] == 'c')
+					draw_square(data, j + 2, i + 2, 0x00FFFFFF);
+				else if (data->map.map[y + i][x + j] == 'o')
+					draw_square(data, j + 2, i + 2, 0x00000000);
 				else
 					draw_square(data, j + 2, i + 2, MAP_COLOR_F);
 			}

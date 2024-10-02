@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/01 10:44:42 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/02 15:02:22 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_data	*init_data(void)
 	data->player.walk_dir = 0;
 	data->player.strafe_dir = 0;
 	data->player.turn_dir = 0;
-	data->textures.images = malloc(sizeof(t_image) * 4);
+	data->textures.images = malloc(sizeof(t_image) * 5);
 	if (!data->textures.images)
 	{
 		free(data);
@@ -69,8 +69,8 @@ int	main(int argc, char **argv)
 		return (print_error("Failed to allocate memory.", 1));
 	if (argc != 2)
 		return (print_error("Invalid number of argument.", 1));
-	parsing(data, argv[1]);
-	mlx(data);
+	if (parsing(data, argv[1]))
+		mlx(data);
 	free_all(data);
 	return (0);
 }

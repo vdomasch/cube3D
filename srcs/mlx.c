@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/01 11:35:46 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/02 14:58:16 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,19 @@ bool	load_textures(void *mlx, t_textures *textures)
 			textures->we, &textures->width, &textures->height);
 	textures->images[3].img = mlx_xpm_file_to_image(mlx,
 			textures->ea, &textures->width, &textures->height);
+	textures->images[4].img = mlx_xpm_file_to_image(mlx,
+			"./assets/doorway.xpm", &textures->width, &textures->height);
 	if (!textures->images[0].img || !textures->images[1].img
-		|| !textures->images[2].img || !textures->images[3].img)
-		return (print_error("Failed to load textures.", false));
+		|| !textures->images[2].img || !textures->images[3].img 
+		|| !textures->images[4].img)
+		return (print_error("Failed to load images.\n", false));
 	textures->images[0].addr = mlx_get_data_addr(textures->images[0].img, &textures->images[0].bits_per_pixel, &textures->images[0].line_length, &textures->images[0].endian);
 	textures->images[1].addr = mlx_get_data_addr(textures->images[1].img, &textures->images[1].bits_per_pixel, &textures->images[1].line_length, &textures->images[1].endian);
 	textures->images[2].addr = mlx_get_data_addr(textures->images[2].img, &textures->images[2].bits_per_pixel, &textures->images[2].line_length, &textures->images[2].endian);
 	textures->images[3].addr = mlx_get_data_addr(textures->images[3].img, &textures->images[3].bits_per_pixel, &textures->images[3].line_length, &textures->images[3].endian);
-	if (!textures->images[0].addr || !textures->images[1].addr || !textures->images[2].addr || !textures->images[3].addr)
-		return (print_error("Failed to get textures address.", false));
+	textures->images[4].addr = mlx_get_data_addr(textures->images[4].img, &textures->images[4].bits_per_pixel, &textures->images[4].line_length, &textures->images[4].endian);
+	if (!textures->images[0].addr || !textures->images[1].addr || !textures->images[2].addr || !textures->images[3].addr || !textures->images[4].addr)
+		return (print_error("Failed to get textures address.\n", false));
 	return (true);
 }
 
@@ -82,10 +86,8 @@ int	key_press(int keycode, t_data *data)
 	}
 	else if (keycode == XK_q && data->move_mouse == 1)
 		data->move_mouse = 0;
-	//if (data->player.walk_dir || data->player.strafe_dir)
-	//	move_player(data, &data->player);
-	//if (data->player.turn_dir)
-	//	rotate_player(data, &data->player);
+	else if (keycode == XK_e)
+		open_close_door(data);
 	return (0);
 }
 

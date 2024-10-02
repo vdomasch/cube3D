@@ -6,7 +6,7 @@
 #    By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/10/01 13:12:13 by bhumeau          ###   ########.fr        #
+#    Updated: 2024/10/02 14:15:42 by bhumeau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ FILES						=		main.c														\
 									raycasting.c												\
 									digital_differential_analysis.c								\
 									minimap.c													\
+									door.c														\
 									
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)
