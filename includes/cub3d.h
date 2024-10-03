@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/02 14:52:36 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/02 17:15:59 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 
 # define BASE16 "0123456789ABCDEF"
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 1440
+#define HEIGHT 820
 #define SIZE_MINIMAP 250
 #define MAP_COLOR_P 0x00CC00FF
 #define MAP_COLOR_W 0x0000CCFF
