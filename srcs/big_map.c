@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:20:57 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/03 18:31:31 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:34:48 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	draw_square_map(t_data *data, int x, int y, int color)
 		scale = 400 / data->map.width;
 	else
 		scale = 240 / data->map.height;
-	printf("scale = %d\n", scale);
 	i = 0;
 	while (i < scale)
 	{
@@ -72,10 +71,10 @@ void	draw_map(t_data *data)
 
 	x = 0;
 	y = 0;
-	while (x < data->map.width - 3)
+	while (x < data->map.width)
 	{
 		y = 0;
-		while (y < data->map.height - 4)
+		while (y < data->map.height)
 		{
 			if (data->map.map[y][x] == '1')
 				draw_square_map(data, x, y, MAP_COLOR_W);
@@ -84,7 +83,7 @@ void	draw_map(t_data *data)
 			else if (data->map.map[y][x] == '2')
 				draw_square_map(data, x, y, MAP_COLOR_D);
 			else
-				draw_square_map(data, x, y, MAP_COLOR_EXT);
+				draw_square_map(data, x, y, 0x00EFBD8A);
 			y++;
 		}
 		x++;
