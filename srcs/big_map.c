@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:20:57 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/03 15:44:48 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 18:05:19 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,55 @@ bool	load_textures_big_map(t_data *data)
 	return (true);
 }
 
+void	draw_square_map(t_data *data, int x, int y, int color)
+{
+	int	i;
+	int	j;
+	int scale;
+
+	if (400 / data->map.width < 240 / data->map.height)
+		scale = 400 / data->map.width;
+	else
+		scale = 240 / data->map.height;
+	i = 0;
+	while (i < scale)
+	{
+		j = 0;
+		while (j < scale)
+		{
+			my_mlx_pixel_put(&data->mlx.img, (data->res_x - (data->map.width - 1)* scale) / 2 + x * scale + j, (data->res_y - (data->map.height * 0.68 * scale)) / 1.8 + y * scale + i, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_map(t_data *data)
+{
+	unsigned long x;
+	unsigned long y;
+
+	x = 0;
+	y = 0;
+	while (x < data->map.width - 1)
+	{
+		y = 0;
+		while (y < data->map.height)
+		{
+			if (data->map.map[y][x] == '1')
+				draw_square_map(data, x, y, MAP_COLOR_W);
+			else if (data->map.map[y][x] == '0' || is_player(data->map.map[x][y]))
+				draw_square_map(data, x, y, MAP_COLOR_F);
+			else if (data->map.map[y][x] == '2')
+				draw_square_map(data, x, y, MAP_COLOR_D);
+			else
+				draw_square_map(data, x, y, MAP_COLOR_EXT);
+			y++;
+		}
+		x++;
+	}
+}
+
 void	big_map(t_data *data)
 {
 	int x;
@@ -57,17 +106,19 @@ void	big_map(t_data *data)
 		{
 			color = get_pixel(data->textures.big_map, data->frame_map / 5, x, y);
 			if (color != 0xFF000000)
+			{
 				my_mlx_pixel_put(&data->mlx.img, x + data->res_x / 2 - data->textures.big_map_width / 2, y + data->res_y / 1.8 - data->textures.big_map_height / 2, color);
+			}
 			y++;
 		}
 		x++;
 	}
-	my_mlx_pixel_put(&data->mlx.img, 0, 0, color);
+	if (data->show_map == 1 && data->frame_map == 0)
+		draw_map(data);
 	if (data->show_map == 1 && data->frame_map > 0)
 		data->frame_map--;
 	else if (data->show_map == 2 && data->frame_map < 25)
 		data->frame_map++;
 	if (data->show_map == 2 && data->frame_map == 25)
 		data->show_map = 0;
-	//put_big_map(t_data *data);
 }

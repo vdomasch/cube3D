@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 11:56:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/03 14:40:10 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:52:23 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,4 @@ bool	parsing(t_data *data, char *path)
 		return (false);
 	return (true);
 }
+

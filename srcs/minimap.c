@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:44:56 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/03 15:36:13 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 16:12:38 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,8 @@ void	draw_minimap(t_data *data, int x , int y)
 			{
 				if (data->map.map[y + i][x + j] == '1')
 					draw_square(data, j + 2, i + 2, MAP_COLOR_W);
-				else if (data->map.map[y + i][x + j] == 'c')
-					draw_square(data, j + 2, i + 2, MAP_COLOR_D);
-				else if (data->map.map[y + i][x + j] == 'o')
+				else if (data->map.map[y + i][x + j] == 'c'
+					|| data->map.map[y + i][x + j] == 'o')
 					draw_square(data, j + 2, i + 2, MAP_COLOR_D);
 				else
 					draw_square(data, j + 2, i + 2, MAP_COLOR_F);

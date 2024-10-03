@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/03 15:37:04 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 18:05:50 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_mlx
 	void	*mlx;
 	void	*win;
 	t_image	img;
+	t_image	map;
 }			t_mlx;
 
 typedef struct	s_data
@@ -100,7 +101,7 @@ typedef struct	s_data
 	int 		res_x;
 	int 		res_y;
 	bool		move_mouse;
-	int		show_map;
+	int			show_map;
 	int			frame_map;
 }			t_data;
 

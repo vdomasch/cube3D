@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/03 15:40:09 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 17:30:58 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,25 @@ bool	load_textures(void *mlx, t_textures *textures)
 	return (true);
 }
 
+int	gen_map_image(t_data *data)
+{
+	int	ratio;
+	
+	data->mlx.map.img = mlx_new_image(data->mlx.mlx, 400, 240);
+	if (!data->mlx.map.img)
+		print_error("Failed to create map image.", false);
+	data->mlx.map.addr = mlx_get_data_addr(data->mlx.map.img, &data->mlx.map.bits_per_pixel,
+			&data->mlx.map.line_length, &data->mlx.map.endian);
+	if (!data->mlx.map.addr)
+		print_error("Failed to get map image address.", 1);
+
+	if (400 / data->map.width < 240 / data->map.height)
+		ratio = 400 / data->map.width;
+	else
+		ratio = 240 / data->map.height;
+	return (true);
+}
+
 int	mlx_initialize(t_data *data)
 {
 	data->mlx.mlx = mlx_init();
@@ -57,6 +76,8 @@ int	mlx_initialize(t_data *data)
 		return (print_error("Failed to load textures.", 1));
 	if (!load_textures_big_map(data))
 		return (print_error("Failed to load big map textures.", 1));
+	//if (!gen_map_image(data))
+	//	return (print_error("Failed to generate map image.", 1));
 	return (0);
 }
 
