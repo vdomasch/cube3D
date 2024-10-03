@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/02 14:54:28 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 14:43:16 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	get_pixel(t_textures *texture, int tex_num, int x, int y)
+int	get_pixel(t_image *images, int tex_num, int x, int y)
 {
 	char	*dst;
 
-	dst = texture->images[tex_num].addr + (y * texture->images[tex_num].line_length + x * (texture->images[tex_num].bits_per_pixel / 8));
+	dst = images[tex_num].addr + (y * images[tex_num].line_length + x * (images[tex_num].bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }
 
@@ -93,7 +93,7 @@ void	put_textures(t_data *data, t_raycast *raycast, int x, int y)
 		texture_y = 0;
 	if (texture_y >= data->textures.height)
 		texture_y = data->textures.height - 1;
-	color = get_pixel(&data->textures, texture_side, texture_x, texture_y);
+	color = get_pixel(data->textures.images, texture_side, texture_x, texture_y);
 	my_mlx_pixel_put(&data->mlx.img, x, y, color);
 }
 
@@ -104,7 +104,7 @@ void	draw(t_data *d, t_raycast *raycast, int x)
 	y = 0;
 	while (y < d->res_y)
 	{
-		if (x < SIZE_MINIMAP && y < SIZE_MINIMAP)
+		if (!d->show_map && x < SIZE_MINIMAP && y < SIZE_MINIMAP)
 			;
 		else if (y < raycast->draw_start)
 			my_mlx_pixel_put(&d->mlx.img, x, y, d->textures.ceiling_color);
@@ -131,8 +131,5 @@ int	raycasting(t_data *data)
 		draw(data, &raycast, x);
 		x++;
 	}
-	mlx_put_image_to_window(data->mlx.mlx,
-		data->mlx.win, data->mlx.img.img, 0, 0);
-	draw_minimap(data, data->player.pos_x, data->player.pos_y);
 	return (0);
 }

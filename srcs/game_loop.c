@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/02 13:59:29 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 14:32:20 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,11 @@ int	game_loop(t_data *data)
 				data->res_y / 2);
 	}
 	raycasting(data);
+	if (!data->show_map)
+		draw_minimap(data, (int)data->player.pos_x, (int)data->player.pos_y);
+	else
+		big_map(data);
+	mlx_put_image_to_window(data->mlx.mlx,
+		data->mlx.win, data->mlx.img.img, 0, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/02 15:02:22 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:00:22 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ t_data	*init_data(void)
 		free(data);
 		return (NULL);
 	}
+	data->textures.big_map = malloc(sizeof(t_image) * 6);
+	if (!data->textures.big_map)
+	{
+		free(data->textures.images);
+		free(data);
+		return (NULL);
+	}
 	return (data);
 }
 
@@ -64,11 +71,15 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 
+	if (argc != 2)
+		return (print_error("Invalid number of argument.", 1));
+	if (WIDTH < 640 || HEIGHT < 480)
+		return (print_error("Resolution too low.", 1));
+	if (WIDTH > 1920 || HEIGHT > 1080)
+		return (print_error("Resolution too high.", 1));
 	data = init_data();
 	if (!data)
 		return (print_error("Failed to allocate memory.", 1));
-	if (argc != 2)
-		return (print_error("Invalid number of argument.", 1));
 	if (parsing(data, argv[1]))
 		mlx(data);
 	free_all(data);

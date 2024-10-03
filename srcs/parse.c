@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 11:56:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/24 11:32:04 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:40:10 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ bool	parsing(t_data *data, char *path)
 	int	fd;
 
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".cub", 4))
-		return (print_error("Invalid file extension.", 1));
+		return (print_error("Invalid file extension.", false));
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		return (print_error("Can't open file.", 1));
+		return (print_error("Can't open file.", false));
 	if (!set_elemets(data, fd))
 		return (false);
 	if (!set_map(data, fd))

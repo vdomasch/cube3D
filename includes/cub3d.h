@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/02 17:15:59 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:01:02 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@
 
 # define BASE16 "0123456789ABCDEF"
 
-#define WIDTH 1440
-#define HEIGHT 820
+#define WIDTH 1280
+#define HEIGHT 720
 #define SIZE_MINIMAP 250
 #define MAP_COLOR_P 0x00CC00FF
 #define MAP_COLOR_W 0x0000CCFF
 #define MAP_COLOR_F 0x000055FF
 #define	MAP_COLOR_EXT 0x000000FF
 
-typedef struct s_image
+typedef struct	s_image
 {
 	void	*img;
 	char	*addr;
@@ -49,7 +49,7 @@ typedef struct s_map
 	size_t	height;
 }			t_map;
 
-typedef struct s_textures
+typedef struct	s_textures
 {
 	char	*no;
 	char	*so;
@@ -59,13 +59,16 @@ typedef struct s_textures
 	int 	ceiling_color;
 	int		width;
 	int		height;
+	int		big_map_width;
+	int		big_map_height;
 	t_image *images;
+	t_image *big_map;
 	//t_image south;
 	//t_image west;
 	//t_image east;
 }			t_textures;
 
-typedef struct s_player
+typedef struct	s_player
 {
 	double		pos_x;
 	double		pos_y;
@@ -96,6 +99,8 @@ typedef struct	s_data
 	int 		res_x;
 	int 		res_y;
 	bool		move_mouse;
+	int		show_map;
+	int			frame_map;
 }			t_data;
 
 typedef	struct s_raycast
@@ -136,7 +141,10 @@ void	rotate_player(t_player *player);
 void 	free_mlx(t_data *);
 void 	draw_minimap(t_data *, int, int);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
-void	open_close_door(t_data *);
+void	open_close_door(t_data *data);
+bool	load_textures_big_map(t_data *data);
+void	big_map(t_data *data);
+int		get_pixel(t_image *images, int tex_num, int x, int y);
 //void	free_textures(t_textures *);
 //void	free_map(t_map *);
 

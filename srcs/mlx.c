@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/02 14:58:16 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 14:59:46 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	mlx_initialize(t_data *data)
 		return (print_error("Failed to get image address.", 1));
 	if (!load_textures(data->mlx.mlx, &data->textures))
 		return (print_error("Failed to load textures.", 1));
+	if (!load_textures_big_map(data))
+		return (print_error("Failed to load big map textures.", 1));
 	return (0);
 }
 
@@ -88,6 +90,13 @@ int	key_press(int keycode, t_data *data)
 		data->move_mouse = 0;
 	else if (keycode == XK_e)
 		open_close_door(data);
+	else if (keycode == XK_m && data->show_map == 0)
+	{
+			data->show_map = 1;
+			data->frame_map = 25;
+	}
+	else if (keycode == XK_m && data->show_map == 1)
+			data->show_map = 2;
 	return (0);
 }
 
@@ -115,11 +124,13 @@ int	key_release(int keycode, t_data *data)
 
 void	mlx(t_data *data)
 {
-	mlx_initialize(data);
-	mlx_hook(data->mlx.win, 17, 1L << 3, mlx_loop_end, data->mlx.mlx);
-	mlx_hook(data->mlx.win, 2, 1L << 0, key_press, data);
-	mlx_hook(data->mlx.win, 3, 1L << 1, key_release, data);
-	mlx_loop_hook(data->mlx.mlx, game_loop, data);
-	mlx_loop(data->mlx.mlx);
+	if (!mlx_initialize(data))
+	{
+		mlx_hook(data->mlx.win, 17, 1L << 3, mlx_loop_end, data->mlx.mlx);
+		mlx_hook(data->mlx.win, 2, 1L << 0, key_press, data);
+		mlx_hook(data->mlx.win, 3, 1L << 1, key_release, data);
+		mlx_loop_hook(data->mlx.mlx, game_loop, data);
+		mlx_loop(data->mlx.mlx);
+	}
 	free_mlx(data);
 }
