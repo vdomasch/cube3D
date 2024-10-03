@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:20:57 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/03 15:02:51 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:44:48 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ bool	load_textures_big_map(t_data *data)
 {
 	data->textures.big_map[0].img = mlx_xpm_file_to_image(data->mlx.mlx,
 			"./assets/big_map0.xpm", &data->textures.big_map_width, &data->textures.big_map_height);
-	printf("data->textures.big_map_width = %d\n", data->textures.big_map_width);
 	data->textures.big_map[1].img = mlx_xpm_file_to_image(data->mlx.mlx,
 			"./assets/big_map1.xpm", &data->textures.big_map_width, &data->textures.big_map_height);
 	data->textures.big_map[2].img = mlx_xpm_file_to_image(data->mlx.mlx,
@@ -51,7 +50,6 @@ void	big_map(t_data *data)
 	x = 0;
 	y = 0;
 	color = 0;
-	//printf("data->textures.big_map_width = %d\n", data->textures.big_map_width);
 	while (x < data->textures.big_map_width)
 	{
 		y = 0;
@@ -71,5 +69,5 @@ void	big_map(t_data *data)
 		data->frame_map++;
 	if (data->show_map == 2 && data->frame_map == 25)
 		data->show_map = 0;
-	put_big_map(t_data *data);
+	//put_big_map(t_data *data);
 }

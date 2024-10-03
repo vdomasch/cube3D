@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/03 14:59:46 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:40:09 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	load_textures(void *mlx, t_textures *textures)
 	textures->images[3].img = mlx_xpm_file_to_image(mlx,
 			textures->ea, &textures->width, &textures->height);
 	textures->images[4].img = mlx_xpm_file_to_image(mlx,
-			"./assets/doorway.xpm", &textures->width, &textures->height);
+			"./assets/wooden-door.xpm", &textures->width, &textures->height);
 	if (!textures->images[0].img || !textures->images[1].img
 		|| !textures->images[2].img || !textures->images[3].img 
 		|| !textures->images[4].img)
@@ -64,36 +64,37 @@ int	key_press(int keycode, t_data *data)
 {
 	if (keycode == XK_Escape)
 		mlx_loop_end(data->mlx.mlx);
-	if (keycode == XK_w)
+	if (keycode == XK_w && !data->show_map)
 		data->player.walk_dir = 1;
-	if (keycode == XK_s)
+	if (keycode == XK_s && !data->show_map)
 		data->player.walk_dir = -1;
-	if (keycode == XK_a)
+	if (keycode == XK_a && !data->show_map)
 		data->player.strafe_dir = -1;
-	if (keycode == XK_d)
+	if (keycode == XK_d && !data->show_map)
 		data->player.strafe_dir = 1;
-	if (keycode == XK_Left)
+	if (keycode == XK_Left && !data->show_map)
 		data->player.turn_dir = 1;
-	if (keycode == XK_Right)
+	if (keycode == XK_Right && !data->show_map)
 		data->player.turn_dir = -1;
-	if (keycode == XK_Shift_L)
+	if (keycode == XK_Shift_L && !data->show_map)
 	{
 		data->player.move_speed *= 1.5;
 		data->player.rot_speed *= 1.5;
 	}
-	if (keycode == XK_q && data->move_mouse == 0)
+	if (keycode == XK_q && data->move_mouse == 0 && !data->show_map)
 	{
 		data->move_mouse = 1;
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->res_x / 2, data->res_y / 2);
 	}
-	else if (keycode == XK_q && data->move_mouse == 1)
+	else if (keycode == XK_q && data->move_mouse == 1 && !data->show_map)
 		data->move_mouse = 0;
-	else if (keycode == XK_e)
+	else if (keycode == XK_e && !data->show_map)
 		open_close_door(data);
 	else if (keycode == XK_m && data->show_map == 0)
 	{
-			data->show_map = 1;
-			data->frame_map = 25;
+		data->move_mouse = 0;
+		data->show_map = 1;
+		data->frame_map = 25;
 	}
 	else if (keycode == XK_m && data->show_map == 1)
 			data->show_map = 2;

@@ -1,11 +1,11 @@
-NO ./assets/Tile_10_64x64.xpm
-SO ./assets/Tile_12_64x64.xpm
-WE ./assets/Tile_61_64x64.xpm
-EA ./assets/wall_64x64.xpm
+NO ./assets/brick-wall.xpm
+SO ./assets/dungeon-light.xpm
+WE ./assets/broken-wall.xpm
+EA ./assets/stone-wall.xpm
 
-F 255,255,255
+F 125,78,38
+C 40,40,40
 
-C 100,90,0
 1111111111
 1000001001
 1010000001

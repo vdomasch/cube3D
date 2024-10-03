@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/03 15:01:02 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:37:04 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@
 #define WIDTH 1280
 #define HEIGHT 720
 #define SIZE_MINIMAP 250
-#define MAP_COLOR_P 0x00CC00FF
-#define MAP_COLOR_W 0x0000CCFF
-#define MAP_COLOR_F 0x000055FF
-#define	MAP_COLOR_EXT 0x000000FF
+#define MAP_COLOR_P 0x0
+#define MAP_COLOR_W 0x606060
+#define MAP_COLOR_F 0x00A5A2A2
+#define	MAP_COLOR_EXT 0x0
+#define MAP_COLOR_D 0x007D4E26
 
 typedef struct	s_image
 {
