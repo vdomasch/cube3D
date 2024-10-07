@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 16:22:11 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:53:17 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	mouse_and_map(t_data *data, int keycode)
 	{
 		data->move_mouse = 0;
 		data->show_map = 1;
-		data->frame_map = 25;
+		data->frame = 24;
 	}
 	else if (keycode == XK_m && data->show_map == 1)
 		data->show_map = 2;

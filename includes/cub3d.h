@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 16:21:35 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:00:50 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <math.h>
 
 # define BASE16 "0123456789ABCDEF"
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 1440
+# define HEIGHT 810
 # define SIZE_MINIMAP 252
 # define MAP_COLOR_PLAYER 0x0
 # define MAP_COLOR_WALL 0x606060
@@ -95,7 +95,7 @@ typedef struct s_data
 	t_mlx		mlx;
 	bool		move_mouse;
 	int			show_map;
-	int			frame_map;
+	int			frame;
 }				t_data;
 
 typedef struct s_raycast
@@ -131,7 +131,7 @@ bool	set_map(t_data *data, int fd);
 /*									MLX										*/
 /****************************************************************************/
 
-bool	load_textures_big_map(t_data *data, t_textures *tex);
+bool	load_textures_big_map(t_data *data, t_image *map);
 int		mlx_initialize(t_data *data);
 int		game_loop(t_data *data);
 void	mlx(t_data *data);
