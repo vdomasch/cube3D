@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:06:37 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/02 14:49:01 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:27:56 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	calculate_step_and_side_dist(t_data *data, t_raycast *raycast)
 void	open_close_door(t_data *data)
 {
 	static t_raycast	raycast;
-	
+
 	calculate_dir_ray(data, &raycast);
 	calculate_delta_dist(data, &raycast);
 	calculate_step_and_side_dist(data, &raycast);

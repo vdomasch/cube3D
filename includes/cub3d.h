@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/03 18:05:50 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/07 13:36:12 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,27 +126,29 @@ typedef	struct s_raycast
 	bool		there_is_door;
 }	t_raycast;
 
-int		print_error(char *, int);
-bool	check_map(char **, size_t, size_t, int);
-bool	is_player(char);
-bool	parsing(t_data *, char *);
-bool	set_elemets(t_data *, int);
-bool	set_entities(t_data *);
-bool	set_map(t_data *, int);
-void	mlx(t_data *);
-void	free_all(t_data *);
+int		print_error(char *error, int ret);
+bool	check_map(char **map, size_t width, size_t height, int player_count);
+bool	is_player(char c);
+bool	parsing(t_data *data, char *path);
+bool	set_elemets(t_data *data, int fd);
+bool	set_entities(t_data *data);
+bool	set_map(t_data *data, int fd);
+void	mlx(t_data *data);
+void	free_all(t_data *data);
 int		raycasting(t_data *data);
 void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
 int		game_loop(t_data *data);
 void	move_player(t_data * data, t_player *player);
 void	rotate_player(t_player *player);
-void 	free_mlx(t_data *);
-void 	draw_minimap(t_data *, int, int);
+void 	free_mlx(t_data *data);
+void 	draw_minimap(t_data *data, int x, int y);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void	open_close_door(t_data *data);
-bool	load_textures_big_map(t_data *data);
-void	big_map(t_data *data);
+bool	load_textures_big_map(t_data *data, t_textures *tex);
+void	big_map(t_data *data, t_textures *tex);
 int		get_pixel(t_image *images, int tex_num, int x, int y);
+void	draw(t_data *d, t_raycast *raycast, int x);
+int 	mlx_initialize(t_data *data);
 //void	free_textures(t_textures *);
 //void	free_map(t_map *);
 

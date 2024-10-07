@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:44:56 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/03 16:12:38 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:30:09 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	draw_player(t_data *data)
 	draw_player_square(data, MAP_COLOR_P);
 }
 
-void	draw_minimap(t_data *data, int x , int y)
+void	draw_minimap(t_data *data, int x, int y)
 {
 	int		i;
 	int		j;
@@ -94,7 +94,8 @@ void	draw_minimap(t_data *data, int x , int y)
 		j = -3;
 		while (++j < 3)
 		{
-			if (x + j >= 0 && y + i >= 0 && x + j <= (int)data->map.width - 2 && y + i < (int)data->map.height)
+			if (x + j >= 0 && x + j <= (int)data->map.width - 2
+				&& y + i >= 0 && y + i < (int)data->map.height)
 			{
 				if (data->map.map[y + i][x + j] == '1')
 					draw_square(data, j + 2, i + 2, MAP_COLOR_W);

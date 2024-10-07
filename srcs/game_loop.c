@@ -3,78 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/03 16:35:55 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/07 13:45:57 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-
-void	move_player(t_data *data, t_player *player)
+int	check_collision(t_data *d, double new_y, double new_x)
 {
-	if (player->walk_dir == 1)
-	{
-		if (data->map.map[(int)(player->pos_y + player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != '1'
-			&& data->map.map[(int)(player->pos_y + player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != 'c')
-			player->pos_y += player->dir_y * player->move_speed;
-		if (data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_x * (player->move_speed + 0.28))] != '1'
-			&& data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_x * (player->move_speed + 0.28))] != 'c')
-			player->pos_x += player->dir_x * player->move_speed;
-	}
-	if (player->walk_dir == -1)
-	{
-		if (data->map.map[(int)(player->pos_y - player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != '1'
-			&& data->map.map[(int)(player->pos_y - player->dir_y * (player->move_speed + 0.28))][(int)player->pos_x] != 'c')
-			player->pos_y -= player->dir_y * player->move_speed;
-		if (data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_x * (player->move_speed + 0.28))] != '1'
-			&& data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_x * (player->move_speed + 0.28))] != 'c')
-			player->pos_x -= player->dir_x * player->move_speed;
-	}
-	if (player->strafe_dir == -1)
-	{
-		if (data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_y * (player->move_speed + 0.28))] != '1'
-			&& data->map.map[(int)player->pos_y][(int)(player->pos_x + player->dir_y * (player->move_speed + 0.28))] != 'c')
-			player->pos_x += player->dir_y * player->move_speed;
-		if (data->map.map[(int)(player->pos_y - player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != '1'
-			&& data->map.map[(int)(player->pos_y - player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != 'c')
-			player->pos_y -= player->dir_x * player->move_speed;
-	}
-	if (player->strafe_dir == 1)
-	{
-		if (data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_y * (player->move_speed + 0.28))] != '1'
-			&& data->map.map[(int)player->pos_y][(int)(player->pos_x - player->dir_y * (player->move_speed + 0.28))] != 'c')
-			player->pos_x -= player->dir_y * player->move_speed;
-		if (data->map.map[(int)(player->pos_y + player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != '1'
-			&& data->map.map[(int)(player->pos_y + player->dir_x * (player->move_speed + 0.28))][(int)player->pos_x] != 'c')
-			player->pos_y += player->dir_x * player->move_speed;
-	}
+	char	tile;
+
+	tile = d->map.map[(int)new_y][(int)new_x];
+	return (tile != '1' && tile != 'c');
 }
 
-void	rotate_player(t_player *play)
+void	move_player(t_data *d, t_player *p)
 {
-	double old_dir_x;
-	double old_plane_x;
-	double rot_v;
+	if (p->walk_dir == 1 && check_collision(d,
+			p->pos_y + p->dir_y * (p->move_speed + 0.28), p->pos_x))
+		p->pos_y += p->dir_y * p->move_speed;
+	if (p->walk_dir == 1 && check_collision(d,
+			p->pos_y, p->pos_x + p->dir_x * (p->move_speed + 0.28)))
+		p->pos_x += p->dir_x * p->move_speed;
+	if (p->walk_dir == -1 && check_collision(d,
+			p->pos_y - p->dir_y * (p->move_speed + 0.28), p->pos_x))
+		p->pos_y -= p->dir_y * p->move_speed;
+	if (p->walk_dir == -1 && check_collision(d,
+			p->pos_y, p->pos_x - p->dir_x * (p->move_speed + 0.28)))
+		p->pos_x -= p->dir_x * p->move_speed;
+	if (p->strafe_dir == -1 && check_collision(d,
+			p->pos_y, p->pos_x + p->dir_y * (p->move_speed + 0.28)))
+		p->pos_x += p->dir_y * p->move_speed;
+	if (p->strafe_dir == -1 && check_collision(d,
+			p->pos_y - p->dir_x * (p->move_speed + 0.28), p->pos_x))
+		p->pos_y -= p->dir_x * p->move_speed;
+	if (p->strafe_dir == 1 && check_collision(d,
+			p->pos_y, p->pos_x - p->dir_y * (p->move_speed + 0.28)))
+		p->pos_x -= p->dir_y * p->move_speed;
+	if (p->strafe_dir == 1 && check_collision(d,
+			p->pos_y + p->dir_x * (p->move_speed + 0.28), p->pos_x))
+		p->pos_y += p->dir_x * p->move_speed;
+}
 
-	rot_v = play->rot_speed;
-	old_dir_x = play->dir_x;
-	old_plane_x = play->plane_x;
-	if (play->turn_dir == 1)
+void	rotate_player(t_player *p)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+	double	rot_v;
+
+	rot_v = p->rot_speed;
+	old_dir_x = p->dir_x;
+	old_plane_x = p->plane_x;
+	if (p->turn_dir == 1)
 	{
-		play->dir_x = play->dir_x * cos(-rot_v) - play->dir_y * sin(-rot_v);
-		play->dir_y = old_dir_x * sin(-rot_v) + play->dir_y * cos(-rot_v);
-		play->plane_x = play->plane_x * cos(-rot_v) - play->plane_y * sin(-rot_v);
-		play->plane_y = old_plane_x * sin(-rot_v) + play->plane_y * cos(-rot_v);
+		p->dir_x = p->dir_x * cos(-rot_v) - p->dir_y * sin(-rot_v);
+		p->dir_y = old_dir_x * sin(-rot_v) + p->dir_y * cos(-rot_v);
+		p->plane_x = p->plane_x * cos(-rot_v) - p->plane_y * sin(-rot_v);
+		p->plane_y = old_plane_x * sin(-rot_v) + p->plane_y * cos(-rot_v);
 	}
-	if (play->turn_dir == -1)
+	if (p->turn_dir == -1)
 	{
-		play->dir_x = play->dir_x * cos(rot_v) - play->dir_y * sin(rot_v);
-		play->dir_y = old_dir_x * sin(rot_v) + play->dir_y * cos(rot_v);
-		play->plane_x = play->plane_x * cos(rot_v) - play->plane_y * sin(rot_v);
-		play->plane_y = old_plane_x * sin(rot_v) + play->plane_y * cos(rot_v);
+		p->dir_x = p->dir_x * cos(rot_v) - p->dir_y * sin(rot_v);
+		p->dir_y = old_dir_x * sin(rot_v) + p->dir_y * cos(rot_v);
+		p->plane_x = p->plane_x * cos(rot_v) - p->plane_y * sin(rot_v);
+		p->plane_y = old_plane_x * sin(rot_v) + p->plane_y * cos(rot_v);
 	}
 }
 
@@ -93,32 +88,31 @@ void	rotate_player_mouse(t_player *play, double x)
 	play->plane_y = old_plane_x * sin(rot_v) + play->plane_y * cos(rot_v);
 }
 
-int	game_loop(t_data *data)
+int	game_loop(t_data *d)
 {
 	int	x;
 	int	y;
 
 	x = 0;
 	y = 0;
-	if (data->player.walk_dir || data->player.strafe_dir)
-		move_player(data, &data->player);
-	if (data->player.turn_dir)
-		rotate_player(&data->player);
-	if (data->move_mouse)
+	if (d->player.walk_dir || d->player.strafe_dir)
+		move_player(d, &d->player);
+	if (d->player.turn_dir)
+		rotate_player(&d->player);
+	if (d->move_mouse)
 	{
-		mlx_mouse_get_pos(data->mlx.mlx, data->mlx.win, &x, &y);
-		rotate_player_mouse(&data->player, (x - data->res_x / 2));
-		if (x > data->res_x / 2 + 1 || x < data->res_x / 2 - 1
-			|| y > data->res_y / 2 + 1 || y < data->res_y / 2 - 1)
-			mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->res_x / 2,
-				data->res_y / 2);
+		mlx_mouse_get_pos(d->mlx.mlx, d->mlx.win, &x, &y);
+		rotate_player_mouse(&d->player, (x - d->res_x / 2));
+		if (x > d->res_x / 2 + 1 || x < d->res_x / 2 - 1
+			|| y > d->res_y / 2 + 1 || y < d->res_y / 2 - 1)
+			mlx_mouse_move(d->mlx.mlx, d->mlx.win, d->res_x / 2,
+				d->res_y / 2);
 	}
-	raycasting(data);
-	if (!data->show_map)
-		draw_minimap(data, (int)data->player.pos_x, (int)data->player.pos_y);
+	raycasting(d);
+	if (!d->show_map)
+		draw_minimap(d, (int)d->player.pos_x, (int)d->player.pos_y);
 	else
-		big_map(data);
-	mlx_put_image_to_window(data->mlx.mlx,
-		data->mlx.win, data->mlx.img.img, 0, 0);
+		big_map(d, &d->textures);
+	mlx_put_image_to_window(d->mlx.mlx, d->mlx.win, d->mlx.img.img, 0, 0);
 	return (0);
 }

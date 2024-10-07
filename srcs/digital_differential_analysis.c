@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   digital_differential_analysis.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:34:54 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/03 16:34:13 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:30:30 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x)
 			raycast->map_y += raycast->step_y;
 			raycast->side = 1;
 		}
-		if (data->map.map[raycast->map_y][raycast->map_x] == '1' || data->map.map[raycast->map_y][raycast->map_x] == 'c')
+		if (data->map.map[raycast->map_y][raycast->map_x] == '1'
+			|| data->map.map[raycast->map_y][raycast->map_x] == 'c')
 		{
 			if (data->map.map[raycast->map_y][raycast->map_x] == 'c')
 				raycast->there_is_door = true;
