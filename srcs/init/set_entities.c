@@ -6,13 +6,13 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:28:25 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/09/25 11:20:18 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:16:50 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-void	set_player(t_data *data, size_t i, size_t j)
+static void	set_player(t_data *data, size_t i, size_t j)
 {
 	if (data->map.map[i][j] == 'N')
 	{

@@ -6,13 +6,13 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:14:18 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/09/24 11:39:36 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:15:27 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-bool	is_empty_line(char *line)
+static bool	is_empty_line(char *line)
 {
 	int	i;
 
@@ -26,13 +26,13 @@ bool	is_empty_line(char *line)
 	return (true);
 }
 
-void	is_line_longer(char *line, t_data *data)
+static void	is_line_longer(char *line, t_data *data)
 {
 	if (ft_strlen(line) > data->map.width)
 		data->map.width = ft_strlen(line);
 }
 
-char	*skip_empty_line(int fd)
+static char	*skip_empty_line(int fd)
 {
 	char	*line;
 	int		i;
@@ -51,7 +51,7 @@ char	*skip_empty_line(int fd)
 	return (line);
 }
 
-bool	init_map_line(char **line, char **map_line, int fd)
+static bool	init_map_line(char **line, char **map_line, int fd)
 {
 	*line = skip_empty_line(fd);
 	*map_line = ft_strdup("");

@@ -6,13 +6,13 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 12:33:45 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:18:51 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-void	perp_wall_dist(t_raycast *raycast, t_data *data)
+static void	perp_wall_dist(t_raycast *raycast, t_data *data)
 {
 	if (raycast->side == 0)
 		raycast->perp_wall_dist = (raycast->map_x - data->player.pos_x
@@ -23,7 +23,7 @@ void	perp_wall_dist(t_raycast *raycast, t_data *data)
 	raycast->perp_wall_dist = fabs(raycast->perp_wall_dist);
 }
 
-void	wall_height(t_data *data, t_raycast *raycast)
+static void	wall_height(t_data *data, t_raycast *raycast)
 {
 	raycast->line_height = (int)(data->res_y / raycast->perp_wall_dist);
 	raycast->draw_start = -raycast->line_height / 2 + data->res_y / 2;

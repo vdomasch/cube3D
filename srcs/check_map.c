@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:51:06 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 12:27:22 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:16:26 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ bool	is_player(char c)
 	return (c == 'N' || c == 'S' || c == 'W' || c == 'E');
 }
 
-bool	is_door(char c)
+static bool	is_door(char c)
 {
 	return (c == 'c' || c == 'o');
 }
 
-bool	is_neighbors_valid(char **map, size_t i, size_t j)
+static bool	is_neighbors_valid(char **map, size_t i, size_t j)
 {
 	return ((map[i - 1][j] == '0' || map[i - 1][j] == '1'
 			|| is_door(map[i - 1][j]) || is_player(map[i - 1][j]))

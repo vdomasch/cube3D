@@ -6,13 +6,13 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 13:45:57 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:11:35 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-int	check_collision(t_data *d, double new_y, double new_x)
+static int	check_collision(t_data *d, double new_y, double new_x)
 {
 	char	tile;
 
@@ -20,7 +20,7 @@ int	check_collision(t_data *d, double new_y, double new_x)
 	return (tile != '1' && tile != 'c');
 }
 
-void	move_player(t_data *d, t_player *p)
+static void	move_player(t_data *d, t_player *p)
 {
 	if (p->walk_dir == 1 && check_collision(d,
 			p->pos_y + p->dir_y * (p->move_speed + 0.28), p->pos_x))
@@ -48,7 +48,7 @@ void	move_player(t_data *d, t_player *p)
 		p->pos_y += p->dir_x * p->move_speed;
 }
 
-void	rotate_player(t_player *p)
+static void	rotate_player(t_player *p)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -73,7 +73,7 @@ void	rotate_player(t_player *p)
 	}
 }
 
-void	rotate_player_mouse(t_player *play, double x)
+static void	rotate_player_mouse(t_player *play, double x)
 {
 	double	rot_v;
 	double	old_dir_x;

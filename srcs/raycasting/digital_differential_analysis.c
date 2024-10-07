@@ -6,34 +6,11 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:34:54 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 12:30:30 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:19:05 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
-
-void	print_map(t_data *data, t_raycast *raycast)
-{
-	size_t		x;
-	size_t		y;
-
-	x = 0;
-	while (x < data->map.height)
-	{
-		y = 0;
-		while (y < data->map.width)
-		{
-			if (x == raycast->map_x && y == raycast->map_y)
-				printf("X");
-			else
-				printf("%c", data->map.map[x][y]);
-			y++;
-		}
-		printf("\n");
-		x++;
-	}
-	printf("\n\n");
-}
 
 static void	calculate_dir_ray(t_data *data, t_raycast *raycast, int x)
 {

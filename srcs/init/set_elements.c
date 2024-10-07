@@ -6,13 +6,13 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:12:18 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/09/26 13:40:15 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:14:39 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-int	set_color(t_textures *textures, char *line, char orientation)
+static int	set_color(t_textures *textures, char *line, char orientation)
 {
 	int	color;
 	int	coef;
@@ -41,7 +41,7 @@ int	set_color(t_textures *textures, char *line, char orientation)
 	return (orientation);
 }
 
-int	set_texture(t_textures *textures, char *path, char orientation)
+static int	set_texture(t_textures *textures, char *path, char orientation)
 {
 	int		i;
 	char	*copy;

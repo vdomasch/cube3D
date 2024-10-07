@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/07 13:53:09 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:22:25 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	print_error(char *error, int ret)
 	return (ret);
 }
 
-bool	init_textures(t_data *data)
+static bool	init_textures(t_data *data)
 {
 	data->textures.no = NULL;
 	data->textures.so = NULL;
@@ -45,7 +45,7 @@ bool	init_textures(t_data *data)
 	return (true);
 }
 
-t_data	*init_data(void)
+static t_data	*init_data(void)
 {
 	t_data	*data;
 
@@ -71,6 +71,27 @@ t_data	*init_data(void)
 	data->player.move_speed = 0.1;
 	data->player.rot_speed = 0.05;
 	return (data);
+}
+
+static bool	parsing(t_data *data, char *path)
+{
+	int	fd;
+
+	if (ft_strncmp(path + ft_strlen(path) - 4, ".cub", 4))
+		return (print_error("Invalid file extension.", false));
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (print_error("Can't open file.", false));
+	if (!set_elemets(data, fd))
+		return (false);
+	if (!set_map(data, fd))
+		return (false);
+	close(fd);
+	if (!check_map(data->map.map, data->map.width, data->map.height, 0))
+		return (false);
+	if (!set_entities(data))
+		return (false);
+	return (true);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:20:57 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/07 13:36:36 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:21:16 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool	load_textures_big_map(t_data *data, t_textures *tex)
 	return (true);
 }
 
-void	draw_square_map(t_data *data, int x, int y, int color)
+static void	draw_square_map(t_data *data, int x, int y, int color)
 {
 	int	i;
 	int	j;
@@ -94,7 +94,7 @@ void	draw_square_map(t_data *data, int x, int y, int color)
 	}
 }
 
-void	draw_map(t_data *data)
+static void	draw_map(t_data *data)
 {
 	unsigned long	x;
 	unsigned long	y;

@@ -6,13 +6,13 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:44:56 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/07 12:30:09 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:19:30 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
 
-void	draw_square(t_data *data, int x, int y, int color)
+static void	draw_square(t_data *data, int x, int y, int color)
 {
 	int	i;
 	int	j;
@@ -30,7 +30,7 @@ void	draw_square(t_data *data, int x, int y, int color)
 	}
 }
 
-void	draw_player_square(t_data *data, int color)
+static void	draw_player_square(t_data *data, int color)
 {
 	int	i;
 	int	j;
@@ -48,13 +48,13 @@ void	draw_player_square(t_data *data, int color)
 	}
 }
 
-void	change_value(int *x, int *y, int value_x, int value_y)
+static void	change_value(int *x, int *y, int value_x, int value_y)
 {
 	*x = value_x;
 	*y = value_y;
 }
 
-void	draw_player(t_data *data)
+static void	draw_player(t_data *data)
 {
 	int	i;
 	int	j;
