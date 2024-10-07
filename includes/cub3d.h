@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 15:05:12 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:15:02 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define SIZE_MINIMAP 252
-# define MAP_COLOR_P 0x0
-# define MAP_COLOR_W 0x606060
-# define MAP_COLOR_F 0x00A5A2A2
-# define MAP_COLOR_EXT 0x0
-# define MAP_COLOR_D 0x007D4E26
+# define MAP_COLOR_PLAYER 0x0
+# define MAP_COLOR_WALL 0x606060
+# define MAP_COLOR_FLOOR 0x00A5A2A2
+# define MAP_COLOR_EXTERIOR 0x0
+# define MAP_COLOR_DOOR 0x007D4E26
+# define MAP_COLOR_SCROLL 0x00EFBD8A
 
 typedef struct s_image
 {
