@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 14:11:35 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:51:47 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	game_loop(t_data *d)
 	}
 	raycasting(d);
 	if (!d->show_map)
-		draw_minimap(d, (int)d->player.pos_x, (int)d->player.pos_y);
+		draw_minimap(d, &d->map, (int)d->player.pos_x, (int)d->player.pos_y);
 	else
 		big_map(d, &d->textures);
 	mlx_put_image_to_window(d->mlx.mlx, d->mlx.win, d->mlx.img.img, 0, 0);

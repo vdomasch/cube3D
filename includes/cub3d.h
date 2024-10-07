@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 14:22:17 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:02:41 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define BASE16 "0123456789ABCDEF"
 # define WIDTH 1280
 # define HEIGHT 720
-# define SIZE_MINIMAP 250
+# define SIZE_MINIMAP 252
 # define MAP_COLOR_P 0x0
 # define MAP_COLOR_W 0x606060
 # define MAP_COLOR_F 0x00A5A2A2
@@ -122,25 +122,49 @@ typedef struct s_raycast
 	bool		there_is_door;
 }	t_raycast;
 
-int		print_error(char *error, int ret);
-bool	check_map(char **map, size_t width, size_t height, int player_count);
-bool	is_player(char c);
+/****************************************************************************/
+/*									INIT									*/
+/****************************************************************************/
+
 bool	set_elemets(t_data *data, int fd);
 bool	set_entities(t_data *data);
 bool	set_map(t_data *data, int fd);
+
+/****************************************************************************/
+/*									MLX										*/
+/****************************************************************************/
+
+bool	load_textures_big_map(t_data *data, t_textures *tex);
 void	mlx(t_data *data);
-void	free_all(t_data *data);
+void	free_mlx(t_data *data);
+int		mlx_initialize(t_data *data);
+int		game_loop(t_data *data);
+void	open_close_door(t_data *data);
+
+/****************************************************************************/
+/*								RAYCASTING									*/
+/****************************************************************************/
+
 int		raycasting(t_data *data);
 void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
-int		game_loop(t_data *data);
-void	free_mlx(t_data *data);
-void	draw_minimap(t_data *data, int x, int y);
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
-void	open_close_door(t_data *data);
-bool	load_textures_big_map(t_data *data, t_textures *tex);
-void	big_map(t_data *data, t_textures *tex);
-int		get_pixel(t_image *images, int tex_num, int x, int y);
+
+/****************************************************************************/
+/*									DRAW									*/
+/****************************************************************************/
+
 void	draw(t_data *d, t_raycast *raycast, int x);
-int		mlx_initialize(t_data *data);
+int		get_pixel(t_image *images, int tex_num, int x, int y);
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void	draw_minimap(t_data *data, t_map *map, int x, int y);
+void	big_map(t_data *data, t_textures *tex);
+
+/****************************************************************************/
+/*									UTILS									*/
+/****************************************************************************/
+
+bool	check_map(char **map, size_t width, size_t height, int player_count);
+bool	is_player(char c);
+int		print_error(char *error, int ret);
+void	free_all(t_data *data);
 
 #endif

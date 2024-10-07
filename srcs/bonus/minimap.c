@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:44:56 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/07 14:19:30 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:50:58 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static void	draw_square(t_data *data, int x, int y, int color)
 	int	j;
 
 	i = 0;
-	while (i < 50)
+	while (i < 36)
 	{
 		j = 0;
-		while (j < 50)
+		while (j < 36)
 		{
-			my_mlx_pixel_put(&data->mlx.img, x * 50 + j, y * 50 + i, color);
+			my_mlx_pixel_put(&data->mlx.img, x * 36 + j, y * 36 + i, color);
 			j++;
 		}
 		i++;
@@ -83,30 +83,30 @@ static void	draw_player(t_data *data)
 	draw_player_square(data, MAP_COLOR_P);
 }
 
-void	draw_minimap(t_data *data, int x, int y)
+void	draw_minimap(t_data *data, t_map *map, int x, int y)
 {
 	int		i;
 	int		j;
 
-	i = -3;
-	while (++i < 3)
+	i = -4;
+	while (++i < 4)
 	{
-		j = -3;
-		while (++j < 3)
+		j = -4;
+		while (++j < 4)
 		{
-			if (x + j >= 0 && x + j <= (int)data->map.width - 2
-				&& y + i >= 0 && y + i < (int)data->map.height)
+			if (x + j >= 0 && x + j <= (int)map->width - 2 && y + i >= 0
+				&& y + i < (int)map->height && map->map[y + i][x + j] != ' ')
 			{
-				if (data->map.map[y + i][x + j] == '1')
-					draw_square(data, j + 2, i + 2, MAP_COLOR_W);
-				else if (data->map.map[y + i][x + j] == 'c'
-					|| data->map.map[y + i][x + j] == 'o')
-					draw_square(data, j + 2, i + 2, MAP_COLOR_D);
+				if (map->map[y + i][x + j] == '1')
+					draw_square(data, j + 3, i + 3, MAP_COLOR_W);
+				else if (map->map[y + i][x + j] == 'c'
+					|| map->map[y + i][x + j] == 'o')
+					draw_square(data, j + 3, i + 3, MAP_COLOR_D);
 				else
-					draw_square(data, j + 2, i + 2, MAP_COLOR_F);
+					draw_square(data, j + 3, i + 3, MAP_COLOR_F);
 			}
 			else
-				draw_square(data, j + 2, i + 2, MAP_COLOR_EXT);
+				draw_square(data, j + 3, i + 3, MAP_COLOR_EXT);
 		}
 	}
 	draw_player(data);
