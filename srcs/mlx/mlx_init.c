@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:30:56 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 13:37:44 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:22:29 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ static bool	load_textures_addr(t_textures *texture)
 static bool	load_textures(void *mlx, t_textures *textures)
 {
 	textures->images[0].img = mlx_xpm_file_to_image(mlx,
-			textures->no, &textures->width, &textures->height);
+			textures->no, &textures->images[0].width, &textures->images[0].height);
 	textures->images[1].img = mlx_xpm_file_to_image(mlx,
-			textures->so, &textures->width, &textures->height);
+			textures->so, &textures->images[1].width, &textures->images[1].height);
 	textures->images[2].img = mlx_xpm_file_to_image(mlx,
-			textures->we, &textures->width, &textures->height);
+			textures->we, &textures->images[2].width, &textures->images[2].height);
 	textures->images[3].img = mlx_xpm_file_to_image(mlx,
-			textures->ea, &textures->width, &textures->height);
+			textures->ea, &textures->images[3].width, &textures->images[3].height);
 	textures->images[4].img = mlx_xpm_file_to_image(mlx,
-			"./assets/wooden-door.xpm", &textures->width, &textures->height);
+			"./assets/wooden-door.xpm", &textures->images[4].width, &textures->images[4].height);
 	if (!textures->images[0].img || !textures->images[1].img
 		|| !textures->images[2].img || !textures->images[3].img \
 		|| !textures->images[4].img)
@@ -62,8 +62,8 @@ int	mlx_initialize(t_data *data)
 	data->mlx.mlx = mlx_init();
 	if (!data->mlx.mlx)
 		return (print_error("Failed to initialize mlx.", 1));
-	data->mlx.win = mlx_new_window(data->mlx.mlx, data->res_x,
-			data->res_y, "Cub3D");
+	data->mlx.win = mlx_new_window(data->mlx.mlx, WIDTH,
+			HEIGHT, "Cub3D");
 	if (!data->mlx.win)
 		return (print_error("Failed to create window.", 1));
 	data->mlx.img.img = mlx_new_image(data->mlx.mlx, WIDTH, HEIGHT);

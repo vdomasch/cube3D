@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 15:15:02 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:21:35 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_image
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }			t_image;
 
 typedef struct s_map
@@ -58,10 +60,6 @@ typedef struct s_textures
 	char	*ea;
 	int		floor_color;
 	int		ceiling_color;
-	int		width;
-	int		height;
-	int		big_map_width;
-	int		big_map_height;
 	t_image	*images;
 	t_image	*big_map;
 }			t_textures;
@@ -95,8 +93,6 @@ typedef struct s_data
 	t_textures	textures;
 	t_player	player;
 	t_mlx		mlx;
-	int			res_x;
-	int			res_y;
 	bool		move_mouse;
 	int			show_map;
 	int			frame_map;

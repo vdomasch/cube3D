@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:20:57 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/07 15:14:48 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:25:51 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,23 @@ static bool	load_addr_textures_big_map(t_textures *tex)
 bool	load_textures_big_map(t_data *data, t_textures *tex)
 {
 	tex->big_map[0].img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"./assets/big_map0.xpm", &tex->big_map_width,
-			&data->textures.big_map_height);
+			"./assets/big_map0.xpm", &tex->big_map[0].width,
+			&data->textures.big_map[0].height);
 	tex->big_map[1].img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"./assets/big_map1.xpm", &tex->big_map_width,
-			&data->textures.big_map_height);
+			"./assets/big_map1.xpm", &tex->big_map[1].width,
+			&data->textures.big_map[1].height);
 	tex->big_map[2].img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"./assets/big_map2.xpm", &tex->big_map_width,
-			&data->textures.big_map_height);
+			"./assets/big_map2.xpm", &tex->big_map[2].width,
+			&data->textures.big_map[2].height);
 	tex->big_map[3].img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"./assets/big_map3.xpm", &tex->big_map_width,
-			&data->textures.big_map_height);
+			"./assets/big_map3.xpm", &tex->big_map[3].width,
+			&data->textures.big_map[3].height);
 	tex->big_map[4].img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"./assets/big_map4.xpm", &tex->big_map_width,
-			&tex->big_map_height);
+			"./assets/big_map4.xpm", &tex->big_map[4].width,
+			&tex->big_map[4].height);
 	tex->big_map[5].img = mlx_xpm_file_to_image(data->mlx.mlx,
-			"./assets/big_map5.xpm", &tex->big_map_width,
-			&tex->big_map_height);
+			"./assets/big_map5.xpm", &tex->big_map[4].width,
+			&tex->big_map[5].height);
 	if (!tex->big_map[0].img || !tex->big_map[1].img
 		|| !tex->big_map[2].img || !tex->big_map[3].img
 		|| !tex->big_map[4].img || !tex->big_map[5].img)
@@ -84,9 +84,9 @@ static void	draw_square_map(t_data *data, int x, int y, int color)
 		j = 0;
 		while (j < scale)
 		{
-			my_mlx_pixel_put(&data->mlx.img, (data->res_x
+			my_mlx_pixel_put(&data->mlx.img, (WIDTH
 					- (data->map.width - 1) * scale) / 2 + x * scale + j,
-				(data->res_y - (data->map.height * 0.68 * scale))
+				(HEIGHT - (data->map.height * 0.68 * scale))
 				/ 1.8 + y * scale + i, color);
 			j++;
 		}
@@ -128,16 +128,16 @@ void	big_map(t_data *data, t_textures *tex)
 	int				y;
 
 	x = -1;
-	while (++x < tex->big_map_width)
+	while (++x < tex->big_map[data->frame_map / 5].width)
 	{
 		y = -1;
-		while (++y < tex->big_map_height)
+		while (++y < tex->big_map[data->frame_map / 5].height)
 		{
 			color = get_pixel(tex->big_map, data->frame_map / 5, x, y);
 			if (color != 0xFF000000)
-				my_mlx_pixel_put(&data->mlx.img, x + data->res_x / 2
-					- tex->big_map_width / 2, y + data->res_y / 1.8
-					- tex->big_map_height / 2, color);
+				my_mlx_pixel_put(&data->mlx.img, x + WIDTH / 2
+					- tex->big_map[data->frame_map / 5].width / 2, y + HEIGHT / 1.8
+					- tex->big_map[data->frame_map / 5].height / 2, color);
 		}
 	}
 	if (data->show_map == 1 && data->frame_map == 0)

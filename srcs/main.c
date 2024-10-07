@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/07 14:22:25 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:21:44 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static bool	init_textures(t_data *data)
 	data->textures.ea = NULL;
 	data->textures.floor_color = -1;
 	data->textures.ceiling_color = -1;
-	data->textures.width = 0;
-	data->textures.height = 0;
 	data->textures.images = malloc(sizeof(t_image) * 5);
 	if (!data->textures.images)
 	{
@@ -52,8 +50,6 @@ static t_data	*init_data(void)
 	data = malloc(sizeof(t_data));
 	if (!data || !init_textures(data))
 		return (NULL);
-	data->res_x = WIDTH;
-	data->res_y = HEIGHT;
 	data->move_mouse = 0;
 	data->show_map = 0;
 	data->map.map = NULL;

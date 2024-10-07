@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:33:26 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 14:19:53 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:25:11 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	find_side(t_raycast *raycast)
 	}
 }
 
-void	put_textures(t_data *data, t_raycast *ray, int x, int y)
+static void	put_textures(t_data *data, t_raycast *ray, int x, int y)
 {
 	int		color;
 	int		scaling;
@@ -62,16 +62,17 @@ void	put_textures(t_data *data, t_raycast *ray, int x, int y)
 	else
 		wall_x = (data->player.pos_x + ray->perp_wall_dist * ray->ray_dir_x);
 	wall_x -= floor(wall_x);
-	tex_x = (int)(wall_x * (double)data->textures.width);
+	tex_x = (int)(wall_x * (double)data->textures.images[find_side(ray)].width);
 	if ((ray->side == 0 && ray->ray_dir_x < 0)
 		|| (ray->side == 1 && ray->ray_dir_y > 0))
-		tex_x = data->textures.width - tex_x - 1;
+		tex_x = data->textures.images[find_side(ray)].width - tex_x - 1;
 	scaling = (y * 256) - HEIGHT * 128 + ray->line_height * 128;
-	tex_y = ((scaling * data->textures.height) / ray->line_height) / 256;
+	tex_y = ((scaling * data->textures.images[find_side(ray)].height)
+			/ ray->line_height) / 256;
 	if (tex_y < 0)
 		tex_y = 0;
-	if (tex_y >= data->textures.height)
-		tex_y = data->textures.height - 1;
+	if (tex_y >= data->textures.images[find_side(ray)].height)
+		tex_y = data->textures.images[find_side(ray)].height - 1;
 	color = get_pixel(data->textures.images, find_side(ray), tex_x, tex_y);
 	my_mlx_pixel_put(&data->mlx.img, x, y, color);
 }
@@ -81,7 +82,7 @@ void	draw(t_data *d, t_raycast *raycast, int x)
 	int	y;
 
 	y = 0;
-	while (y < d->res_y)
+	while (y < HEIGHT)
 	{
 		if (!d->show_map && x < SIZE_MINIMAP && y < SIZE_MINIMAP)
 			;

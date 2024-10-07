@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 14:51:47 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:23:34 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ int	game_loop(t_data *d)
 	if (d->move_mouse)
 	{
 		mlx_mouse_get_pos(d->mlx.mlx, d->mlx.win, &x, &y);
-		rotate_player_mouse(&d->player, (x - d->res_x / 2));
-		if (x > d->res_x / 2 + 1 || x < d->res_x / 2 - 1
-			|| y > d->res_y / 2 + 1 || y < d->res_y / 2 - 1)
-			mlx_mouse_move(d->mlx.mlx, d->mlx.win, d->res_x / 2,
-				d->res_y / 2);
+		rotate_player_mouse(&d->player, (x - WIDTH / 2));
+		if (x > WIDTH / 2 + 1 || x < WIDTH / 2 - 1
+			|| y > HEIGHT / 2 + 1 || y < HEIGHT / 2 - 1)
+			mlx_mouse_move(d->mlx.mlx, d->mlx.win, WIDTH / 2,
+				HEIGHT / 2);
 	}
 	raycasting(d);
 	if (!d->show_map)

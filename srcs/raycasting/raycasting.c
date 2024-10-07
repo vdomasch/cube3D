@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 14:18:51 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:24:17 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ static void	perp_wall_dist(t_raycast *raycast, t_data *data)
 	raycast->perp_wall_dist = fabs(raycast->perp_wall_dist);
 }
 
-static void	wall_height(t_data *data, t_raycast *raycast)
+static void	wall_height(t_raycast *raycast)
 {
-	raycast->line_height = (int)(data->res_y / raycast->perp_wall_dist);
-	raycast->draw_start = -raycast->line_height / 2 + data->res_y / 2;
+	raycast->line_height = (int)(HEIGHT / raycast->perp_wall_dist);
+	raycast->draw_start = -raycast->line_height / 2 + HEIGHT / 2;
 	if (raycast->draw_start < 0)
 		raycast->draw_start = 0;
-	raycast->draw_end = raycast->line_height / 2 + data->res_y / 2;
-	if (raycast->draw_end >= data->res_y)
-		raycast->draw_end = data->res_y - 1;
+	raycast->draw_end = raycast->line_height / 2 + HEIGHT / 2;
+	if (raycast->draw_end >= HEIGHT)
+		raycast->draw_end = HEIGHT - 1;
 }
 
 int	raycasting(t_data *data)
@@ -40,11 +40,11 @@ int	raycasting(t_data *data)
 	static t_raycast	raycast;
 
 	x = 0;
-	while (x < data->res_x)
+	while (x < WIDTH)
 	{
 		digital_differential_analysis(data, &raycast, x);
 		perp_wall_dist(&raycast, data);
-		wall_height(data, &raycast);
+		wall_height(&raycast);
 		draw(data, &raycast, x);
 		x++;
 	}

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:06:37 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/07 12:27:56 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:25:31 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	calculate_dir_ray(t_data *data, t_raycast *raycast)
 {
 	double	camera_x;
 
-	camera_x = data->res_x / (double)data->res_x - 1;
+	camera_x = WIDTH / (double)WIDTH - 1;
 	raycast->ray_dir_x = data->player.dir_x + data->player.plane_x * camera_x;
 	raycast->ray_dir_y = data->player.dir_y + data->player.plane_y * camera_x;
 }
