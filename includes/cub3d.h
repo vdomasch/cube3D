@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 15:02:41 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:05:12 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,10 +135,10 @@ bool	set_map(t_data *data, int fd);
 /****************************************************************************/
 
 bool	load_textures_big_map(t_data *data, t_textures *tex);
-void	mlx(t_data *data);
-void	free_mlx(t_data *data);
 int		mlx_initialize(t_data *data);
 int		game_loop(t_data *data);
+void	mlx(t_data *data);
+void	free_mlx(t_data *data);
 void	open_close_door(t_data *data);
 
 /****************************************************************************/
@@ -153,10 +153,10 @@ void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
 /****************************************************************************/
 
 void	draw(t_data *d, t_raycast *raycast, int x);
-int		get_pixel(t_image *images, int tex_num, int x, int y);
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void	draw_minimap(t_data *data, t_map *map, int x, int y);
 void	big_map(t_data *data, t_textures *tex);
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+int		get_pixel(t_image *images, int tex_num, int x, int y);
 
 /****************************************************************************/
 /*									UTILS									*/
