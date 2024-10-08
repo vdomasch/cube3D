@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/08 14:53:37 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:30:42 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,12 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (print_error("Failed to allocate memory.\n", 1));
 	if (parsing(data, argv[1]))
+	{
 		if (data->map.height > 42 * LIMIT && data->map.width < 42 * LIMIT)
 			mlx(data);
+		else
+			print_error("Map too big.\n", 1);
+	}
 	free_all(data);
 	return (0);
 }
