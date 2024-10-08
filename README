@@ -1,18 +1,14 @@
-North : plane_x = 0.66
-		plane_y = 0
-
-South :	plane_x = -0.66
-		plane_y = 0
-
-East :	plane_x = 0
-		plane_y = 0.66
-
-Weat :	plane_x = 0
-		plane_y = -0.66
-
-Side = North || South
-
 texture_side = 2; // OUEST
 texture_side = 1; // EST
 texture_side = 0; // NORD
 texture_side = 3; // SUD
+
+/*	Masquer la souris sans leaks	*/
+
+replace in mlx_hide_mouse and add  -lXfixes flag in Makefile
+
+#include <X11/extensions/Xfixes.h>
+
+XFixesHideCursor(xvar->display, win->window);
+
+/************************************/
