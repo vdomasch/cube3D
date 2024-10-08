@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 14:25:51 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:53:44 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define MAP_COLOR_EXTERIOR 0x0
 # define MAP_COLOR_DOOR 0x007D4E26
 # define MAP_COLOR_SCROLL 0x00EFBD8A
+# define LIMIT 10
 
 typedef struct s_image
 {
