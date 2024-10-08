@@ -97,7 +97,6 @@ static void	extract_memory(char buffer[BUFFER_SIZE + 1])
 
 size_t	get_next_line(int fd, char **line)
 {
-	//char		*line;
 	char		*stack;
 	static char	buffer[BUFFER_SIZE + 1];
 
@@ -122,22 +121,3 @@ size_t	get_next_line(int fd, char **line)
 		free(stack);
 	return (ft_strlen(*line));
 }
-
-/*int	main(void)
-{
-	int		i;
-	int		fd;
-	char	*line;
-
-	fd = open("text.txt", O_RDWR);
-	i = 10;
-	while (i)
-	{
-		line = get_next_line(fd);
-		printf("%s", line);
-		free(line);
-		i--;
-	}
-	close(fd);
-	return (0);
-}*/
