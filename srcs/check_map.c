@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:51:06 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:16:13 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_player(char c)
 	return (c == 'N' || c == 'S' || c == 'W' || c == 'E');
 }
 
-static bool	is_door(char c)
+bool	is_door(char c)
 {
 	return (c == 'c' || c == 'o');
 }
@@ -28,9 +28,9 @@ static bool	is_neighbors_valid(char **map, size_t i, size_t j)
 			|| is_door(map[i - 1][j]) || is_player(map[i - 1][j]))
 		&& (map[i + 1][j] == '0' || map[i + 1][j] == '1'
 			|| is_door(map[i + 1][j]) || is_player(map[i + 1][j]))
-		&& (map[i][j - 1] != '0' || map[i][j - 1] != '1'
+		&& (map[i][j - 1] == '0' || map[i][j - 1] == '1'
 			|| is_door(map[i][j - 1]) || is_player(map[i][j - 1]))
-		&& (map[i][j + 1] != '0' || map[i][j + 1] != '1'
+		&& (map[i][j + 1] == '0' || map[i][j + 1] == '1'
 			|| is_door(map[i][j + 1]) || is_player(map[i][j + 1])));
 }
 

@@ -6,12 +6,12 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:25:51 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef cub3D_H
-# define cub3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include <../libft/libft.h>
 # include <stdlib.h>
@@ -160,6 +160,7 @@ int		get_pixel(t_image *images, int tex_num, int x, int y);
 
 bool	check_map(char **map, size_t width, size_t height, int player_count);
 bool	is_player(char c);
+bool	is_door(char c);
 int		print_error(char *error, int ret);
 void	free_all(t_data *data);
 
