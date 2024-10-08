@@ -6,11 +6,11 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/08 10:26:34 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../includes/cub3d.h>
+#include <../includes/cub3D.h>
 
 int	print_error(char *error, int ret)
 {

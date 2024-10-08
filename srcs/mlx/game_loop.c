@@ -6,11 +6,11 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 16:23:34 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../includes/cub3d.h>
+#include <../includes/cub3D.h>
 
 static int	check_collision(t_data *d, double new_y, double new_x)
 {

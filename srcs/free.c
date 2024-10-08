@@ -6,11 +6,11 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:00:12 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 10:32:29 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../includes/cub3d.h>
+#include <../includes/cub3D.h>
 
 void	destroy_textures_big_map(t_data *data)
 {

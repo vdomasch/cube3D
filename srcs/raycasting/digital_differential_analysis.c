@@ -6,11 +6,11 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:34:54 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 16:24:37 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../includes/cub3d.h>
+#include <../includes/cub3D.h>
 
 static void	calculate_dir_ray(t_data *data, t_raycast *raycast, int x)
 {

@@ -6,11 +6,11 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 16:24:17 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../includes/cub3d.h>
+#include <../includes/cub3D.h>
 
 static void	perp_wall_dist(t_raycast *raycast, t_data *data)
 {

@@ -6,15 +6,15 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/10/07 14:37:15 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #############################################################################
-#									CUBE3D								#
+#									cub3D								#
 #############################################################################
 
-NAME						=		cub3d
+NAME						=		cub3D
 
 SRCS_DIR					=		srcs
 
@@ -109,5 +109,7 @@ re:
 
 debug:
 										@$(MAKE) fclean all DEBUG=true
+
+bonus:								all
 
 .PHONY: all clean fclean re lib debug

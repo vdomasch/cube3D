@@ -6,11 +6,11 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:30:56 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 10:44:03 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../includes/cub3d.h>
+#include <../includes/cub3D.h>
 
 static bool	load_addr_textures_big_map(t_image *map)
 {
@@ -57,8 +57,6 @@ static bool	load_textures_addr(t_image *images)
 	i = 0;
 	while (i < 5)
 	{
-		if (images[i].height != 64 || images[i].width != 64)
-			return (print_error("Textures must be 64x64.\n", false));
 		images[i].addr = mlx_get_data_addr(images[i].img,
 				&images[i].bits_per_pixel, &images[i].line_length,
 				&images[i].endian);
@@ -94,7 +92,7 @@ int	mlx_initialize(t_data *data)
 	data->mlx.mlx = mlx_init();
 	if (!data->mlx.mlx)
 		return (print_error("Failed to initialize mlx.\n", 1));
-	data->mlx.win = mlx_new_window(data->mlx.mlx, WIDTH, HEIGHT, "Cub3D");
+	data->mlx.win = mlx_new_window(data->mlx.mlx, WIDTH, HEIGHT, "cub3D");
 	if (!data->mlx.win)
 		return (print_error("Failed to create window.\n", 1));
 	data->mlx.img.img = mlx_new_image(data->mlx.mlx, WIDTH, HEIGHT);
