@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 16:53:17 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:49:20 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ static int	mouse_and_map(t_data *data, int keycode)
 
 static int	key_press(int keycode, t_data *data)
 {
-	if (keycode == XK_Escape)
+	if (keycode == XK_Escape && !data->show_map)
 		mlx_loop_end(data->mlx.mlx);
+	if (keycode == XK_Escape && data->show_map)
+		data->show_map = 2; // 2 = animated close map; 0 = quit map
 	if (keycode == XK_w && !data->show_map)
 		data->player.walk_dir = 1;
 	if (keycode == XK_s && !data->show_map)

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 17:00:50 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:37:16 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ bool	set_map(t_data *data, int fd);
 /*									MLX										*/
 /****************************************************************************/
 
-bool	load_textures_big_map(t_data *data, t_image *map);
 int		mlx_initialize(t_data *data);
 int		game_loop(t_data *data);
 void	mlx(t_data *data);

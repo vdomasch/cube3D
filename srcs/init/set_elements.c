@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:12:18 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 14:14:39 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:00:44 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	set_color(t_textures *textures, char *line, char orientation)
 	while (*line && coef)
 	{
 		color = ft_atoi(line);
-		if (color < 0 || color < 0 || color > 0xFF)
+		if (color < 0 || color > 0xFF)
 			return (print_error("Invalid color.\n", 1));
 		while (*line && (ft_isdigit(*line)))
 			line++;

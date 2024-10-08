@@ -6,11 +6,49 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:30:56 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/07 17:03:24 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:44:03 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3d.h>
+
+static bool	load_addr_textures_big_map(t_image *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < 6)
+	{
+		map[i].addr = mlx_get_data_addr(map[i].img, &map[i].bits_per_pixel,
+				&map[i].line_length, &map[i].endian);
+		if (!map[i].addr)
+			return (print_error("Failed to get big map address.\n", false));
+		i++;
+	}
+	return (true);
+}
+
+static bool	load_textures_big_map(t_data *data, t_image *map)
+{
+	map[0].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map0.xpm",
+			&map[0].width, &map[0].height);
+	map[1].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map1.xpm",
+			&map[1].width, &map[1].height);
+	map[2].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map2.xpm",
+			&map[2].width, &map[2].height);
+	map[3].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map3.xpm",
+			&map[3].width, &map[3].height);
+	map[4].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map4.xpm",
+			&map[4].width, &map[4].height);
+	map[5].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map5.xpm",
+			&map[5].width, &map[5].height);
+	if (!map[0].img || !map[1].img || !map[2].img
+		|| !map[3].img || !map[4].img || !map[5].img)
+		return (print_error("Failed to load big map images.\n", false));
+	if (!load_addr_textures_big_map(map))
+		return (false);
+	return (true);
+}
 
 static bool	load_textures_addr(t_image *images)
 {
@@ -55,22 +93,21 @@ int	mlx_initialize(t_data *data)
 {
 	data->mlx.mlx = mlx_init();
 	if (!data->mlx.mlx)
-		return (print_error("Failed to initialize mlx.", 1));
-	data->mlx.win = mlx_new_window(data->mlx.mlx, WIDTH,
-			HEIGHT, "Cub3D");
+		return (print_error("Failed to initialize mlx.\n", 1));
+	data->mlx.win = mlx_new_window(data->mlx.mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!data->mlx.win)
-		return (print_error("Failed to create window.", 1));
+		return (print_error("Failed to create window.\n", 1));
 	data->mlx.img.img = mlx_new_image(data->mlx.mlx, WIDTH, HEIGHT);
 	if (!data->mlx.img.img)
-		return (print_error("Failed to create image.", 1));
+		return (print_error("Failed to create image.\n", 1));
 	data->mlx.img.addr = mlx_get_data_addr(data->mlx.img.img,
 			&data->mlx.img.bits_per_pixel, &data->mlx.img.line_length,
 			&data->mlx.img.endian);
 	if (!data->mlx.img.addr)
-		return (print_error("Failed to get image address.", 1));
+		return (print_error("Failed to get image address.\n", 1));
 	if (!load_textures(data->mlx.mlx, &data->textures, data->textures.images))
-		return (print_error("Failed to load textures.", 1));
+		return (print_error("Failed to load textures.\n", 1));
 	if (!load_textures_big_map(data, data->textures.big_map))
-		return (print_error("Failed to load big map textures.", 1));
+		return (print_error("Failed to load big map textures.\n", 1));
 	return (0);
 }
