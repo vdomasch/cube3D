@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 14:53:44 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:24:35 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define MAP_COLOR_EXTERIOR 0x0
 # define MAP_COLOR_DOOR 0x007D4E26
 # define MAP_COLOR_SCROLL 0x00EFBD8A
-# define LIMIT 10
+# define LIMIT 420
 
 typedef struct s_image
 {

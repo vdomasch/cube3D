@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:14:18 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:25:54 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3D.h>
 
-static bool	is_empty_line(char *line)
+static bool	is_space_line(char *line)
 {
 	int	i;
 
@@ -32,18 +32,16 @@ static void	is_line_longer(char *line, t_data *data)
 		data->map.width = ft_strlen(line);
 }
 
-static char	*skip_empty_line(int fd)
+static char	*skip_space_line(int fd)
 {
 	char	*line;
-	int		i;
 
-	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (is_empty_line(line))
+		if (is_space_line(line))
 		{
 			free(line);
-			continue ;
+			line = NULL;
 		}
 		else
 			break ;
@@ -53,13 +51,13 @@ static char	*skip_empty_line(int fd)
 
 static bool	init_map_line(char **line, char **map_line, int fd)
 {
-	*line = skip_empty_line(fd);
+	*line = skip_space_line(fd);
 	*map_line = ft_strdup("");
 	if (!*map_line)
 	{
 		if (*line)
 			free(*line);
-		return (false);
+		return (print_error("Malloc failed.\n", false));
 	}
 	return (true);
 }
@@ -70,12 +68,12 @@ bool	set_map(t_data *data, int fd)
 	char	*map_line;
 
 	if (!init_map_line(&line, &map_line, fd))
-		return (print_error("Malloc failed.\n", false));
+		return (false);
 	while (line || get_next_line(fd, &line) > 0)
 	{
 		is_line_longer(line, data);
 		map_line = ft_strfreejoin(map_line, line);
-		if (is_empty_line(line))
+		if (is_space_line(line))
 		{
 			free(line);
 			free(map_line);
