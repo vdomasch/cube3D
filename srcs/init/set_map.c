@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:14:18 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/09 13:25:54 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/14 16:50:38 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char	*skip_space_line(int fd)
 {
 	char	*line;
 
+	line = NULL;
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (is_space_line(line))
@@ -52,6 +53,8 @@ static char	*skip_space_line(int fd)
 static bool	init_map_line(char **line, char **map_line, int fd)
 {
 	*line = skip_space_line(fd);
+	if (!*line)
+		return (print_error("No map after elements.\n", false));
 	*map_line = ft_strdup("");
 	if (!*map_line)
 	{
