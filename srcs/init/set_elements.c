@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:12:18 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/21 07:46:55 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,34 @@ static int	set_color(t_textures *textures, char *line, char orientation)
 	return (orientation);
 }
 
+static void	set_orientation(t_textures *textures, char *path, char orientation)
+{
+	if (orientation == 'N')
+	{
+		if (textures->no)
+			free(textures->no);
+		textures->no = path;
+	}
+	else if (orientation == 'S')
+	{
+		if (textures->so)
+			free(textures->so);
+		textures->so = path;
+	}
+	else if (orientation == 'W')
+	{
+		if (textures->we)
+			free(textures->we);
+		textures->we = path;
+	}
+	else if (orientation == 'E')
+	{
+		if (textures->ea)
+			free(textures->ea);
+		textures->ea = path;
+	}
+}
+
 static int	set_texture(t_textures *textures, char *path, char orientation)
 {
 	int		i;
@@ -58,14 +86,7 @@ static int	set_texture(t_textures *textures, char *path, char orientation)
 	if (!copy)
 		return (print_error("Malloc failed.\n", 0));
 	copy[ft_strlen(copy) - i] = '\0';
-	if (orientation == 'N')
-		textures->no = copy;
-	else if (orientation == 'S')
-		textures->so = copy;
-	else if (orientation == 'W')
-		textures->we = copy;
-	else if (orientation == 'E')
-		textures->ea = copy;
+	set_orientation(textures, copy, orientation);
 	return (orientation);
 }
 
