@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/09 13:24:35 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/10/26 14:50:28 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 # define CUB3D_H
 
 # include <../libft/libft.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdbool.h>
-# include <stdio.h>
 # include <mlx.h>
 # include <X11/keysym.h>
 # include <math.h>
 
+//used for fps
+# include <stdio.h>
+# include <time.h>
+
+# define _USE_MATH_DEFINES
 # define BASE16 "0123456789ABCDEF"
 # define WIDTH 1440
 # define HEIGHT 810
@@ -34,6 +34,16 @@
 # define MAP_COLOR_DOOR 0x007D4E26
 # define MAP_COLOR_SCROLL 0x00EFBD8A
 # define LIMIT 420
+
+typedef struct s_fps
+{
+	double		last_time;
+	double		delta_time; // Time between frames
+	double		fps; // Current FPS
+	double		frame_times[60]; // Circular buffer for frame times
+	int			frame_index; // Current position in circular buffer
+	char		fps_str[16]; // String to store FPS text
+}	t_fps;
 
 typedef struct s_image
 {
@@ -97,28 +107,42 @@ typedef struct s_data
 	bool		move_mouse;
 	int			show_map;
 	int			frame;
+	t_fps		fps;
 }				t_data;
 
 typedef struct s_raycast
 {
-	size_t		map_x;
-	size_t		map_y;
-	double		ray_dir_x;
-	double		ray_dir_y;
-	double		delta_dist_x;
-	double		delta_dist_y;
-	double		side_dist_x;
-	double		side_dist_y;
-	double		perp_wall_dist;
-	int			step_x;
-	int			step_y;
-	int			side;
-	int			line_height;
-	int			draw_start;
-	int			draw_end;
-	double		wall_dist;
-	bool		there_is_door;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	abs_rdir_x;
+	double	abs_rdir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	double	wall_x;
+	double	step;
+	double	tex_pos;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+	int		tex_num;
+	int		tex_x;
+	int		tex_y;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	bool	there_is_door;
 }	t_raycast;
+
+int		optimized_raycasting(t_data *data);
+void	optimized_dda(t_data *data, t_raycast *ray, int x);
+void	init_fps(t_fps *fps);
+void	update_fps(t_fps *fps);
+void	draw_fps(t_data *data, t_fps *fps);
 
 /****************************************************************************/
 /*									INIT									*/
@@ -139,13 +163,6 @@ void	free_mlx(t_data *data);
 void	open_close_door(t_data *data);
 
 /****************************************************************************/
-/*								RAYCASTING									*/
-/****************************************************************************/
-
-int		raycasting(t_data *data);
-void	digital_differential_analysis(t_data *data, t_raycast *raycast, int x);
-
-/****************************************************************************/
 /*									DRAW									*/
 /****************************************************************************/
 
@@ -153,7 +170,6 @@ void	draw(t_data *d, t_raycast *raycast, int x);
 void	draw_minimap(t_data *data, t_map *map, int x, int y);
 void	big_map(t_data *data, t_textures *tex);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
-int		get_pixel(t_image *images, int tex_num, int x, int y);
 
 /****************************************************************************/
 /*									UTILS									*/

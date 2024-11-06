@@ -6,11 +6,20 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:20:57 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/08 14:16:31 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/26 14:48:55 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3D.h>
+
+static inline int	get_pixel_tex(t_image *images, int tex_num, int x, int y)
+{
+	char	*dst;
+
+	dst = images[tex_num].addr + (y * images[tex_num].line_length
+			+ x * (images[tex_num].bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
+}
 
 static void	draw_square_map(t_data *data, int x, int y, int color)
 {
@@ -77,7 +86,7 @@ void	big_map(t_data *data, t_textures *tex)
 		y = -1;
 		while (++y < tex->big_map[data->frame / 5].height)
 		{
-			color = get_pixel(tex->big_map, data->frame / 5, x, y);
+			color = get_pixel_tex(tex->big_map, data->frame / 5, x, y);
 			if (color != 0xFF000000)
 				my_mlx_pixel_put(&data->mlx.img, x + WIDTH / 2
 					- tex->big_map[data->frame / 5].width / 2, y + HEIGHT / 1.8

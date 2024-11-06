@@ -6,27 +6,22 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:33:26 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/26 14:47:07 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3D.h>
 
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
+inline void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
-	char	*dst;
-
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	*(unsigned int *)(img->addr + (y * img->line_length + x
+				* (img->bits_per_pixel / 8))) = color;
 }
 
-int	get_pixel(t_image *images, int tex_num, int x, int y)
+static inline int	get_pixel(t_image *image, int tex_x, int tex_y)
 {
-	char	*dst;
-
-	dst = images[tex_num].addr + (y * images[tex_num].line_length
-			+ x * (images[tex_num].bits_per_pixel / 8));
-	return (*(unsigned int *)dst);
+	return (*(unsigned int *)(image->addr
+		+ (tex_y * image->line_length + tex_x * (image->bits_per_pixel / 8))));
 }
 
 static int	find_side(t_raycast *raycast)
@@ -49,7 +44,7 @@ static int	find_side(t_raycast *raycast)
 	}
 }
 
-static void	put_textures(t_data *data, t_raycast *ray, int x, int y)
+void	put_textures(t_data *data, t_raycast *ray, int x, int y)
 {
 	int		color;
 	int		scaling;
@@ -73,26 +68,45 @@ static void	put_textures(t_data *data, t_raycast *ray, int x, int y)
 		tex_y = 0;
 	if (tex_y >= data->textures.images[find_side(ray)].height)
 		tex_y = data->textures.images[find_side(ray)].height - 1;
-	color = get_pixel(data->textures.images, find_side(ray), tex_x, tex_y);
+	color = get_pixel(data->textures.images, tex_x, tex_y);
 	my_mlx_pixel_put(&data->mlx.img, x, y, color);
 }
 
-void	draw(t_data *d, t_raycast *raycast, int x)
+void	draw(t_data *d, t_raycast *ray, int x)
 {
-	int	y;
+	t_image			*current_tex;
+	unsigned int	*img_data;
+	int				img_width;
+	int				y;
 
+	ray->tex_num = find_side(ray);
+	current_tex = &d->textures.images[ray->tex_num];
+	if (ray->side == 0)
+		ray->wall_x = d->player.pos_y + ray->perp_wall_dist * ray->ray_dir_y;
+	else
+		ray->wall_x = d->player.pos_x + ray->perp_wall_dist * ray->ray_dir_x;
+	ray->wall_x -= floor(ray->wall_x);
+	ray->tex_x = (int)(ray->wall_x * current_tex->width);
+	if ((ray->side == 0 && ray->ray_dir_x < 0)
+		|| (ray->side == 1 && ray->ray_dir_y > 0))
+		ray->tex_x = current_tex->width - ray->tex_x - 1;
+	// Pre-calculate texture step and position
+	ray->step = (double)current_tex->height / ray->line_height;
+	ray->tex_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2)
+		* ray->step;
+	// Draw optimization using direct memory access
+	img_data = (unsigned int *)d->mlx.img.addr;
+	img_width = d->mlx.img.line_length / (d->mlx.img.bits_per_pixel / 8);
 	y = 0;
-	while (y < HEIGHT)
+	while (y < ray->draw_start)
+		img_data[(y++) * img_width + x] = d->textures.ceiling_color;
+	while (y <= ray->draw_end)
 	{
-		if (!d->show_map && x < SIZE_MINIMAP && y < SIZE_MINIMAP)
-			;
-		else if (y < raycast->draw_start)
-			my_mlx_pixel_put(&d->mlx.img, x, y, d->textures.ceiling_color);
-		else if (y >= raycast->draw_start && y <= raycast->draw_end)
-			put_textures(d, raycast, x, y);
-		else
-			my_mlx_pixel_put(&d->mlx.img, x, y, d->textures.floor_color);
-		y++;
+		ray->tex_y = (int)ray->tex_pos & (current_tex->height - 1);
+		ray->tex_pos += ray->step;
+		img_data[(y++) * img_width + x] = get_pixel(current_tex,
+				ray->tex_x, ray->tex_y);
 	}
-	raycast->there_is_door = false;
+	while (y < HEIGHT)
+		img_data[(y++) * img_width + x] = d->textures.floor_color;
 }

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 17:43:36 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/10/26 13:31:11 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	mlx(t_data *data)
 {
 	if (!mlx_initialize(data))
 	{
+		init_fps(&data->fps);
 		mlx_hook(data->mlx.win, 17, 1L << 3, mlx_loop_end, data->mlx.mlx);
 		mlx_hook(data->mlx.win, 2, 1L << 0, key_press, data);
 		mlx_hook(data->mlx.win, 3, 1L << 1, key_release, data);

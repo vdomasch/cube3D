@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/10/26 12:01:47 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ FILES						=		main.c											\
 									bonus/door.c													\
 									bonus/big_map.c													\
 									free.c											\
+									fps.c
 									
 
 OBJS						=		$(FILES:%.c=$(OBJS_DIR)/%.o)
