@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/26 14:50:28 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:51:00 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,24 @@
 
 # define _USE_MATH_DEFINES
 # define BASE16 "0123456789ABCDEF"
-# define WIDTH 1440
-# define HEIGHT 810
-# define SIZE_MINIMAP 252
+# define WIDTH 1920
+# define HEIGHT 1080
+# define SIZE_MINIMAP (HEIGHT / 3)
+# define SIZE_MINIMAP_SQUARE (SIZE_MINIMAP / 7)
+# define SIZE_MINIMAP_SQUARE_MIDDLE (SIZE_MINIMAP_SQUARE / 2)
+# define SIZE_MINIMAP_SQUARE_PLAYER_START (SIZE_MINIMAP_SQUARE * 1 / 3)
+# define SIZE_MINIMAP_SQUARE_PLAYER_END (SIZE_MINIMAP_SQUARE * 2 / 3)
+# define MINIMAP_PLAYER_SQUARE_DRAW_POSITION (SIZE_MINIMAP_SQUARE * 3 + 1)
+
+# define MINIMAP_PLAYER_LINE_DRAW_POSITION (SIZE_MINIMAP_SQUARE * 3)
+
+# define MINIMAP_PLAYER_LINE_START_WIDTH (SIZE_MINIMAP_SQUARE * 3 / 7)
+# define MINIMAP_PLAYER_LINE_END_WIDTH (SIZE_MINIMAP_SQUARE * 4 / 7)
+
+# define MINIMAP_PLAYER_LINE_START_SIZE (SIZE_MINIMAP_SQUARE / 8)
+# define MINIMAP_PLAYER_LINE_END_SIZE (SIZE_MINIMAP_SQUARE * 7 / 8)
+
+
 # define MAP_COLOR_PLAYER 0x0
 # define MAP_COLOR_WALL 0x606060
 # define MAP_COLOR_FLOOR 0x00A5A2A2
@@ -139,10 +154,10 @@ typedef struct s_raycast
 }	t_raycast;
 
 int		optimized_raycasting(t_data *data);
+void	draw_fps(t_data *data, t_fps *fps);
 void	optimized_dda(t_data *data, t_raycast *ray, int x);
 void	init_fps(t_fps *fps);
 void	update_fps(t_fps *fps);
-void	draw_fps(t_data *data, t_fps *fps);
 
 /****************************************************************************/
 /*									INIT									*/
@@ -180,5 +195,7 @@ bool	is_player(char c);
 bool	is_door(char c);
 int		print_error(char *error, int ret);
 void	free_all(t_data *data);
+
+void	draw_sprites(t_data *data, t_raycast *ray);
 
 #endif

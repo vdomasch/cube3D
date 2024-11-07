@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:44:56 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:07:50 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,30 @@ static void	draw_square(t_data *data, int x, int y, int color)
 	int	j;
 
 	i = 0;
-	while (i < 36)
+	while (i < SIZE_MINIMAP_SQUARE)
 	{
 		j = 0;
-		while (j < 36)
+		while (j < SIZE_MINIMAP_SQUARE)
 		{
-			my_mlx_pixel_put(&data->mlx.img, x * 36 + j, y * 36 + i, color);
+			my_mlx_pixel_put(&data->mlx.img, x * SIZE_MINIMAP_SQUARE + j, y * SIZE_MINIMAP_SQUARE + i, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-static void	draw_player_square(t_data *data, int color)
+void	draw_player_square(t_data *data, int color)
 {
 	int	i;
 	int	j;
 
-	i = 18;
-	while (i < 32)
+	i = SIZE_MINIMAP_SQUARE_PLAYER_START;
+	while (i < SIZE_MINIMAP_SQUARE_PLAYER_END)
 	{
-		j = 18;
-		while (j < 32)
+		j = SIZE_MINIMAP_SQUARE_PLAYER_START;
+		while (j < SIZE_MINIMAP_SQUARE_PLAYER_END)
 		{
-			my_mlx_pixel_put(&data->mlx.img, 100 + j, 100 + i, color);
+			my_mlx_pixel_put(&data->mlx.img, MINIMAP_PLAYER_SQUARE_DRAW_POSITION + j, MINIMAP_PLAYER_SQUARE_DRAW_POSITION + i, color);
 			j++;
 		}
 		i++;
@@ -62,23 +62,23 @@ static void	draw_player(t_data *data, void *img)
 	int	limit_i;
 	int	limit_j;
 
-	i = 22;
-	limit_i = 28;
-	tmp_j = 22;
-	limit_j = 28;
+	i = MINIMAP_PLAYER_LINE_START_WIDTH;
+	limit_i = MINIMAP_PLAYER_LINE_END_WIDTH;
+	tmp_j = MINIMAP_PLAYER_LINE_START_WIDTH;
+	limit_j = MINIMAP_PLAYER_LINE_END_WIDTH;
 	if (data->player.plane_x > 0.46)
-		change_value(&tmp_j, &limit_j, 10, 25);
+		change_value(&tmp_j, &limit_j, MINIMAP_PLAYER_LINE_START_SIZE, SIZE_MINIMAP_SQUARE_MIDDLE);
 	else if (data->player.plane_x < -0.46)
-		change_value(&tmp_j, &limit_j, 25, 40);
+		change_value(&tmp_j, &limit_j, SIZE_MINIMAP_SQUARE_MIDDLE, MINIMAP_PLAYER_LINE_END_SIZE);
 	else if (data->player.plane_y > 0.46)
-		change_value(&i, &limit_i, 25, 40);
+		change_value(&i, &limit_i, SIZE_MINIMAP_SQUARE_MIDDLE, MINIMAP_PLAYER_LINE_END_SIZE);
 	else
-		change_value(&i, &limit_i, 10, 25);
+		change_value(&i, &limit_i, MINIMAP_PLAYER_LINE_START_SIZE, SIZE_MINIMAP_SQUARE_MIDDLE);
 	while (i++ < limit_i)
 	{
 		j = tmp_j - 1;
 		while (++j < limit_j)
-			my_mlx_pixel_put(img, 100 + i - 1, 100 + j, MAP_COLOR_PLAYER);
+			my_mlx_pixel_put(img, MINIMAP_PLAYER_LINE_DRAW_POSITION + i, MINIMAP_PLAYER_LINE_DRAW_POSITION + j, MAP_COLOR_PLAYER);
 	}
 	draw_player_square(data, MAP_COLOR_PLAYER);
 }

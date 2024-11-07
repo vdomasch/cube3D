@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/26 13:31:11 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:29:07 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static int	mouse_and_map(t_data *data, int keycode)
 			WIDTH / 2, HEIGHT / 2);
 	}
 	else if (keycode == XK_q && data->move_mouse == 1 && !data->show_map)
+	{
 		data->move_mouse = 0;
+	}
 	else if (keycode == XK_e && !data->show_map)
 		open_close_door(data);
 	else if (keycode == XK_m && data->show_map == 0)
@@ -53,8 +55,8 @@ static int	key_press(int keycode, t_data *data)
 		data->player.turn_dir = -1;
 	if (keycode == XK_Shift_L && !data->show_map)
 	{
-		data->player.move_speed *= 1.5;
-		data->player.rot_speed *= 1.5;
+		data->player.move_speed *= 1.6;
+		data->player.rot_speed *= 1.6;
 	}
 	mouse_and_map(data, keycode);
 	return (0);
@@ -76,8 +78,8 @@ static int	key_release(int keycode, t_data *data)
 		data->player.turn_dir = 0;
 	if (keycode == XK_Shift_L)
 	{
-		data->player.move_speed /= 1.5;
-		data->player.rot_speed /= 1.5;
+		data->player.move_speed /= 1.6;
+		data->player.rot_speed /= 1.6;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:36:07 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/26 13:50:00 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:51:34 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	draw_fps(t_data *data, t_fps *fps)
 {
 	// Draw FPS counter in top-left corner
 	// White text with black outline for better visibility
-	draw_text(data, fps->fps_str, 11, 21, 0x000000);//Black shadow
-	draw_text(data, fps->fps_str, 9, 21, 0x000000);
-	draw_text(data, fps->fps_str, 10, 22, 0x000000);
-	draw_text(data, fps->fps_str, 10, 20, 0x000000);
-	draw_text(data, fps->fps_str, 10, 21, 0xFFFFFF); // White text
+	draw_text(data, fps->fps_str, WIDTH - 81, 21, 0x000000);//Black shadow
+	draw_text(data, fps->fps_str, WIDTH - 79, 21, 0x000000);
+	draw_text(data, fps->fps_str, WIDTH - 80, 22, 0x000000);
+	draw_text(data, fps->fps_str, WIDTH - 80, 20, 0x000000);
+	draw_text(data, fps->fps_str, WIDTH - 80, 21, 0xFFFFFF); // White text
 }
