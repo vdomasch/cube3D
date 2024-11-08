@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/07 18:50:48 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:42:53 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ static t_data	*init_data(void)
 	data->player.walk_dir = 0;
 	data->player.strafe_dir = 0;
 	data->player.turn_dir = 0;
-	data->player.move_speed = pow((double)WIDTH, 1.8)/ 5000000.0;
-	data->player.rot_speed =  pow((double)WIDTH, 1.6) / 6000000.0;
+	data->player.move_speed = pow((double)WIDTH, 1.8) / 5000000.0;
+	data->player.rot_speed = pow((double)WIDTH, 1.6) / 6000000.0;
+	init_minimap(data);
 	return (data);
 }
 
@@ -98,7 +99,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (print_error("Invalid number of argument.\n", 1));
-	if (WIDTH < 854 || HEIGHT < 480)
+	if (WIDTH < 853 || HEIGHT < 480)
 		return (print_error("Resolution too low.\n", 1));
 	if (WIDTH > 1920 || HEIGHT > 1080)
 		return (print_error("Resolution too high.\n", 1));

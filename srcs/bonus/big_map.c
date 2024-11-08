@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:20:57 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/07 18:21:30 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:48:06 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,21 @@ static void	draw_square_map(t_data *data, int x, int y, int color)
 {
 	int	i;
 	int	j;
-	int	scale;
+	int	scal;
 
 	if (400 / data->map.width < 240 / data->map.height)
-		scale = 400 / data->map.width;
+		scal = 400 / data->map.width;
 	else
-		scale = 240 / data->map.height;
+		scal = 240 / data->map.height;
 	i = 0;
-	while (i < scale)
+	while (i < scal)
 	{
 		j = 0;
-		while (j < scale)
+		while (j < scal)
 		{
-			my_mlx_pixel_put(&data->mlx.img, (WIDTH
-					- (data->map.width - 1) * scale) / 2 + x * scale + j,
-				(HEIGHT - (data->map.height * 0.68 * scale))
-				/ 1.8 + y * scale + i, color);
+			pixel_put(&data->mlx.img, (WIDTH - (data->map.width - 1) * scal) / 2
+				+ x * scal + j, (HEIGHT - (data->map.height * 0.68 * scal))
+				/ 1.8 + y * scal + i, color);
 			j++;
 		}
 		i++;
@@ -88,7 +87,7 @@ void	big_map(t_data *data, t_textures *tex)
 		{
 			color = get_pixel_tex(tex->big_map, data->frame / 5, x, y);
 			if (color != 0xFF000000)
-				my_mlx_pixel_put(&data->mlx.img, x + WIDTH / 2
+				pixel_put(&data->mlx.img, x + WIDTH / 2
 					- tex->big_map[data->frame / 5].width / 2, y + HEIGHT / 1.8
 					- tex->big_map[data->frame / 5].height / 2, color);
 		}

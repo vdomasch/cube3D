@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/07 18:51:00 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:48:40 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,10 @@
 
 # define _USE_MATH_DEFINES
 # define BASE16 "0123456789ABCDEF"
-# define WIDTH 1920
-# define HEIGHT 1080
-# define SIZE_MINIMAP (HEIGHT / 3)
-# define SIZE_MINIMAP_SQUARE (SIZE_MINIMAP / 7)
-# define SIZE_MINIMAP_SQUARE_MIDDLE (SIZE_MINIMAP_SQUARE / 2)
-# define SIZE_MINIMAP_SQUARE_PLAYER_START (SIZE_MINIMAP_SQUARE * 1 / 3)
-# define SIZE_MINIMAP_SQUARE_PLAYER_END (SIZE_MINIMAP_SQUARE * 2 / 3)
-# define MINIMAP_PLAYER_SQUARE_DRAW_POSITION (SIZE_MINIMAP_SQUARE * 3 + 1)
+# define WIDTH 854
+# define HEIGHT 480
 
-# define MINIMAP_PLAYER_LINE_DRAW_POSITION (SIZE_MINIMAP_SQUARE * 3)
-
-# define MINIMAP_PLAYER_LINE_START_WIDTH (SIZE_MINIMAP_SQUARE * 3 / 7)
-# define MINIMAP_PLAYER_LINE_END_WIDTH (SIZE_MINIMAP_SQUARE * 4 / 7)
-
-# define MINIMAP_PLAYER_LINE_START_SIZE (SIZE_MINIMAP_SQUARE / 8)
-# define MINIMAP_PLAYER_LINE_END_SIZE (SIZE_MINIMAP_SQUARE * 7 / 8)
-
-
-# define MAP_COLOR_PLAYER 0x0
+# define MAP_COLOR_P 0x0
 # define MAP_COLOR_WALL 0x606060
 # define MAP_COLOR_FLOOR 0x00A5A2A2
 # define MAP_COLOR_EXTERIOR 0x0
@@ -70,6 +55,21 @@ typedef struct s_image
 	int		width;
 	int		height;
 }			t_image;
+
+typedef struct s_minimap
+{
+	unsigned int	size;
+	unsigned int	sqr_size;
+	unsigned int	sqr_mid;
+	unsigned int	sqr_player_start;
+	unsigned int	sqr_player_end;
+	unsigned int	sqr_player_draw_position;
+	unsigned int	pos;
+	unsigned int	l_start_width;
+	unsigned int	l_end_width;
+	unsigned int	l_start_len;
+	unsigned int	l_end_len;
+}	t_minimap;
 
 typedef struct s_map
 {
@@ -119,6 +119,7 @@ typedef struct s_data
 	t_textures	textures;
 	t_player	player;
 	t_mlx		mlx;
+	t_minimap	mmap;
 	bool		move_mouse;
 	int			show_map;
 	int			frame;
@@ -158,6 +159,7 @@ void	draw_fps(t_data *data, t_fps *fps);
 void	optimized_dda(t_data *data, t_raycast *ray, int x);
 void	init_fps(t_fps *fps);
 void	update_fps(t_fps *fps);
+void	init_minimap(t_data *data);
 
 /****************************************************************************/
 /*									INIT									*/
@@ -184,7 +186,7 @@ void	open_close_door(t_data *data);
 void	draw(t_data *d, t_raycast *raycast, int x);
 void	draw_minimap(t_data *data, t_map *map, int x, int y);
 void	big_map(t_data *data, t_textures *tex);
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void	pixel_put(t_image *img, int x, int y, int color);
 
 /****************************************************************************/
 /*									UTILS									*/
