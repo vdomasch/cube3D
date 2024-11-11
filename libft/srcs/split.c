@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multisplit.c                                       :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:45:57 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/04/09 12:46:24 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 09:56:05 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ static bool	char_sym(const char s, const char *charset)
 static unsigned int	count_word(const char *s, const char *charset)
 {
 	unsigned int	count;
-	unsigned int	i;
 
 	count = 0;
-	i = 0;
 	while (*s)
 	{
 		while (*s && char_sym(*s, charset))

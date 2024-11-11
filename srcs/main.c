@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/08 14:42:53 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:20:47 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static bool	init_textures(t_data *data)
 		free(data);
 		return (false);
 	}
-	ft_memset(data->textures.images, 0, sizeof(t_image) * 5);
-	ft_memset(data->textures.big_map, 0, sizeof(t_image) * 6);
 	return (true);
 }
 
@@ -52,6 +50,8 @@ static t_data	*init_data(void)
 	data = malloc(sizeof(t_data));
 	if (!data || !init_textures(data))
 		return (NULL);
+	ft_memset(data->textures.images, 0, sizeof(t_image) * 5);
+	ft_memset(data->textures.big_map, 0, sizeof(t_image) * 6);
 	data->move_mouse = 0;
 	data->show_map = 0;
 	data->map.map = NULL;
@@ -86,8 +86,10 @@ static bool	parsing(t_data *data, char *path)
 	if (!set_map(data, fd))
 		return (false);
 	close(fd);
-	if (!check_map(data->map.map, data->map.width, data->map.height, 0))
+	if (!check_map(data, data->map.map, 0))
 		return (false);
+	set_enemy_sprites(data);
+	printf("ICI\n");
 	if (!set_entities(data))
 		return (false);
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 16:16:05 by vdomasch          #+#    #+#             */
-/*   Updated: 2023/11/17 18:01:56 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 09:56:33 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static unsigned int	ft_strtrim_end(char const *s, char const *set, size_t len)
 
 	count = 0;
 	outside = 1;
-	while (len >= 0 && outside && s[len])
+	while (outside && s[len])
 	{
 		i = 0;
 		while (set[i])

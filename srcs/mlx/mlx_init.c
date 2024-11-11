@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:30:56 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/08 13:15:33 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:20:32 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static bool	load_textures_big_map(t_data *data, t_image *map)
 	return (true);
 }
 
-static bool	load_textures_addr(t_image *images)
+static bool	load_textures_addr(t_textures *textures, t_image *images)
 {
 	int	i;
 
@@ -64,6 +64,10 @@ static bool	load_textures_addr(t_image *images)
 			return (print_error("Failed to get textures address.\n", false));
 		i++;
 	}
+	textures->sprite_img.addr = mlx_get_data_addr(textures->sprite_img.img,
+			&textures->sprite_img.bits_per_pixel,
+			&textures->sprite_img.line_length,
+			&textures->sprite_img.endian);
 	return (true);
 }
 
@@ -79,10 +83,12 @@ static bool	load_textures(void *mlx, t_textures *textures, t_image *images)
 			&images[3].width, &images[3].height);
 	images[4].img = mlx_xpm_file_to_image(mlx, "./assets/wooden-door.xpm",
 			&images[4].width, &images[4].height);
+	textures->sprite_img.img = mlx_xpm_file_to_image(mlx, "./assets/goblin.xpm",
+			&textures->sprite_img.width, &textures->sprite_img.height);
 	if (!images[0].img || !images[1].img || !images[2].img
 		|| !images[3].img || !images[4].img)
 		return (print_error("Failed to load images.\n", false));
-	if (!load_textures_addr(images))
+	if (!load_textures_addr(textures, images))
 		return (false);
 	return (true);
 }

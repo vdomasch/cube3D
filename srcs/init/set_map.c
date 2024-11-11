@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:14:18 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/10/14 16:50:38 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:29:11 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,13 @@ static bool	is_space_line(char *line)
 
 static void	is_line_longer(char *line, t_data *data)
 {
-	if (ft_strlen(line) > data->map.width)
-		data->map.width = ft_strlen(line);
+	int	i;
+
+	i = 0;
+	while (line[i])
+		i++;
+	if (i > data->map.width)
+		data->map.width = i;
 }
 
 static char	*skip_space_line(int fd)

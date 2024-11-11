@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/08 14:48:40 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:18:08 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@
 
 typedef struct s_fps
 {
-	double		last_time;
-	double		delta_time; // Time between frames
-	double		fps; // Current FPS
-	double		frame_times[60]; // Circular buffer for frame times
-	int			frame_index; // Current position in circular buffer
-	char		fps_str[16]; // String to store FPS text
+	double	last_time;
+	double	delta_time; // Time between frames
+	double	fps; // Current FPS
+	double	frame_times[60]; // Circular buffer for frame times
+	int		frame_index; // Current position in circular buffer
+	char	fps_str[16]; // String to store FPS text
 }	t_fps;
 
 typedef struct s_image
@@ -54,7 +54,7 @@ typedef struct s_image
 	int		endian;
 	int		width;
 	int		height;
-}			t_image;
+}	t_image;
 
 typedef struct s_minimap
 {
@@ -74,9 +74,9 @@ typedef struct s_minimap
 typedef struct s_map
 {
 	char	**map;
-	size_t	width;
-	size_t	height;
-}			t_map;
+	int		width;
+	int		height;
+}	t_map;
 
 typedef struct s_textures
 {
@@ -87,23 +87,24 @@ typedef struct s_textures
 	int		floor_color;
 	int		ceiling_color;
 	t_image	*images;
+	t_image	sprite_img;
 	t_image	*big_map;
-}			t_textures;
+}	t_textures;
 
 typedef struct s_player
 {
-	double		pos_x;
-	double		pos_y;
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double		plane_y;
-	double		move_speed;
-	double		rot_speed;
-	int			walk_dir;
-	int			strafe_dir;
-	int			turn_dir;
-}			t_player;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed;
+	double	rot_speed;
+	int		walk_dir;
+	int		strafe_dir;
+	int		turn_dir;
+}	t_player;
 
 typedef struct s_mlx
 {
@@ -111,7 +112,15 @@ typedef struct s_mlx
 	void	*win;
 	t_image	img;
 	t_image	map;
-}			t_mlx;
+}	t_mlx;
+
+typedef struct s_sprites
+{
+	double	dist;
+	double	pos_x;
+	double	pos_y;
+	bool	destroyed;
+}	t_sprites;
 
 typedef struct s_data
 {
@@ -120,11 +129,14 @@ typedef struct s_data
 	t_player	player;
 	t_mlx		mlx;
 	t_minimap	mmap;
+	t_sprites	*sprites;
+	double		depth_buffer[WIDTH];
+	int			nb_sprites;
 	bool		move_mouse;
 	int			show_map;
 	int			frame;
 	t_fps		fps;
-}				t_data;
+}	t_data;
 
 typedef struct s_raycast
 {
@@ -160,6 +172,7 @@ void	optimized_dda(t_data *data, t_raycast *ray, int x);
 void	init_fps(t_fps *fps);
 void	update_fps(t_fps *fps);
 void	init_minimap(t_data *data);
+bool	set_enemy_sprites(t_data *data);
 
 /****************************************************************************/
 /*									INIT									*/
@@ -192,12 +205,12 @@ void	pixel_put(t_image *img, int x, int y, int color);
 /*									UTILS									*/
 /****************************************************************************/
 
-bool	check_map(char **map, size_t width, size_t height, int player_count);
+bool	check_map(t_data *data, char **map, int player_count);
 bool	is_player(char c);
 bool	is_door(char c);
 int		print_error(char *error, int ret);
 void	free_all(t_data *data);
 
-void	draw_sprites(t_data *data, t_raycast *ray);
+void	draw_sprites(t_data *data);
 
 #endif

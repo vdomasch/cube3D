@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/10/26 14:04:16 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:51:51 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	calculate_wall_params(t_raycast *ray, t_data *data,
 		ray->draw_start = 0;
 	if (ray->draw_end >= HEIGHT)
 		ray->draw_end = HEIGHT - 1;
+	data->depth_buffer[x] = ray->perp_wall_dist;
 }
 
 // Main raycasting function
@@ -54,5 +55,6 @@ int	optimized_raycasting(t_data *data)
 		draw(data, &ray, x);
 		x++;
 	}
+	draw_sprites(data);
 	return (0);
 }

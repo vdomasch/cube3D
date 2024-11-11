@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:20:57 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/08 14:48:06 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 10:19:48 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	draw_square_map(t_data *data, int x, int y, int color)
 
 void	draw_map(t_data *data)
 {
-	unsigned long	x;
-	unsigned long	y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;

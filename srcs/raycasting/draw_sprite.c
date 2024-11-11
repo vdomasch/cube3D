@@ -6,41 +6,43 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:46:38 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/06 13:48:05 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:18:27 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3D.h"
 
-void	compute_distances(t_world *world)
+void	compute_distances(t_data *data)
 {
 	int	i;
 
-	world->sprites[i].distance =
-		pow(world->pos[0] - world->sprites[i].pos[0], 2)
-		+ pow(world->pos[1] - world->sprites[i].pos[1], 2);
-	if (!world->sprites[i].is_portal && !world->sprites[i].destroyed)
-		world->won = FALSE;
-	i++;
+	i = 0;
+	while (i < data->nb_sprites)
+	{
+		data->sprites[i].dist = pow(data->player.pos_x
+				- data->sprites[i].pos_x, 2) + pow(data->player.pos_y
+				- data->sprites[i].pos_y, 2);
+		i++;
+	}
 }
 
-void	sort_sprites(t_world *world)
+void	sort_sprites(t_data *data)
 {
 	int			i;
 	int			j;
-	t_sprite	tmp;
+	t_sprites	tmp;
 
 	i = 0;
-	while (i < world->nb_sprites)
+	while (i < data->nb_sprites)
 	{
 		j = 0;
-		while (j < world->nb_sprites - i - 1)
+		while (j < data->nb_sprites - i - 1)
 		{
-			if (world->sprites[i].distance < world->sprites[i + 1].distance)
+			if (data->sprites[i].dist < data->sprites[i + 1].dist)
 			{
-				tmp = world->sprites[i];
-				world->sprites[i] = world->sprites[i + 1];
-				world->sprites[i + 1] = tmp;
+				tmp = data->sprites[i];
+				data->sprites[i] = data->sprites[i + 1];
+				data->sprites[i + 1] = tmp;
 			}
 			j++;
 		}
@@ -48,75 +50,96 @@ void	sort_sprites(t_world *world)
 	}
 }
 
-void	draw_line_sprite(t_world *world, t_spritedata data, int i,
-	int bbox_x[2])
-{
-	int		bbox_y[2];
-	int		j;
-	int		color;
 
-	bbox_y[0] = world->scr_height / 2
-		- data.sprite_size / 2 * (1 - world->jump_coeff);
-	bbox_y[1] = world->scr_height / 2
-		+ data.sprite_size / 2 * (1 + world->jump_coeff);
-	j = (bbox_y[0] < 0) ? 0 : bbox_y[0];
-	while (j < (bbox_y[1] >= world->scr_height
-		? world->scr_height - 1 : bbox_y[1]))
+static inline int	get_pixel(t_image *image, int tex_x, int tex_y)
+{
+	return (*(unsigned int *)(image->addr
+		+ (tex_y * image->line_length + tex_x * (image->bits_per_pixel / 8))));
+}
+
+
+void	draw_line_sprite(t_data *data, int i, int bbox_x[2], double sprite_size)
+{
+	int				bbox_y[2];
+	int				limit;
+	int				j;
+	unsigned int	color;
+
+	bbox_y[0] = HEIGHT / 2 - sprite_size / 2;
+	bbox_y[1] = HEIGHT / 2 + sprite_size / 2;
+	j = 0;
+	if (bbox_y[0] > 0)
+		j = bbox_y[0];
+	limit = bbox_y[1];
+	if (limit >= HEIGHT)
+		limit = HEIGHT - 1;
+	while (j < limit)
 	{
-		color = get_tex_color(world->sprites[data.index].texture,
-			((i - bbox_x[0]) * 1.0) / (bbox_x[1] - bbox_x[0]),
-			((j - bbox_y[0]) * 1.0) / (bbox_y[1] - bbox_y[0]),
-			((bbox_x[1] - bbox_x[0]) * 3.0 / world->scr_height));
+		color = get_pixel(data->textures.sprite_img.img,
+				((i - bbox_x[0]) * 1.0) / (bbox_x[1] - bbox_x[0]),
+				((j - bbox_y[0]) * 1.0) / (bbox_y[1] - bbox_y[0]));
 		if (color != 0)
-			set_screen_pixel(world->screen, i, j, color);
+			pixel_put(&data->mlx.img, i, j, color);
 		j++;
 	}
 }
 
-void	draw_sprite(t_world *world, t_spritedata data)
+void	draw_sprite(t_data *data, int index,
+	double sprite_x, double sprite_size, double transform_y)
 {
-	int		bbox_x[2];
-	int		i;
+	int	bbox_x[2];
+	int	i;
+	int	limit;
+	(void)index;
 
-	bbox_x[0] = data.sprite_x - data.sprite_size / 2;
-	bbox_x[1] = data.sprite_x + data.sprite_size / 2;
-	world->sprites[data.index].killable = !world->sprites[data.index].is_portal
-		&& bbox_x[0] < world->scr_width / 2 && bbox_x[1] > world->scr_width / 2
-		&& data.transform[1] < 2;
-	i = (bbox_x[0] < 0) ? 0 : bbox_x[0];
-	while (i <= (bbox_x[1] >= world->scr_width ?
-		world->scr_width - 1 : bbox_x[1]))
+	bbox_x[0] = sprite_x - sprite_size / 2;
+	bbox_x[1] = sprite_x + sprite_size / 2;
+	//data->sprites[index].killable = !data->sprites[index].is_portal
+	//	&& bbox_x[0] < WIDTH / 2 && bbox_x[1] > WIDTH / 2
+	//	&& transform_y < 2;
+	i = 0;
+	if (bbox_x[0] > 0)
+		i = bbox_x[0];
+	limit = bbox_x[1];
+	if (bbox_x[1] >= WIDTH)
+		limit = WIDTH - 1;
+	while (i <= limit)
 	{
-		if (data.transform[1] > 0 && data.transform[1] < world->depth_buffer[i])
-			draw_line_sprite(world, data, i, bbox_x);
+		if (transform_y > 0 && transform_y < data->depth_buffer[i])
+			draw_line_sprite(data, i, bbox_x, sprite_size);
 		i++;
 	}
 }
 
 void	draw_sprites(t_data *data)
 {
-	t_spritedata	data;
-	double			sprite_pos[2];
-	double			det;
+	double	sprite_pos_x;
+	double	sprite_pos_y;
+	double	sprite_size;
+	double	sprite_x;
+	double	transform_x;
+	double	transform_y;
+	double	det;
+	int		i;
 
 	compute_distances(data);
 	sort_sprites(data);
-	data.index = 0;
-	while (data.index < world->nb_sprites)
+	i = 0;
+	while (i < data->nb_sprites)
 	{
-		sprite_pos[0] = world->sprites[data.index].pos[0] + 0.5 - world->pos[0];
-		sprite_pos[1] = world->sprites[data.index].pos[1] + 0.5 - world->pos[1];
-		det = 1.0 / (world->cam_plane[0] * world->dir[1]
-			- world->dir[0] * world->cam_plane[1]);
-		data.transform[0] = det * (world->dir[1] * sprite_pos[0]
-			- world->dir[0] * sprite_pos[1]);
-		data.transform[1] = det * (-world->cam_plane[1] * sprite_pos[0]
-			+ world->cam_plane[0] * sprite_pos[1]);
-		data.sprite_x = (int)((world->scr_width / 2) *
-			(1 + data.transform[0] / data.transform[1]));
-		data.sprite_size = abs((int)(world->scr_height / data.transform[1]));
-		if (!world->sprites[data.index].destroyed)
-			draw_sprite(world, data);
-		data.index++;
+		sprite_pos_x = data->sprites[i].pos_x + 0.5 - data->player.pos_x;
+		sprite_pos_y = data->sprites[i].pos_y + 0.5 - data->player.pos_y;
+		det = 1.0 / (data->player.plane_x * data->player.dir_y
+				- data->player.dir_x * data->player.plane_y);
+		transform_x = det * (data->player.dir_y * sprite_pos_x
+				- data->player.dir_x * sprite_pos_y);
+		transform_y = det * (-data->player.plane_y * sprite_pos_x
+				+ data->player.plane_x * sprite_pos_y);
+		sprite_x = (int)((WIDTH / 2)
+				* (1 + transform_x / transform_y));
+		sprite_size = abs((int)(HEIGHT / transform_y));
+		if (!data->sprites[i].destroyed)
+			draw_sprite(data, i, sprite_x, sprite_size, transform_y);
+		i++;
 	}
 }
