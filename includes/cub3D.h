@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/12 15:35:49 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:48:00 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,8 @@
 typedef struct s_fps
 {
 	double	last_time;
-	double	delta_time; // Time between frames
-	double	fps; // Current FPS
-	double	frame_times[60]; // Circular buffer for frame times
-	int		frame_index; // Current position in circular buffer
-	char	fps_str[16]; // String to store FPS text
+	double	fps;
+	char	fps_str[20];
 }	t_fps;
 
 typedef struct s_image
