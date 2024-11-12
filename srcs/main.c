@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/11 12:20:47 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:27:54 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ static t_data	*init_data(void)
 	data->player.walk_dir = 0;
 	data->player.strafe_dir = 0;
 	data->player.turn_dir = 0;
-	data->player.move_speed = pow((double)WIDTH, 1.8) / 5000000.0;
-	data->player.rot_speed = pow((double)WIDTH, 1.6) / 6000000.0;
+	data->player.move_speed = pow((double)WIDTH, 1.8) / 5000000.0 * VALGRIND;
+	data->player.rot_speed = pow((double)WIDTH, 1.6) / 6000000.0 * VALGRIND;
 	init_minimap(data);
 	return (data);
 }
@@ -88,8 +88,6 @@ static bool	parsing(t_data *data, char *path)
 	close(fd);
 	if (!check_map(data, data->map.map, 0))
 		return (false);
-	set_enemy_sprites(data);
-	printf("ICI\n");
 	if (!set_entities(data))
 		return (false);
 	return (true);

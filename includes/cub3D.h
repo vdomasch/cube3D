@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/11 12:18:08 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:35:49 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define BASE16 "0123456789ABCDEF"
 # define WIDTH 854
 # define HEIGHT 480
+# define VALGRIND 1
 
 # define MAP_COLOR_P 0x0
 # define MAP_COLOR_WALL 0x606060
@@ -87,7 +88,6 @@ typedef struct s_textures
 	int		floor_color;
 	int		ceiling_color;
 	t_image	*images;
-	t_image	sprite_img;
 	t_image	*big_map;
 }	t_textures;
 
@@ -114,14 +114,6 @@ typedef struct s_mlx
 	t_image	map;
 }	t_mlx;
 
-typedef struct s_sprites
-{
-	double	dist;
-	double	pos_x;
-	double	pos_y;
-	bool	destroyed;
-}	t_sprites;
-
 typedef struct s_data
 {
 	t_map		map;
@@ -129,7 +121,6 @@ typedef struct s_data
 	t_player	player;
 	t_mlx		mlx;
 	t_minimap	mmap;
-	t_sprites	*sprites;
 	double		depth_buffer[WIDTH];
 	int			nb_sprites;
 	bool		move_mouse;

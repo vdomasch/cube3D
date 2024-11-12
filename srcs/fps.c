@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:36:07 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/07 16:51:34 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:33:54 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,11 @@ void	update_fps(t_fps *fps)
 	snprintf(fps->fps_str, sizeof(fps->fps_str), "FPS: %.1f", fps->fps);
 }
 
-// Function to draw text on screen using MLX
-static void	draw_text(t_data *data, char *str, int x, int y, int color)
-{
-	mlx_string_put(data->mlx.mlx, data->mlx.win, x, y, color, str);
-}
-
 void	draw_fps(t_data *data, t_fps *fps)
 {
-	// Draw FPS counter in top-left corner
-	// White text with black outline for better visibility
-	draw_text(data, fps->fps_str, WIDTH - 81, 21, 0x000000);//Black shadow
-	draw_text(data, fps->fps_str, WIDTH - 79, 21, 0x000000);
-	draw_text(data, fps->fps_str, WIDTH - 80, 22, 0x000000);
-	draw_text(data, fps->fps_str, WIDTH - 80, 20, 0x000000);
-	draw_text(data, fps->fps_str, WIDTH - 80, 21, 0xFFFFFF); // White text
+	mlx_string_put(data->mlx.mlx, data->mlx.win, WIDTH - 81, 21, 0x000000, fps->fps_str);
+	mlx_string_put(data->mlx.mlx, data->mlx.win, WIDTH - 79, 21, 0x000000, fps->fps_str);
+	mlx_string_put(data->mlx.mlx, data->mlx.win, WIDTH - 80, 22, 0x000000, fps->fps_str);
+	mlx_string_put(data->mlx.mlx, data->mlx.win, WIDTH - 80, 20, 0x000000, fps->fps_str);
+	mlx_string_put(data->mlx.mlx, data->mlx.win, WIDTH - 80, 21, 0xFFFFFF, fps->fps_str);
 }

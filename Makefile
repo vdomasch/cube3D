@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/11/11 11:52:46 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/11/12 15:33:14 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,10 @@ FILES						=		main.c											\
 									raycasting/raycasting.c										\
 									raycasting/digital_differential_analysis.c					\
 									raycasting/draw.c											\
-									raycasting/draw_sprite.c									\
 									bonus/minimap.c													\
 									bonus/minimap_utils.c											\
 									bonus/door.c													\
 									bonus/big_map.c													\
-									bonus/enemy_sprites.c											\
 									free.c											\
 									fps.c
 									

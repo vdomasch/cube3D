@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/11 11:51:51 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:04:14 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ int	optimized_raycasting(t_data *data)
 		draw(data, &ray, x);
 		x++;
 	}
-	draw_sprites(data);
 	return (0);
 }
