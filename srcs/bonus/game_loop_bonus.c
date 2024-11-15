@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_loop.c                                        :+:      :+:    :+:   */
+/*   draw_fps_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/15 12:33:02 by vdomasch         ###   ########.fr       */
+/*   Created: 2024/11/15 12:32:52 by vdomasch          #+#    #+#             */
+/*   Updated: 2024/11/15 12:32:54 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	game_loop(t_data *d)
 
 	x = 0;
 	y = 0;
+	update_fps(&d->fps);
 	if (d->player.walk_dir || d->player.strafe_dir)
 		move_player(d, &d->player);
 	if (d->player.turn_dir)
@@ -112,5 +113,6 @@ int	game_loop(t_data *d)
 	else
 		big_map(d, &d->textures);
 	mlx_put_image_to_window(d->mlx.mlx, d->mlx.win, d->mlx.img.img, 0, 0);
+	draw_fps(d, &d->fps);
 	return (0);
 }

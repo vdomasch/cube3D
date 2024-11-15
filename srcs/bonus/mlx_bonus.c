@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.c                                              :+:      :+:    :+:   */
+/*   mlx_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/15 12:32:26 by vdomasch         ###   ########.fr       */
+/*   Created: 2024/11/15 12:31:53 by vdomasch          #+#    #+#             */
+/*   Updated: 2024/11/15 12:32:19 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	mlx(t_data *data)
 {
 	if (!mlx_initialize(data))
 	{
+		init_fps(&data->fps);
 		mlx_hook(data->mlx.win, 17, 1L << 3, mlx_loop_end, data->mlx.mlx);
 		mlx_hook(data->mlx.win, 2, 1L << 0, key_press, data);
 		mlx_hook(data->mlx.win, 3, 1L << 1, key_release, data);
