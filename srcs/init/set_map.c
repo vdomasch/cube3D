@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:14:18 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/11 11:29:11 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:44:16 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ static char	*skip_space_line(int fd)
 	line = NULL;
 	while (get_next_line(fd, &line) > 0)
 	{
+		if (!line)
+		{
+			print_error("Malloc failed.\n", false);
+			return (NULL);
+		}
 		if (is_space_line(line))
 		{
 			free(line);
@@ -52,6 +57,8 @@ static char	*skip_space_line(int fd)
 		else
 			break ;
 	}
+	if (!line)
+		print_error("No map after elements.\n", false);
 	return (line);
 }
 
@@ -59,7 +66,7 @@ static bool	init_map_line(char **line, char **map_line, int fd)
 {
 	*line = skip_space_line(fd);
 	if (!*line)
-		return (print_error("No map after elements.\n", false));
+		return (false);
 	*map_line = ft_strdup("");
 	if (!*map_line)
 	{
@@ -95,6 +102,6 @@ bool	set_map(t_data *data, int fd)
 	}
 	data->map.map = split_size_free(map_line, '\n', data->map.width);
 	if (!data->map.map)
-		return (print_error("Malloc failed.\n", false));
+		return (print_error("hereMalloc failed.\n", false));
 	return (true);
 }
