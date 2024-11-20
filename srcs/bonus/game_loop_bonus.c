@@ -6,7 +6,7 @@
 /*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 12:32:52 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/15 14:17:18 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/11/18 13:25:56 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	game_loop(t_data *d)
 
 	x = 0;
 	y = 0;
-	update_fps(&d->fps);
 	if (d->player.walk_dir || d->player.strafe_dir)
 		move_player(d, &d->player);
 	if (d->player.turn_dir)

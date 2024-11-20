@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/12 15:48:00 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:29:11 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <X11/keysym.h>
 # include <math.h>
 
-//used for fps
 # include <stdio.h>
 # include <time.h>
 
@@ -118,7 +117,6 @@ typedef struct s_data
 	t_player	player;
 	t_mlx		mlx;
 	t_minimap	mmap;
-	double		depth_buffer[WIDTH];
 	int			nb_sprites;
 	bool		move_mouse;
 	int			show_map;
@@ -158,9 +156,7 @@ int		optimized_raycasting(t_data *data);
 void	draw_fps(t_data *data, t_fps *fps);
 void	optimized_dda(t_data *data, t_raycast *ray, int x);
 void	init_fps(t_fps *fps);
-void	update_fps(t_fps *fps);
 void	init_minimap(t_data *data);
-bool	set_enemy_sprites(t_data *data);
 
 /****************************************************************************/
 /*									INIT									*/
@@ -198,7 +194,5 @@ bool	is_player(char c);
 bool	is_door(char c);
 int		print_error(char *error, int ret);
 void	free_all(t_data *data);
-
-void	draw_sprites(t_data *data);
 
 #endif

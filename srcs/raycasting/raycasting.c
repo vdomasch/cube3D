@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:29:28 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/12 15:04:14 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:03:34 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ static void	calculate_wall_params(t_raycast *ray, t_data *data,
 		ray->draw_start = 0;
 	if (ray->draw_end >= HEIGHT)
 		ray->draw_end = HEIGHT - 1;
-	data->depth_buffer[x] = ray->perp_wall_dist;
 }
 
-// Main raycasting function
 int	optimized_raycasting(t_data *data)
 {
 	static t_raycast	ray;

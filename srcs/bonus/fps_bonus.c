@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fps.c                                              :+:      :+:    :+:   */
+/*   fps_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:36:07 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/12 15:51:51 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:25:31 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,13 @@ static double	get_time(void)
 	return ((double)ts.tv_sec + (double)ts.tv_nsec / 1e9);
 }
 
-// Initialize FPS structure
 void	init_fps(t_fps *fps)
 {
 	fps->last_time = get_time();
 	fps->fps = 0.0;
-	snprintf(fps->fps_str, sizeof(fps->fps_str), "FPS: %.1f", fps->fps);
 }
 
-// Update FPS based on time difference
-void	update_fps(t_fps *fps)
+void	draw_fps(t_data *data, t_fps *fps)
 {
 	double	current_time;
 	double	delta_time;
@@ -41,11 +38,7 @@ void	update_fps(t_fps *fps)
 		fps->fps = 1.0 / delta_time;
 		snprintf(fps->fps_str, sizeof(fps->fps_str), "FPS: %.1f", fps->fps);
 	}
-	fps->last_time = current_time;
-}
-
-void	draw_fps(t_data *data, t_fps *fps)
-{
 	mlx_string_put(data->mlx.mlx, data->mlx.win,
 		WIDTH - 80, 20, 0xFF44FF, fps->fps_str);
+	fps->last_time = current_time;
 }

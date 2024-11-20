@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/12 15:27:54 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:20:13 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (print_error("Invalid number of argument.\n", 1));
-	if (WIDTH < 853 || HEIGHT < 480)
+	if (WIDTH < 854 || HEIGHT < 480)
 		return (print_error("Resolution too low.\n", 1));
 	if (WIDTH > 1920 || HEIGHT > 1080)
 		return (print_error("Resolution too high.\n", 1));
