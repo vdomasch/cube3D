@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:44:56 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/20 12:47:31 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:14:37 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ void	draw_minimap(t_data *data, t_map *map, int x, int y)
 			{
 				if (map->map[y + i][x + j] == '1')
 					draw_square(data, j + 3, i + 3, MAP_COLOR_WALL);
+				else if (map->map[y + i][x + j] == 'c'
+					|| map->map[y + i][x + j] == 'o')
+					draw_square(data, j + 3, i + 3, MAP_COLOR_DOOR);
 				else
 					draw_square(data, j + 3, i + 3, MAP_COLOR_FLOOR);
 			}

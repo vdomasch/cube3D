@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:30:56 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/20 12:49:37 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:43:45 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static bool	load_textures_addr(t_image *images)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		images[i].addr = mlx_get_data_addr(images[i].img,
 				&images[i].bits_per_pixel, &images[i].line_length,
@@ -77,8 +77,10 @@ static bool	load_textures(void *mlx, t_textures *textures, t_image *images)
 			&images[2].width, &images[2].height);
 	images[3].img = mlx_xpm_file_to_image(mlx, textures->ea,
 			&images[3].width, &images[3].height);
+	images[4].img = mlx_xpm_file_to_image(mlx, "./assets/wooden-door.xpm",
+			&images[4].width, &images[4].height);
 	if (!images[0].img || !images[1].img || !images[2].img
-		|| !images[3].img)
+		|| !images[3].img || !images[4].img)
 		return (print_error("Failed to load images.\n", false));
 	if (!load_textures_addr(images))
 		return (false);

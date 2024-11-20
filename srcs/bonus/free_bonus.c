@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:00:12 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/20 12:46:21 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:08:16 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	free_mlx(t_data *data)
 				mlx_destroy_image(data->mlx.mlx, data->textures.images[2].img);
 			if (data->textures.images && data->textures.images[3].img)
 				mlx_destroy_image(data->mlx.mlx, data->textures.images[3].img);
+			if (data->textures.images && data->textures.images[4].img)
+				mlx_destroy_image(data->mlx.mlx, data->textures.images[4].img);
 			if (data->textures.big_map)
 				destroy_textures_big_map(data);
 			mlx_destroy_window(data->mlx.mlx, data->mlx.win);

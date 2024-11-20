@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:14:18 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/15 14:44:16 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:49:01 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ bool	set_map(t_data *data, int fd)
 	}
 	data->map.map = split_size_free(map_line, '\n', data->map.width);
 	if (!data->map.map)
-		return (print_error("hereMalloc failed.\n", false));
+		return (print_error("Malloc failed.\n", false));
 	return (true);
 }

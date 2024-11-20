@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/20 12:40:02 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:20:13 by bhumeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	init_textures(t_data *data)
 	data->textures.ea = NULL;
 	data->textures.floor_color = -1;
 	data->textures.ceiling_color = -1;
-	data->textures.images = malloc(sizeof(t_image) * 4);
+	data->textures.images = malloc(sizeof(t_image) * 5);
 	if (!data->textures.images)
 	{
 		free(data);
@@ -50,7 +50,7 @@ static t_data	*init_data(void)
 	data = malloc(sizeof(t_data));
 	if (!data || !init_textures(data))
 		return (NULL);
-	ft_memset(data->textures.images, 0, sizeof(t_image) * 4);
+	ft_memset(data->textures.images, 0, sizeof(t_image) * 5);
 	ft_memset(data->textures.big_map, 0, sizeof(t_image) * 6);
 	data->move_mouse = 0;
 	data->show_map = 0;

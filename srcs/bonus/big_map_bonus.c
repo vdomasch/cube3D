@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:20:57 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/20 12:47:09 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/11 10:19:48 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	draw_map(t_data *data)
 			else if (data->map.map[y][x] == '0'
 					|| is_player(data->map.map[y][x]))
 				draw_square_map(data, x, y, MAP_COLOR_FLOOR);
+			else if (is_door(data->map.map[y][x]))
+				draw_square_map(data, x, y, MAP_COLOR_DOOR);
 			else
 				draw_square_map(data, x, y, MAP_COLOR_SCROLL);
 			y++;

@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/15 12:32:26 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:45:14 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static int	mouse_and_map(t_data *data, int keycode)
 	{
 		data->move_mouse = 0;
 	}
-	else if (keycode == XK_e && !data->show_map)
-		open_close_door(data);
 	else if (keycode == XK_m && data->show_map == 0)
 	{
 		data->move_mouse = 0;
