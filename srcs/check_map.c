@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:51:06 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/20 12:41:40 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:56:46 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	check_map(t_data *data, char **map, int player_count)
 			if ((map[i][j] == '0' || is_player(map[i][j]))
 				&& ((i == 0 || i == data->map.height - 1 || j == 0
 				|| j == data->map.width - 1) || !is_neighbors_valid(map, i, j)))
-				return (print_error("Invalid border.\n", false));
+				return (print_error("Invalid map.\n", false));
 			if (is_player(map[i][j]))
 				player_count++;
 		}
