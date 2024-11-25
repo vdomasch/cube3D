@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:44:27 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/15 12:33:02 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:21:53 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,7 @@ int	game_loop(t_data *d)
 			mlx_mouse_move(d->mlx.mlx, d->mlx.win, WIDTH / 2, HEIGHT / 2);
 	}
 	optimized_raycasting(d);
-	if (!d->show_map)
-		draw_minimap(d, &d->map, (int)d->player.pos_x, (int)d->player.pos_y);
-	else
-		big_map(d, &d->textures);
+	draw_minimap(d, &d->map, (int)d->player.pos_x, (int)d->player.pos_y);
 	mlx_put_image_to_window(d->mlx.mlx, d->mlx.win, d->mlx.img.img, 0, 0);
 	return (0);
 }

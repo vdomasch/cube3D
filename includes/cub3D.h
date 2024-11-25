@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhumeau <bhumeau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:55:01 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/18 13:29:11 by bhumeau          ###   ########.fr       */
+/*   Updated: 2024/11/25 13:33:07 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 # define _USE_MATH_DEFINES
 # define BASE16 "0123456789ABCDEF"
-# define WIDTH 854
-# define HEIGHT 480
+# define WIDTH 1080
+# define HEIGHT 608
 # define VALGRIND 1
 
 # define MAP_COLOR_P 0x0

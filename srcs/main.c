@@ -6,7 +6,7 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:15:43 by bhumeau           #+#    #+#             */
-/*   Updated: 2024/11/20 12:40:02 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:28:07 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ static bool	init_textures(t_data *data)
 		free(data);
 		return (false);
 	}
-	data->textures.big_map = malloc(sizeof(t_image) * 6);
-	if (!data->textures.big_map)
-	{
-		free(data->textures.images);
-		free(data);
-		return (false);
-	}
 	return (true);
 }
 
@@ -51,7 +44,6 @@ static t_data	*init_data(void)
 	if (!data || !init_textures(data))
 		return (NULL);
 	ft_memset(data->textures.images, 0, sizeof(t_image) * 4);
-	ft_memset(data->textures.big_map, 0, sizeof(t_image) * 6);
 	data->move_mouse = 0;
 	data->show_map = 0;
 	data->map.map = NULL;

@@ -6,32 +6,24 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:48:21 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/20 12:45:14 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:26:20 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3D.h>
 
-static int	mouse_and_map(t_data *data, int keycode)
+static int	mouse(t_data *data, int keycode)
 {
-	if (keycode == XK_q && data->move_mouse == 0 && !data->show_map)
+	if (keycode == XK_q && data->move_mouse == 0)
 	{
 		data->move_mouse = 1;
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win,
 			WIDTH / 2, HEIGHT / 2);
 	}
-	else if (keycode == XK_q && data->move_mouse == 1 && !data->show_map)
+	else if (keycode == XK_q && data->move_mouse == 1)
 	{
 		data->move_mouse = 0;
 	}
-	else if (keycode == XK_m && data->show_map == 0)
-	{
-		data->move_mouse = 0;
-		data->show_map = 1;
-		data->frame = 24;
-	}
-	else if (keycode == XK_m && data->show_map == 1)
-		data->show_map = 2;
 	return (0);
 }
 
@@ -56,7 +48,7 @@ static int	key_press(int keycode, t_data *data)
 		data->player.move_speed *= 1.6;
 		data->player.rot_speed *= 1.6;
 	}
-	mouse_and_map(data, keycode);
+	mouse(data, keycode);
 	return (0);
 }
 

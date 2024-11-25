@@ -6,49 +6,11 @@
 /*   By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:30:56 by vdomasch          #+#    #+#             */
-/*   Updated: 2024/11/20 12:49:37 by vdomasch         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:25:45 by vdomasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/cub3D.h>
-
-static bool	load_addr_textures_big_map(t_image *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < 6)
-	{
-		map[i].addr = mlx_get_data_addr(map[i].img, &map[i].bits_per_pixel,
-				&map[i].line_length, &map[i].endian);
-		if (!map[i].addr)
-			return (print_error("Failed to get big map address.\n", false));
-		i++;
-	}
-	return (true);
-}
-
-static bool	load_textures_big_map(t_data *data, t_image *map)
-{
-	map[0].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map0.xpm",
-			&map[0].width, &map[0].height);
-	map[1].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map1.xpm",
-			&map[1].width, &map[1].height);
-	map[2].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map2.xpm",
-			&map[2].width, &map[2].height);
-	map[3].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map3.xpm",
-			&map[3].width, &map[3].height);
-	map[4].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map4.xpm",
-			&map[4].width, &map[4].height);
-	map[5].img = mlx_xpm_file_to_image(data->mlx.mlx, "./assets/big_map5.xpm",
-			&map[5].width, &map[5].height);
-	if (!map[0].img || !map[1].img || !map[2].img
-		|| !map[3].img || !map[4].img)
-		return (print_error("Failed to load big map images.\n", false));
-	if (!load_addr_textures_big_map(map))
-		return (false);
-	return (true);
-}
 
 static bool	load_textures_addr(t_image *images)
 {
@@ -103,7 +65,5 @@ int	mlx_initialize(t_data *data)
 		return (print_error("Failed to get image address.\n", 1));
 	if (!load_textures(data->mlx.mlx, &data->textures, data->textures.images))
 		return (print_error("Failed to load textures.\n", 1));
-	if (!load_textures_big_map(data, data->textures.big_map))
-		return (print_error("Failed to load big map textures.\n", 1));
 	return (0);
 }

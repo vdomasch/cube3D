@@ -6,7 +6,7 @@
 #    By: vdomasch <vdomasch@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 09:42:35 by vdomasch          #+#    #+#              #
-#    Updated: 2024/11/20 13:07:02 by vdomasch         ###   ########.fr        #
+#    Updated: 2024/11/25 13:22:21 by vdomasch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ SRCS					=	$(SRCS_MANDATORY)						\
 							mlx/mlx_init.c								\
 							mlx/mlx.c									\
 							mlx/game_loop.c								\
-							maps/big_map.c									\
 							maps/minimap.c									\
 							free.c
 
